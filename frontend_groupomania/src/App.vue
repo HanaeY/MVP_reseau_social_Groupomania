@@ -4,7 +4,7 @@
       <div>
         <img src="./assets/images/logo_groupomania.svg" alt="logo Groupomania">
       </div>
-      <div id="nav">
+      <div id="nav" v-if="user.userloggedin">
         <router-link to="/">Accueil</router-link> |
         <router-link to="/user">Mon compte</router-link>
     </div>
@@ -45,3 +45,13 @@
   }
 }
 </style>
+
+<script>
+import { mapState } from 'vuex'
+
+export default {
+  computed: {...mapState({
+    user: 'user'
+  })}
+}
+</script>
