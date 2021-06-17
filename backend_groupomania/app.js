@@ -4,6 +4,9 @@ const express = require('express');
 // instanciation server
 const app = express();
 
+// import des routeurs express
+const userRoutes = require('./routes/users');
+
 // gestion des erreurs de CORS
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*'); // permet l'accès à l'API depuis n'importe quelle origine
@@ -19,5 +22,7 @@ app.get('/', (req, res) => {
     res.setHeader('Content-type', 'text/html');
     res.status(200).send('<h1>bonjour</h1>');
 });
+
+app.use('/api/users', userRoutes);
 
 module.exports = app;
