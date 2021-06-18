@@ -35,17 +35,18 @@ exports.signup = (req, res, next) => {
         }
     })
     .catch(() => res.status(500).json({message: 'impossible de valider le mail'}));
-
-    
 };
 
 exports.login = (req, res, next) => {
-    models.User.findOne({email: req.body.email})
+    models.User.findOne({
+        attributes: ['email', 'password'], 
+        where: {email: req.body.email}
+    })
     .then(user => {
         if(!user) {
             res.status(401).json({message: 'utilisateur non trouvé !'})
         } 
-        bcrypt.compare(req.body.password, user.password)
+        bcrypt.compare(req.body.password, user.password) // retourne true ou false
         .then(valid => {
             if(!valid) {
                 res.status(401).json({message: 'mot de passe incorrect !'})
@@ -54,7 +55,7 @@ exports.login = (req, res, next) => {
                     userid: user.id,
                     token: jwt.sign(
                         {userid: user.id}, //payload
-                        'SECRETKEYTOCHANGE',
+                        'superclesecrete', //process.env.SECRET_KEY
                         {expiresIn: '24h'}
                     )
                 });
@@ -62,7 +63,22 @@ exports.login = (req, res, next) => {
         })
         .catch(() => res.status(500).json({message: 'impossible de vérifier le mot de passe !'}));
     })
-    .catch(() => res.status(500).json({message: 'impossible de trouver cet utilisateur !'}));
+    .catch(() => res.status(500).json({message: 'impossible de rechercher cet utilisateur !'}));
+};
+
+exports.getUser = (req, res, next) => {
+    models.User.findOne({
+        attributes: ['id', 'username', 'email'],
+        where: {id: req.body.id}
+    })
+    .then(user => {
+        if(user) {
+            res.status(201).json({user});
+        } else {
+            res.status(404).json({'error' : 'utilisateur non trouvé !'});
+        }
+    })
+    .catch(error => req.status(500).json({'error' : 'impossible de rechercher cet utilisateur'}));
 };
 
 /*
@@ -72,3 +88,4 @@ model user
     password: DataTypes.STRING,
     is_admin: DataTypes.BOOLEAN
  */
+
