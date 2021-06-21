@@ -20,7 +20,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
-      is_admin: {
+      isadmin: {
         allowNull: false,
         type: Sequelize.BOOLEAN
       },

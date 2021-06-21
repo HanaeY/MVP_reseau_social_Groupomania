@@ -19,10 +19,9 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Article.init({
-    user_id: DataTypes.INTEGER,
-    media_url: DataTypes.STRING,
-    media_file: DataTypes.STRING,
-    article_description: DataTypes.STRING
+   url: DataTypes.STRING,
+   file: DataTypes.STRING,
+   description: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Article',

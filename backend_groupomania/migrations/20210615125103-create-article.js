@@ -8,7 +8,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      user_id: {
+      UserId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
@@ -16,13 +16,13 @@ module.exports = {
           key: 'id'
         }
       },
-      media_url: {
+      url: {
         type: Sequelize.STRING
       },
-      media_file: {
+      file: {
         type: Sequelize.STRING
       },
-      article_description: {
+      description: {
         allowNull: false,
         type: Sequelize.STRING
       },

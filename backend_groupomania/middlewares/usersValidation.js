@@ -7,7 +7,7 @@ const PASSWORD_REGEX = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#
 const TEXT_REGEX = /^[a-zA-Zéàèï\d\-_.,!'\s]+$/i
 
 exports.validateUsername = (req, res, next) => {
-    if(req.body.username.length >=13 || req.body.username.length <=4){
+    if(req.body.username.length >13 || req.body.username.length <4){
         res.status(400).json({'error' : "le nom d'utilisateur doit comprendre entre 3 et 12 caractères !"});
     }
     if(!TEXT_REGEX.test(req.body.username)) {

@@ -6,6 +6,7 @@ const app = express();
 
 // import des routeurs express
 const userRoutes = require('./routes/users');
+const articlesRoutes = require('./routes/articles');
 
 // gestion des erreurs de CORS
 app.use((req, res, next) => {
@@ -24,5 +25,6 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/users', userRoutes);
+app.use('/api/articles', articlesRoutes);
 
 module.exports = app;

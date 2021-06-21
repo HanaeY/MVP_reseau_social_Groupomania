@@ -25,10 +25,10 @@ exports.signup = (req, res, next) => {
                     email: email,
                     username: username,
                     password: hash,
-                    is_admin: 0 
+                    isadmin: 0 
                 })
                 .then(newUser => res.status(201).json({'userid: ' : newUser.id}))
-                .catch(() => res.status(500).json({message: "impossible de crééer le compte utilisateur"}));
+                .catch(() => res.status(500).json({message: "impossible de créer le compte utilisateur"}));
 
             })
             .catch(error => res.status(500).json({error}));
@@ -39,7 +39,7 @@ exports.signup = (req, res, next) => {
 
 exports.login = (req, res, next) => {
     models.User.findOne({
-        attributes: ['email', 'password'], 
+        attributes: ['email', 'password', 'id'], 
         where: {email: req.body.email}
     })
     .then(user => {
@@ -67,18 +67,22 @@ exports.login = (req, res, next) => {
 };
 
 exports.getUser = (req, res, next) => {
+    if(!req.body.userid) {
+        res.status(404).json({message: 'id utilisateur manquant !'});
+    }
+
     models.User.findOne({
         attributes: ['id', 'username', 'email'],
-        where: {id: req.body.id}
+        where: {id: req.body.userid}
     })
     .then(user => {
         if(user) {
             res.status(201).json({user});
         } else {
-            res.status(404).json({'error' : 'utilisateur non trouvé !'});
+            res.status(404).json({message: 'utilisateur non trouvé !'});
         }
     })
-    .catch(error => req.status(500).json({'error' : 'impossible de rechercher cet utilisateur'}));
+    .catch(error => req.status(500).json({message: 'impossible de rechercher cet utilisateur'}));
 };
 
 /*
