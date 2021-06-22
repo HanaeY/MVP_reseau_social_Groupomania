@@ -1,5 +1,7 @@
 // imports
 const models = require('../models');
+const fs = require('fs');
+const { parse } = require('path');
 
 exports.postArticle = (req, res, next) => {
     const fileUrl = `${req.protocol}://${req.get('host')}/files/${req.file.filename}`;
@@ -24,5 +26,28 @@ exports.getAllArticles = (req, res, next) => {
     models.Article.findAll()
     .then(articles => res.status(201).json({articles}))
     .catch(error => res.status(500).json({message: error | "impossible d'afficher les articles !"}))
+};
+
+exports.deleteArticle = (req, res, next) => {
+    models.Article.findOne({
+        where: {id: req.params.id}
+    })
+    .then(article => {
+        if(!article) {
+            res.status(404).json({message: 'article introuvable !'});
+        } else {
+            // suppression du fichier joint
+            const filename = article.file.split('/files/')[1];
+            fs.unlink(`./files/${filename}`, () => { // callback : suppression de l'article
+                article.destroy()
+                .then(() => {
+                    //res.redirect('/');
+                    res.status(201).json({message: 'article supprimé !'});
+                })
+                .catch(error => res.status(500).json({error}));
+            })
+        }
+    })
+    .catch(() => res.status(500).json({message: "impossible de rechercher l'article !"}))
 };
 
