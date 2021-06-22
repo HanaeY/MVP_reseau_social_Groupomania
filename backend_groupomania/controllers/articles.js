@@ -4,7 +4,8 @@ const fs = require('fs');
 
 exports.postArticle = (req, res, next) => {
     if(!req.body.description || !req.body.userid) {
-        res.status(400).json({message: 'paramètre manquant !'});
+        console.log(req.file.filename);
+        fs.unlink(`./files/${req.file.filename}`, () => res.status(401).json({message: "paramètre manquant !"}));
     }
     const fileUrl = `${req.protocol}://${req.get('host')}/files/${req.file.filename}`;
 
@@ -19,9 +20,9 @@ exports.postArticle = (req, res, next) => {
             file: fileUrl
         })
         .then(newArticle => res.status(201).json({newArticle}))
-        .catch(() => res.status(500).json({message: "impossible de publier l'article"}));
+        .catch(() => fs.unlink(`./files/${req.file.filename}`, () => res.status(500).json({message: "impossible de publier l'article !"})));
     })
-    .catch(() => res.status(404).json({message: 'utilisateur non trouvé !'}));
+    .catch(() => fs.unlink(`./files/${req.file.filename}`, () => res.status(404).json({message: "utilisateur non trouvé !"})));
 };
 
 exports.getAllArticles = (req, res, next) => {
