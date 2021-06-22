@@ -13,6 +13,7 @@ module.exports = (req, res, next) => {
             if(idToCompare !== userid) {
                 res.status(401).json({message: 'requête non authentifiée !'});
             } else {
+                console.log('req authentifiée !');
                 next();
             }
         } else {

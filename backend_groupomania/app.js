@@ -1,5 +1,6 @@
 // imports
 const express = require('express');
+const path = require('path'); // donne accès au chemin du système de fichiers
 
 // instanciation server
 const app = express();
@@ -19,11 +20,7 @@ app.use((req, res, next) => {
 app.use(express.urlencoded({ extended: true, limit: "1kb" })); // parse les requêtes de type application/x-www-form-urlencoded
 app.use(express.json({ limit: "1kb" })); // parse le body des requêtes de type application/json et limite leur taille à 1kb
 
-app.get('/', (req, res) => {
-    res.setHeader('Content-type', 'text/html');
-    res.status(200).send('<h1>bonjour</h1>');
-});
-
+app.use('/files', express.static(path.join(__dirname, 'files'))); // lorsque la route /files est appelée permet de servir le dossier static files
 app.use('/api/users', userRoutes);
 app.use('/api/articles', articlesRoutes);
 
