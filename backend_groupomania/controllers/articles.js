@@ -1,9 +1,11 @@
 // imports
 const models = require('../models');
 const fs = require('fs');
-const { parse } = require('path');
 
 exports.postArticle = (req, res, next) => {
+    if(!req.body.description || !req.body.userid) {
+        res.status(400).json({message: 'paramètre manquant !'});
+    }
     const fileUrl = `${req.protocol}://${req.get('host')}/files/${req.file.filename}`;
 
     models.User.findOne({ 

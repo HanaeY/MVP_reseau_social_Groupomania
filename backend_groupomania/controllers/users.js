@@ -3,41 +3,47 @@ const jwt = require('jsonwebtoken');
 const models = require('../models');
 
 exports.signup = (req, res, next) => {
-    const email = req.body.email;
-    const username = req.body.username;
-    const password = req.body.password;
-
-    if(email == null || username == null || password == null) {
-        res.status(400).json({error: 'paramètre manquant !'});
-    };
-
-    models.User.findOne({
+    models.User.findOne({ // vérification email
         attributes: ['email'], // attributs que l'on veut récupérer
-        where: {email: email}
+        where: {email: req.body.email}
     })
     .then(userFound => {
         if(userFound) {
             res.status(409).json({message: 'email déjà utilisé !'}) // 409 : conflit 
         } else {
-            bcrypt.hash(req.body.password, 10)
-            .then(hash => {
-                const newUser = models.User.create({
-                    email: email,
-                    username: username,
-                    password: hash,
-                    isadmin: 0 
-                })
-                .then(newUser => res.status(201).json({'userid: ' : newUser.id}))
-                .catch(() => res.status(500).json({message: "impossible de créer le compte utilisateur"}));
-
+            models.User.findOne({ // vérification username
+                attributes: ['username'],
+                where: {username: req.body.username}
             })
-            .catch(error => res.status(500).json({error}));
+            .then(userFound => {
+                if(userFound) {
+                    res.status(409).json({message: "nom d'utilisateur déjà utilisé !"}); 
+                } else {
+                    bcrypt.hash(req.body.password, 10) // cryptage du mot de passe 
+                    .then(hash => {
+                        models.User.create({ // création du nouvel utilisateur 
+                            email: req.body.email,
+                            username: req.body.username,
+                            password: hash,
+                            isadmin: 0 
+                        })
+                        .then(newUser => res.status(201).json({'userid: ' : newUser.id}))
+                        .catch(() => res.status(500).json({message: "impossible de créer le compte utilisateur"}));
+        
+                    })
+                    .catch(() => res.status(500).json({message: "impossible de crypter le mot de passe !"})); 
+                }
+            })
+            .catch(() => res.status(500).json({message: "impossible de vérifier le nom d'utilisateur !"}));
         }
     })
     .catch(() => res.status(500).json({message: 'impossible de valider le mail'}));
 };
 
 exports.login = (req, res, next) => {
+    if(!req.body.email || !req.body.password) {
+        return res.status(400).json({message: "paramètre manquant !"});
+    }
     models.User.findOne({
         attributes: ['email', 'password', 'id'], 
         where: {email: req.body.email}
