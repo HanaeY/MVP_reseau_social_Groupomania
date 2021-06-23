@@ -2,6 +2,7 @@
 const models = require('../models');
 const fs = require('fs');
 
+// fonctions
 exports.postArticle = (req, res, next) => {
     if(!req.body.description || !req.body.userid) {
         console.log(req.file.filename);
@@ -17,7 +18,8 @@ exports.postArticle = (req, res, next) => {
         models.Article.create({ // on créé un nouvel article qu'on enregistre dans la base de données
             UserId: user.id,
             description: req.body.description,
-            file: fileUrl
+            file: fileUrl,
+            comments: 0
         })
         .then(newArticle => res.status(201).json({newArticle}))
         .catch(() => fs.unlink(`./files/${req.file.filename}`, () => res.status(500).json({message: "impossible de publier l'article !"})));

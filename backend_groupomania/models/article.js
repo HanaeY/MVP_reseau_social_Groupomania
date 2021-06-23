@@ -21,7 +21,8 @@ module.exports = (sequelize, DataTypes) => {
   Article.init({
    url: DataTypes.STRING,
    file: DataTypes.STRING,
-   description: DataTypes.STRING
+   description: DataTypes.STRING,
+   comments: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Article',
