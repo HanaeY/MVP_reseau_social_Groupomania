@@ -88,7 +88,25 @@ exports.getUser = (req, res, next) => {
             res.status(404).json({message: 'utilisateur non trouvé !'});
         }
     })
-    .catch(error => req.status(500).json({message: 'impossible de rechercher cet utilisateur'}));
+    .catch(error => req.status(500).json({message: 'impossible de rechercher cet utilisateur !'}));
+};
+
+exports.deleteAccount = (req, res, next) => {
+    models.User.findOne({
+        where: {id: req.body.userid}
+    })
+    .then(user => {
+        if(!user) {
+            return res.statut(404).json({message: 'utilisateur non trouvé !'});
+        }
+        user.destroy()
+        .then(() => {
+            //res.redirect('/');
+            res.status(201).json({message: 'compte utilisateur supprimé !'});
+        })
+        .catch(() => res.status(500).json({message: 'impossible de supprimer le compte utilisateur !'}))
+    })
+    .catch(() => res.status(500).json({message: 'impossible de rechercher cet utilisateur !'}));
 };
 
 /*
