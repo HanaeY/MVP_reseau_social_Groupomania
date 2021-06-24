@@ -6,14 +6,13 @@ exports.addComment = (req, res, next) => {
     if(!req.body.userid || !req.body.comment) {
         return res.status(401).json({message: 'paramètre manquant !'});
     }
-    const articleid = parseInt(req.params.id);
-    console.log('articleid: ', articleid);
+
     models.Article.findOne({
-        where: {id: articleid},
-        attributes: ['id']
+        where: {id: req.params.id},
+        attributes: ['id', 'comments']
     })
     .then(article => {
-        article.update({comments: comments + 1})
+        article.update({comments: article.comments +=1})
         .then(() => {
             models.Comment.create({
                 UserId: req.body.userid,
@@ -25,5 +24,6 @@ exports.addComment = (req, res, next) => {
         })
         .catch(() => res.status(500).json({message: "impossible de mettre l'article à jour !"}))
     })
-    .catch(() => res.status(500).json({message: "impossible de vérifier l'article !"}));
+    .catch(() => {
+        res.status(500).json({message: "impossible d'insérer le commentaire !"})});
 };
