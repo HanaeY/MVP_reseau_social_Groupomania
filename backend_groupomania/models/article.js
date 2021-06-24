@@ -13,7 +13,8 @@ module.exports = (sequelize, DataTypes) => {
       models.Article.belongsTo(models.User, {
         foreignKey: {
           allowNull: false
-        }
+        },
+        onDelete: 'CASCADE'
       }),
       models.Article.hasMany(models.Comment)
     }

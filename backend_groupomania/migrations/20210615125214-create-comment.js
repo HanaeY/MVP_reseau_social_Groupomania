@@ -14,7 +14,8 @@ module.exports = {
         references: {
           model: 'Users',
           key: 'id'
-        }
+        },
+        onDelete: 'CASCADE'
       },
       ArticleId: {
         allowNull: false,
@@ -22,7 +23,8 @@ module.exports = {
         references: {
           model: 'Articles',
           key: 'id'
-        }
+        },
+        onDelete: 'CASCADE'
       },
       comment: {
         allowNull: false,
