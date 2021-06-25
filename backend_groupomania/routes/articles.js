@@ -14,6 +14,7 @@ router.get('/', authentification, ctrl.getAllArticles);
 router.delete('/:id', authentification, ctrl.deleteArticle);
 
 router.post('/:id/comments', authentification, ctrlComment.addComment);
+router.delete('/:id/comments/:commentid', authentification, ctrlComment.deleteComment);
 
 // export du routeur qui sera importé dans app
 module.exports = router;

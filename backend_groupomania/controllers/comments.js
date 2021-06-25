@@ -6,24 +6,33 @@ exports.addComment = (req, res, next) => {
     if(!req.body.userid || !req.body.comment) {
         return res.status(401).json({message: 'paramètre manquant !'});
     }
-
     models.Article.findOne({
         where: {id: req.params.id},
-        attributes: ['id', 'comments']
+        attributes: ['id']
     })
     .then(article => {
-        article.update({comments: article.comments +=1})
-        .then(() => {
-            models.Comment.create({
-                UserId: req.body.userid,
-                ArticleId: article.id,
-                comment: req.body.comment
-            })
-            .then(comment => res.status(201).json({comment}))
-            .catch(() => res.status(500).json({message: "impossible d'enregistrer le commentaire !"}))
+        models.Comment.create({
+            UserId: req.body.userid,
+            ArticleId: article.id,
+            comment: req.body.comment
         })
-        .catch(() => res.status(500).json({message: "impossible de mettre l'article à jour !"}))
+        .then(comment => res.status(201).json({comment}))
+        .catch(() => res.status(500).json({message: "impossible d'enregistrer le commentaire !"}))
     })
     .catch(() => {
-        res.status(500).json({message: "impossible d'insérer le commentaire !"})});
+        res.status(500).json({message: "impossible de retrouver l'article !"})});
+};
+
+exports.deleteComment = (req, res, next) => {
+    console.log('REQ.PARAMS.COMMENTID', req.params.commentid);
+
+    models.Comment.findOne({
+        where: {id: req.params.commentid}
+    })
+    .then(comment => {
+        comment.destroy()
+        .then(() => res.status(201).json({message: "commentaire supprimé !"}))
+        .catch(() => res.status(401).json({message: "impossible de supprimer le commentaire !"}))
+    })
+    .catch(() => res.status(500).json({message: "impossible de rechercher le commentaire !"}));
 };
