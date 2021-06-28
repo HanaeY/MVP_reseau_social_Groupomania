@@ -3,6 +3,7 @@
     <h1>Mon compte</h1>
     <p>Nom d'utilisateur : {{ user.username }}</p>
     <p>Email : {{ user.email }}</p>
+    <p>Compte créé le {{ user.createdAt }}</p>
     <Buttoncomponent class="" content="Supprimer mon compte" type="submit"/>
   </div>
 </template>

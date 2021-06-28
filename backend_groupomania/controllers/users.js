@@ -51,7 +51,6 @@ exports.login = (req, res, next) => {
         return res.status(400).json({error: "paramètre manquant !"});
     }
     models.User.findOne({
-        attributes: ['email', 'password', 'id'], 
         where: {email: req.body.email}
     })
     .then(user => {
@@ -64,7 +63,7 @@ exports.login = (req, res, next) => {
                 res.status(401).json({error: 'mot de passe incorrect !'})
             } else {
                 res.status(200).json({
-                    userid: user.id,
+                    user,
                     token: jwt.sign(
                         {userid: user.id}, //payload
                         'superclesecrete', //process.env.SECRET_KEY

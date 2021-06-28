@@ -9,9 +9,24 @@
         <router-link to="/user">Mon compte</router-link>
     </div>
     </header>
+    <button v-if="loggedIn" @click="logout">Me déconnecter</button>
     <router-view/>
   </div>
 </template>
+
+<script>
+import { mapState } from 'vuex'
+
+export default {
+  name: 'App',
+  computed: {...mapState(['loggedIn'])},
+  methods: {
+    logout() {
+      this.$store.dispatch("logout");
+    }
+  }
+}
+</script>
 
 <style lang="scss">
 #app {
@@ -45,12 +60,3 @@
   }
 }
 </style>
-
-<script>
-import { mapState } from 'vuex'
-
-export default {
-  name: 'App',
-  computed: {...mapState(['loggedIn'])}
-}
-</script>

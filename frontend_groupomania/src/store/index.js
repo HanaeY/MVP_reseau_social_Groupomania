@@ -30,9 +30,6 @@ export default new Vuex.Store({
     },
     SET_TOKEN(state, token) {
       state.token = token
-    },
-    DISPLAY_USER(state) {
-      console.log('TEST', state.user.username)
     }
   },
   actions: {
@@ -40,8 +37,13 @@ export default new Vuex.Store({
       context.commit('SET_LOGGEDIN', true),
       context.commit('SET_USER', user),
       context.commit('SET_TOKEN', token),
-      context.commit('DISPLAU_USER', user)
       router.push('/')
+    },
+    logout(context) {
+      context.commit('SET_LOGGEDIN', false),
+      context.commit('SET_USER', null),
+      context.commit('SET_TOKEN', null),
+      router.push('/login')
     }
   },
   modules: {

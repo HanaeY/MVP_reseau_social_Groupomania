@@ -42,15 +42,15 @@ export default {
     },*/ 
     description: {
       type: String,
-      required: true
+      //required: true
     }, 
     username: {
       type: String, 
-      required: true
+      //required: true
     },
     date: {
       type: String, 
-      required: true
+      //required: true
     },
   }  
 }

@@ -1,7 +1,6 @@
 <template>
   <div class="home">
     <h1>Bienvenue {{ user.username }}</h1>
-    <!--<HelloWorld msg="Welcome to Your Vue.js App"/>-->
     <h2>Forums</h2>
       <div id="buttons">
         <button><router-link to="/forum_media">Forum media</router-link></button>
@@ -24,9 +23,7 @@ export default {
     Article
   },
   computed: {
-    ...mapState({
-      user: "user"
-  })}
+    ...mapState({user: "user"})},
 }
 </script>
 
