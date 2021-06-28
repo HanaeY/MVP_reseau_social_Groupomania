@@ -9,7 +9,7 @@ exports.signup = (req, res, next) => {
     })
     .then(userFound => {
         if(userFound) {
-            res.status(409).json({message: 'email déjà utilisé !'}) // 409 : conflit 
+            res.status(409).json({error: 'email déjà utilisé !'}) // 409 : conflit 
         } else {
             models.User.findOne({ // vérification username
                 attributes: ['username'],
@@ -17,7 +17,7 @@ exports.signup = (req, res, next) => {
             })
             .then(userFound => {
                 if(userFound) {
-                    res.status(409).json({message: "nom d'utilisateur déjà utilisé !"}); 
+                    res.status(409).json({error: "nom d'utilisateur déjà utilisé !"}); 
                 } else {
                     bcrypt.hash(req.body.password, 10) // cryptage du mot de passe 
                     .then(hash => {
@@ -27,22 +27,28 @@ exports.signup = (req, res, next) => {
                             password: hash,
                             isadmin: 0 
                         })
-                        .then(newUser => res.status(201).json({'userid: ' : newUser.id}))
-                        .catch(() => res.status(500).json({message: "impossible de créer le compte utilisateur"}));
+                        .then(user => {
+                            const token = jwt.sign(
+                                {userid: user.id}, //payload
+                                'superclesecrete', //process.env.SECRET_KEY
+                                {expiresIn: '24h'}
+                            )
+                            res.status(201).json({user, token})})
+                        .catch(() => res.status(500).json({error: "impossible de créer le compte utilisateur"}));
         
                     })
-                    .catch(() => res.status(500).json({message: "impossible de crypter le mot de passe !"})); 
+                    .catch(() => res.status(500).json({error: "impossible de crypter le mot de passe !"})); 
                 }
             })
-            .catch(() => res.status(500).json({message: "impossible de vérifier le nom d'utilisateur !"}));
+            .catch(() => res.status(500).json({error: "impossible de vérifier le nom d'utilisateur !"}));
         }
     })
-    .catch(() => res.status(500).json({message: 'impossible de valider le mail'}));
+    .catch(() => res.status(500).json({error: 'impossible de valider le mail'}));
 };
 
 exports.login = (req, res, next) => {
     if(!req.body.email || !req.body.password) {
-        return res.status(400).json({message: "paramètre manquant !"});
+        return res.status(400).json({error: "paramètre manquant !"});
     }
     models.User.findOne({
         attributes: ['email', 'password', 'id'], 
@@ -50,12 +56,12 @@ exports.login = (req, res, next) => {
     })
     .then(user => {
         if(!user) {
-            res.status(401).json({message: 'utilisateur non trouvé !'})
+            res.status(401).json({error: 'utilisateur non trouvé !'})
         } 
         bcrypt.compare(req.body.password, user.password) // retourne true ou false
         .then(valid => {
             if(!valid) {
-                res.status(401).json({message: 'mot de passe incorrect !'})
+                res.status(401).json({error: 'mot de passe incorrect !'})
             } else {
                 res.status(200).json({
                     userid: user.id,
@@ -67,14 +73,14 @@ exports.login = (req, res, next) => {
                 });
             }
         })
-        .catch(() => res.status(500).json({message: 'impossible de vérifier le mot de passe !'}));
+        .catch(() => res.status(500).json({error: 'impossible de vérifier le mot de passe !'}));
     })
-    .catch(() => res.status(500).json({message: 'impossible de rechercher cet utilisateur !'}));
+    .catch(() => res.status(500).json({error: 'impossible de rechercher cet utilisateur !'}));
 };
 
 exports.getUser = (req, res, next) => {
     if(!req.body.userid) {
-        res.status(404).json({message: 'id utilisateur manquant !'});
+        res.status(404).json({error: 'id utilisateur manquant !'});
     }
 
     models.User.findOne({
@@ -85,10 +91,10 @@ exports.getUser = (req, res, next) => {
         if(user) {
             res.status(201).json({user});
         } else {
-            res.status(404).json({message: 'utilisateur non trouvé !'});
+            res.status(404).json({error: 'utilisateur non trouvé !'});
         }
     })
-    .catch(error => req.status(500).json({message: 'impossible de rechercher cet utilisateur !'}));
+    .catch(error => req.status(500).json({error: 'impossible de rechercher cet utilisateur !'}));
 };
 
 exports.deleteAccount = (req, res, next) => {
@@ -97,16 +103,16 @@ exports.deleteAccount = (req, res, next) => {
     })
     .then(user => {
         if(!user) {
-            return res.statut(404).json({message: 'utilisateur non trouvé !'});
+            return res.statut(404).json({error: 'utilisateur non trouvé !'});
         }
         user.destroy()
         .then(() => {
             //res.redirect('/');
-            res.status(201).json({message: 'compte utilisateur supprimé !'});
+            res.status(201).json({error: 'compte utilisateur supprimé !'});
         })
-        .catch(() => res.status(500).json({message: 'impossible de supprimer le compte utilisateur !'}))
+        .catch(() => res.status(500).json({error: 'impossible de supprimer le compte utilisateur !'}))
     })
-    .catch(() => res.status(500).json({message: 'impossible de rechercher cet utilisateur !'}));
+    .catch(() => res.status(500).json({error: 'impossible de rechercher cet utilisateur !'}));
 };
 
 /*
