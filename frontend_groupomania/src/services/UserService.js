@@ -1,4 +1,4 @@
-import { api } from "./api";
+import { api } from "@/services/api.js";
 
 export default {
     signup(credentials) {
@@ -11,6 +11,6 @@ export default {
         return api("/users/login", {
             method: "POST",
             body: JSON.stringify(credentials)
-        })
+        });
     },
 };

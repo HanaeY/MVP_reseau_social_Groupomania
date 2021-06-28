@@ -4,7 +4,7 @@
       <div>
         <img src="./assets/images/logo_groupomania.svg" alt="logo Groupomania">
       </div>
-      <div id="nav" v-if="loggedin">
+      <div id="nav" v-if="loggedIn">
         <router-link to="/">Accueil</router-link> |
         <router-link to="/user">Mon compte</router-link>
     </div>
