@@ -4,7 +4,7 @@
       <div>
         <img src="./assets/images/logo_groupomania.svg" alt="logo Groupomania">
       </div>
-      <div id="nav" v-if="user.userloggedin">
+      <div id="nav" v-if="loggedin">
         <router-link to="/">Accueil</router-link> |
         <router-link to="/user">Mon compte</router-link>
     </div>
@@ -50,8 +50,7 @@
 import { mapState } from 'vuex'
 
 export default {
-  computed: {...mapState({
-    user: 'user'
-  })}
+  name: 'App',
+  computed: {...mapState(['loggedIn'])}
 }
 </script>

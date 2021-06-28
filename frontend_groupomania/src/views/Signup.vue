@@ -1,11 +1,11 @@
 <template>
   <div class="user">
     <h1>Inscription</h1>
-    <form action="">
-      <label for="username">nom d'utilisateur</label><input type="text" name="" id="username" :value="userName">
-      <label for="email">email</label><input type="email" name="" id="email" :value="userEmail">
-      <label for="password">mot de passe</label><input type="text" name="" id="password" :value="userPassword">
-      <Buttoncomponent class="" content="Je m'inscris" type="submit"/>
+    <form @submit.prevent="signup">
+      <label for="username">nom d'utilisateur</label><input type="text" name="username" id="username" required v-model="username">
+      <label for="email">email</label><input type="email" name="email" id="email" required v-model="email">
+      <label for="password">mot de passe</label><input type="text" name="password" id="password" required v-model="password">
+      <Buttoncomponent content="Je m'inscris" type="submit"/>
     </form>
     <p>déjà inscrit(e) ? <router-link to="/login">Je me connecte</router-link></p>
   </div>
@@ -13,16 +13,31 @@
 
 <script>
 import Buttoncomponent from '@/components/Button.vue'
-import { mapState } from 'vuex'
+import UserService from '@/services/UserService'
 
 export default {
+  name: 'Signup',
+  data() {
+    return {
+      email:"",
+      password: "",
+      username: "",
+      error: null
+    }
+  },
   components: {
     Buttoncomponent
   },
-  computed: {...mapState({
-    userName: 'username',
-    userEmail: 'email',
-    userPassword: 'password'
-  })}
+  methods: {
+    async signup() {
+      try {
+        const response = await UserService.signup({email: this.email, username: this.username, password: this.password});
+        console.log(response);
+        this.store.dispatch("login", {user: response.user, token: response.token})
+      } catch(error) {
+        this.error = error.toString();
+      }
+    }
+  }
 }
 </script>
