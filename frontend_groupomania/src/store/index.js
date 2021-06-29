@@ -1,10 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import router from "@/router";
+import createPersistedState from 'vuex-persistedstate'
+import router from "@/router"
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+  plugins: [createPersistedState()],
   state: {
     loggedIn: false,
     user: null,
