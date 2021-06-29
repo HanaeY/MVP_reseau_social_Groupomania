@@ -34,7 +34,7 @@ exports.validatePassword = (req, res, next) => {
         return res.status(400).json({'error' : "mot de passe manquant !"});
     }
     if(!PASSWORD_REGEX.test(req.body.password)) {
-        return res.status(400).json({'error' : "Le mot de passe doit contenir au moins 8 caractères, 1 lettre, 1 nombre et un caractère spécial!"});
+        return res.status(400).json({'error' : "Le mot de passe doit contenir au moins 8 caractères, dont au moins une lettre, un chiffre et un caractère spécial!"});
     }
     next();
 };

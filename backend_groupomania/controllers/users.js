@@ -77,25 +77,6 @@ exports.login = (req, res, next) => {
     .catch(() => res.status(500).json({error: 'impossible de rechercher cet utilisateur !'}));
 };
 
-exports.getUser = (req, res, next) => {
-    if(!req.body.userid) {
-        res.status(404).json({error: 'id utilisateur manquant !'});
-    }
-
-    models.User.findOne({
-        attributes: ['id', 'username', 'email'],
-        where: {id: req.body.userid}
-    })
-    .then(user => {
-        if(user) {
-            res.status(201).json({user});
-        } else {
-            res.status(404).json({error: 'utilisateur non trouvé !'});
-        }
-    })
-    .catch(error => req.status(500).json({error: 'impossible de rechercher cet utilisateur !'}));
-};
-
 exports.deleteAccount = (req, res, next) => {
     models.User.findOne({
         where: {id: req.body.userid}
@@ -113,12 +94,4 @@ exports.deleteAccount = (req, res, next) => {
     })
     .catch(() => res.status(500).json({error: 'impossible de rechercher cet utilisateur !'}));
 };
-
-/*
-model user
-    email: DataTypes.STRING,
-    username: DataTypes.STRING,
-    password: DataTypes.STRING,
-    is_admin: DataTypes.BOOLEAN
- */
 
