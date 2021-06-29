@@ -24,6 +24,9 @@ export default new Vuex.Store({
     }, 
     SET_MESSAGE(state, message) {
       state.message = message
+    },
+    SET_ARTICLES(state, articles) {
+      state.articles = articles
     }
   },
   actions: {
@@ -39,6 +42,9 @@ export default new Vuex.Store({
       context.commit('SET_TOKEN', null),
       router.push('/login')
       context.commit('SET_MESSAGE', message)
+    },
+    displayArticles(context, articles) {
+      context.commit('SET_ARTICLES', articles);
     }
   },
   modules: {

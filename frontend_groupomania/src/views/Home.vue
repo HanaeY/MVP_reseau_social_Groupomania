@@ -28,25 +28,23 @@ export default {
   data() {
     return {
       error: null,
-      articles: null,
       //query: ""
     }
   },
   computed: {
-    ...mapState(['user'])
+    ...mapState(['user', 'articles'])
   },
   methods: {
     async getArticles() {
       try {
-        const response = await ArticleService.getArticles(); // TO DO : ajouter this.query en payload
-        this.articles = response.articles;
+          const response = await ArticleService.getArticles();
+          this.$store.dispatch("displayArticles", response.articles);
       } catch (e) {
         this.error = e.toString();
       }
     }
   },
   beforeMount() {
-    console.log('test');
     this.getArticles();
   }
 }
