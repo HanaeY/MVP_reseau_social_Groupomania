@@ -3,9 +3,6 @@ const models = require('../models');
 
 //fonctions 
 exports.addComment = (req, res, next) => {
-    if(!req.body.userid || !req.body.comment) {
-        return res.status(401).json({message: 'paramètre manquant !'});
-    }
     models.Article.findOne({
         where: {id: req.params.id},
         attributes: ['id']
@@ -24,8 +21,6 @@ exports.addComment = (req, res, next) => {
 };
 
 exports.deleteComment = (req, res, next) => {
-    console.log('REQ.PARAMS.COMMENTID', req.params.commentid);
-
     models.Comment.findOne({
         where: {id: req.params.commentid}
     })

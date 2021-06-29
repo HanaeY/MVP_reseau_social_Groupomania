@@ -4,10 +4,6 @@ const fs = require('fs');
 
 // fonctions
 exports.postArticle = (req, res, next) => {
-    if(!req.body.description || !req.body.userid) {
-        console.log(req.file.filename);
-        fs.unlink(`./files/${req.file.filename}`, () => res.status(401).json({message: "paramètre manquant !"}));
-    }
     const fileUrl = `${req.protocol}://${req.get('host')}/files/${req.file.filename}`;
 
     models.User.findOne({ 

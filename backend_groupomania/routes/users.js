@@ -4,7 +4,7 @@ const router = express.Router();
 
 // middleswares
 const ctrl = require('../controllers/users'); 
-const validate = require('../middlewares/usersValidation');
+const validate = require('../middlewares/inputsValidation');
 const authentification = require('../middlewares/auth');
 
 // détail des routes pour les req envoyées à /api/users/[extension]
