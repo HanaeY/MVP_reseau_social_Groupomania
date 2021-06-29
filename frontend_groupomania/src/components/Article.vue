@@ -1,11 +1,13 @@
 <template>
   <div class="article">
     <div class="content">
-      <p class="content__publication">Publié par <span>{{ username }}</span> le <span>{{ date }}</span></p>
-      <!--<img class = "content__image"  :src="image.url" :alt="image.alt">-->
-      <p class="content__description">{{ description }}</p>
+      <!---<p class="content__publication">Publié par <span>{{ username }}</span> le <span>{{ date }}</span></p>-->
+      <!--<img class = "content__image"  :src="article.file" :alt="image.alt">-->
+      <p class="content__description">{{ article.description }}</p>
+      <img :src="article.file" alt="photo">
     </div>
-    <div class="reactions">
+
+    <!--<div class="reactions">
       <h3>Commentaires</h3>
       <div class="reactions__add">
         <input type="text" class="reactions__add-comment" placeholder="j'ajoute un commentaire ici ..." :value="newcomment.content">
@@ -18,41 +20,14 @@
         </div>
         <h4>Voir tout</h4>
       </div>
-    </div>
+    </div>-->
   </div>
 </template>
 
 <script>
-import Buttoncomponent from '@/components/Button.vue'
-import { mapState } from 'vuex'
-
-export default {
-  name: 'Article',
-  components: {
-    Buttoncomponent
-  },
-  computed: {
-    ...mapState({
-      newcomment: "newcomment" 
-  })},
-  props: {
-    /*image: {
-      type: Object, 
-      required: true
-    },*/ 
-    description: {
-      type: String,
-      //required: true
-    }, 
-    username: {
-      type: String, 
-      //required: true
-    },
-    date: {
-      type: String, 
-      //required: true
-    },
-  }  
+  export default {
+  name: "Article",
+  props: ["article"]
 }
 </script>
 
@@ -90,6 +65,4 @@ export default {
     }
   }
 }
-
-
 </style>

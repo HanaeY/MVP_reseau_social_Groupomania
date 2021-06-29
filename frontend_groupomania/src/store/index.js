@@ -10,17 +10,7 @@ export default new Vuex.Store({
     user: null,
     token: null,
     message: null,
-
-    newcomment: {
-      content: "",
-      submit: false
-    },
-    newarticle: {
-      url: "",
-      file: "",
-      description: "", 
-      
-    }
+    articles: null,
   },
   mutations: {
     SET_LOGGEDIN(state, loggedIn) {

@@ -7,7 +7,9 @@
         <button>Forum articles</button>
       </div>
     <h2>Dernières publications</h2>
-      <Article/>
+    <p v-if="error">{{ error }}</p>
+    <button @click="getArticles">Mettre à jour</button>
+      <Article v-for="article in articles" :key="article.id" :article="article"/>
   </div>
 </template>
 
@@ -16,14 +18,36 @@
 //import HelloWorld from '@/components/HelloWorld.vue'
 import Article from '@/components/Article.vue'
 import { mapState } from 'vuex'
+import ArticleService from '@/services/ArticleService'
 
 export default {
   name: 'Home',
   components: {
     Article
   },
+  data() {
+    return {
+      error: null,
+      articles: null,
+      //query: ""
+    }
+  },
   computed: {
-    ...mapState(['user']),
+    ...mapState(['user'])
+  },
+  methods: {
+    async getArticles() {
+      try {
+        const response = await ArticleService.getArticles(); // TO DO : ajouter this.query en payload
+        this.articles = response.articles;
+      } catch (e) {
+        this.error = e.toString();
+      }
+    }
+  },
+  beforeMount() {
+    console.log('test');
+    this.getArticles();
   }
 }
 </script>
