@@ -13,4 +13,10 @@ export default {
             body: JSON.stringify(credentials)
         });
     },
+    deleteAccount(userid) {
+        return api("/users/myaccount", {
+            method: "DELETE",
+            body: JSON.stringify(userid)
+        });
+    },
 };

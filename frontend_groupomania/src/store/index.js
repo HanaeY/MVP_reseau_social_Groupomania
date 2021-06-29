@@ -9,6 +9,7 @@ export default new Vuex.Store({
     loggedIn: false,
     user: null,
     token: null,
+    message: null,
 
     newcomment: {
       content: "",
@@ -30,6 +31,9 @@ export default new Vuex.Store({
     },
     SET_TOKEN(state, token) {
       state.token = token
+    }, 
+    SET_MESSAGE(state, message) {
+      state.message = message
     }
   },
   actions: {
@@ -39,11 +43,12 @@ export default new Vuex.Store({
       context.commit('SET_TOKEN', token),
       router.push('/')
     },
-    logout(context) {
+    logout(context, message) {
       context.commit('SET_LOGGEDIN', false),
       context.commit('SET_USER', null),
       context.commit('SET_TOKEN', null),
       router.push('/login')
+      context.commit('SET_MESSAGE', message)
     }
   },
   modules: {

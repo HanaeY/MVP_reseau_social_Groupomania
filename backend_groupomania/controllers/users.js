@@ -107,7 +107,7 @@ exports.deleteAccount = (req, res, next) => {
         user.destroy()
         .then(() => {
             //res.redirect('/');
-            res.status(201).json({error: 'compte utilisateur supprimé !'});
+            res.status(201).json({message: 'compte utilisateur supprimé'});
         })
         .catch(() => res.status(500).json({error: 'impossible de supprimer le compte utilisateur !'}))
     })

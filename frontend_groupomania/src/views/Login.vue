@@ -8,14 +8,19 @@
     </form>
     <p>Pas encore inscrit(e) ? <router-link to="/signup">Je créé mon compte</router-link></p>
     <p v-if="error" >{{ error }}</p>
+    <p v-if="message" >{{ message }}</p>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import UserService from "@/services/UserService"
 
 export default {
   name: "Login",
+  computed: {
+    ...mapState(['message'])
+  },
   data() {
     return {
       email: "",

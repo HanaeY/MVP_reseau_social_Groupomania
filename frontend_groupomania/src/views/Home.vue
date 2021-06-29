@@ -23,7 +23,8 @@ export default {
     Article
   },
   computed: {
-    ...mapState({user: "user"})},
+    ...mapState(['user']),
+  }
 }
 </script>
 
