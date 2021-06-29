@@ -27,9 +27,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
-      comments: {
+      alternativeText: {
         allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,

@@ -39,11 +39,14 @@ exports.validatePassword = (req, res, next) => {
 };
 
 exports.validateArticle = (req, res, next) => {
-    if(!req.body.description || !req.body.userid) {
+    if(!req.body.description || !req.body.userid ||!req.body.alternativeText) {
         fs.unlink(`./files/${req.file.filename}`, () => res.status(400).json({'error': "paramètre manquant !"}));
     } 
     if(req.body.description.length < 1 || req.body.description.length > 300 ) {
         fs.unlink(`./files/${req.file.filename}`, () => res.status(400).json({'error': "le message doit contenir entre 1 et 300 caractères !"}));
+    }
+    if(req.body.alternativeText.length < 1 || req.body.alternativeText.length > 300 ) {
+        fs.unlink(`./files/${req.file.filename}`, () => res.status(400).json({'error': "le texte alternatif doit contenir entre 1 et 300 caractères !"}));
     }
     next();
 };

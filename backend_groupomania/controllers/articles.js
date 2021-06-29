@@ -15,7 +15,7 @@ exports.postArticle = (req, res, next) => {
             UserId: user.id,
             description: req.body.description,
             file: fileUrl,
-            comments: 0
+            alternativeText: req.body.alternativeText
         })
         .then(newArticle => res.status(201).json({newArticle}))
         .catch(() => fs.unlink(`./files/${req.file.filename}`, () => res.status(500).json({message: "impossible de publier l'article !"})));
