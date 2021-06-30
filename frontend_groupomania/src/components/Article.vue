@@ -5,27 +5,30 @@
       <p class="content__description">{{ article.description }}</p>
       <img class="content__image" :src="article.file" :alt="article.alternativeText">
     </div>
-
-    <!--<div class="reactions">
-      <h3>Commentaires</h3>
-      <div class="reactions__add">
-        <input type="text" class="reactions__add-comment" placeholder="j'ajoute un commentaire ici ..." :value="newcomment.content">
-        <Buttoncomponent class="reactions__add-submit" content="Publier mon commentaire" type="submit"/>
-      </div>
-      <div class="reactions__see">
-        <h4>Dernier commentaire</h4>
-        <div>
-          <p class="content__description"><span>[USERNAME] </span><span>([DATE])</span> : <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam harum, perferendis quaerat facilis omnis voluptate animi repellat at id impedit, sapiente fuga recusandae quidem aliquid autem, accusantium ullam reiciendis? Architecto.</span></p>
-        </div>
-        <h4>Voir tout</h4>
-      </div>
-    </div>-->
+    <div class="comments">
+      <Comment v-for="comment in article.Comments" :key="comment + comment.createdAt" :comment="comment" />
+    </div>
+    <div class="comments__add">
+      <form action="">
+        <input 
+        class="comments__add__input" 
+        type="text" name="newcomment" id="newcomment" 
+        placeholder="Votre commentaire ..."
+        >
+        <button class="comments__add__submit" type="submit">Poster</button>
+      </form>
+    </div>
   </div>
 </template>
 
 <script>
+  import Comment from '@/components/Comment.vue'
+
   export default {
   name: "Article",
+  components: {
+    Comment
+  },
   props: ["article"],
   computed: {
     date() {
@@ -50,21 +53,6 @@
     &__image {
     height: 300px;
     margin: auto;
-  }
-}
-
-.reactions {
-  &__add {
-    width: 100%;
-    display: flex;
-    &-comment {
-      flex: 2;
-      height: 50px;
-    }
-    &-submit {
-      height: 56px;
-      padding: 10px;
-    }
   }
 }
 </style>

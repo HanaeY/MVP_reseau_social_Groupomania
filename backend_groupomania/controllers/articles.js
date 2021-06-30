@@ -25,14 +25,20 @@ exports.postArticle = (req, res, next) => {
 
 exports.getAllArticles = (req, res, next) => {
     models.Article.findAll({
-        include: [{
-            model: models.User,
-            attributes: ['username']
-        }]
+        include: [
+            {
+                model: models.User, 
+                attributes: ['username']
+            },
+            {
+                model: models.Comment, 
+                attributes: ['comment', 'id', 'createdAt'],
+                include: [{model: models.User, attributes: ["username"]}]
+            }
+        ]
     })
     .then(articles => {
-        articles.forEach(element => {
-        });
+        console.log('ARTICLE TEST: ', articles);
         res.status(201).json({articles});
     })
     .catch(error => res.status(500).json({message: error | "impossible d'afficher les articles !"}))
