@@ -1,10 +1,9 @@
 <template>
   <div class="article">
     <div class="content">
-      <!---<p class="content__publication">Publié par <span>{{ username }}</span> le <span>{{ date }}</span></p>-->
-      <!--<img class = "content__image"  :src="article.file" :alt="image.alt">-->
+      <p class="content__description"> Posté par {{ article.User.username }} le {{ date }}</p>
       <p class="content__description">{{ article.description }}</p>
-      <img :src="article.file" alt="photo">
+      <img class="content__image" :src="article.file" :alt="article.alternativeText">
     </div>
 
     <!--<div class="reactions">
@@ -27,7 +26,12 @@
 <script>
   export default {
   name: "Article",
-  props: ["article"]
+  props: ["article"],
+  computed: {
+    date() {
+      return this.article.createdAt.split('T')[0];
+    }
+  }
 }
 </script>
 
@@ -44,9 +48,7 @@
 
 .content {
     &__image {
-    width: 500px;
     height: 300px;
-    background-color: violet;
     margin: auto;
   }
 }

@@ -24,8 +24,17 @@ exports.postArticle = (req, res, next) => {
 };
 
 exports.getAllArticles = (req, res, next) => {
-    models.Article.findAll()
-    .then(articles => res.status(201).json({articles}))
+    models.Article.findAll({
+        include: [{
+            model: models.User,
+            attributes: ['username']
+        }]
+    })
+    .then(articles => {
+        articles.forEach(element => {
+        });
+        res.status(201).json({articles});
+    })
     .catch(error => res.status(500).json({message: error | "impossible d'afficher les articles !"}))
 };
 
