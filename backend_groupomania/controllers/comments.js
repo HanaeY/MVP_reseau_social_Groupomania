@@ -31,3 +31,16 @@ exports.deleteComment = (req, res, next) => {
     })
     .catch(() => res.status(500).json({message: "impossible de rechercher le commentaire !"}));
 };
+
+exports.getComments = (req, res, next) => {
+    models.Comment.findAndCountAll({
+        where: {ArticleId: req.params.id}
+    })
+    .then((count, rows) => {
+        if(count == 0) {
+            return res.status(401).json({error: 'pas de commentaires à afficher !'})
+        }
+        res.status(201).json({count, rows});
+    })
+    .catch(() => res.status(500).json({error: 'impossible de rechercher les commentaires !'}));
+};
