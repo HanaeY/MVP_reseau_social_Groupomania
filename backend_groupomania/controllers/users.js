@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const models = require('../models');
+const fs = require('fs');
 
 exports.signup = (req, res, next) => {
     models.User.findOne({ // vérification email
@@ -79,18 +80,39 @@ exports.login = (req, res, next) => {
 
 exports.deleteAccount = (req, res, next) => {
     models.User.findOne({
-        where: {id: req.body.userid}
+        where: {id: req.body.userid},
+        attributes: ['id']
     })
     .then(user => {
         if(!user) {
             return res.statut(404).json({error: 'utilisateur non trouvé !'});
         }
-        user.destroy()
-        .then(() => {
-            //res.redirect('/');
-            res.status(201).json({message: 'compte utilisateur supprimé'});
+        models.Article.findAll({
+            where: {UserId: user.id},
+            attributes: ['file']
         })
-        .catch(() => res.status(500).json({error: 'impossible de supprimer le compte utilisateur !'}))
+        .then(articles => {
+            if(articles) {
+                articles.forEach(article => {
+                    if(article.file) {
+                        const filename = article.file.split('/files/')[1];
+                        fs.unlink(`./files/${filename}`, () => {
+                            user.destroy()
+                            .then(() => {
+                                return res.status(201).json({message: 'compte utilisateur supprimé'});
+                            })
+                            .catch(() => res.status(500).json({error: 'impossible de supprimer le compte utilisateur !'}))
+                        })
+                    }
+                })
+            }
+            user.destroy()
+            .then(() => {
+                return res.status(201).json({message: 'compte utilisateur supprimé'});
+            })
+            .catch(() => res.status(500).json({error: 'impossible de supprimer le compte utilisateur !'}))
+        })
+        .catch(() => res.status(500).json({error: 'impossible de rechercher les articles publiés !'}));
     })
     .catch(() => res.status(500).json({error: 'impossible de rechercher cet utilisateur !'}));
 };
