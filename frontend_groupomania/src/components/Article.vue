@@ -7,27 +7,20 @@
     </div>
     <div class="comments">
       <Comment v-for="comment in article.Comments" :key="comment + comment.createdAt" :comment="comment" />
-    </div>
-    <div class="comments__add">
-      <form action="">
-        <input 
-        class="comments__add__input" 
-        type="text" name="newcomment" id="newcomment" 
-        placeholder="Votre commentaire ..."
-        >
-        <button class="comments__add__submit" type="submit">Poster</button>
-      </form>
+      <PostComment :article="article"/>
     </div>
   </div>
 </template>
 
 <script>
   import Comment from '@/components/Comment.vue'
+  import PostComment from '@/components/PostComment.vue'
 
   export default {
   name: "Article",
   components: {
-    Comment
+    Comment,
+    PostComment
   },
   props: ["article"],
   computed: {

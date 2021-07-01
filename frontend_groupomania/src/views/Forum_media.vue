@@ -1,7 +1,7 @@
 <template>
   <div class="forum_media">
       <h1>Forum media</h1>
-      <Newarticle/>
+      <!--<NewArticle/>-->
       <p v-if="error">{{ error }}</p>
       <button @click="getArticles">Mettre à jour</button>
       <Article v-for="article in articles" :key="article.id" :article="article"/>
@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import Newarticle from '@/components/New_article.vue'
+//import NewArticle from '@/components/NewArticle.vue'
 import Article from '@/components/Article.vue'
 import { mapState } from 'vuex'
 import ArticleService from '@/services/ArticleService'
@@ -17,7 +17,7 @@ import ArticleService from '@/services/ArticleService'
 export default {
     name: "ForumMedia",
     components: {
-        Newarticle,
+        //NewArticle,
         Article
     },
     data() {
