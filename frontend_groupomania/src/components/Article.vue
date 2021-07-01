@@ -6,7 +6,7 @@
       <img class="content__image" :src="article.file" :alt="article.alternativeText">
     </div>
     <div class="comments">
-      <Comment v-for="comment in article.Comments" :key="comment + comment.createdAt" :comment="comment" />
+      <Comment v-for="comment in article.Comments" :key="comment + comment.createdAt" :comment="comment" :article="article"/>
       <PostComment :article="article"/>
     </div>
   </div>

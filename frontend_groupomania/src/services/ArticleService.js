@@ -19,4 +19,10 @@ export default {
             body: JSON.stringify(body)
         })
     },
+    deleteComment(articleid, commentid, userid) {
+        return api(`/articles/${articleid}/comments/${commentid}`, {
+            method: "DELETE",
+            body: JSON.stringify(userid)
+        })
+    }
 };
