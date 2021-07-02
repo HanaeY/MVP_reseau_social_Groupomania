@@ -5,7 +5,7 @@
       <p class="content__description">{{ article.description }}</p>
       <img class="content__image" :src="article.file" :alt="article.alternativeText">
     </div>
-    <button class="delete" v-if="user.id == article.UserId" @click="deleteArticle">supprimer l'article</button>
+    <button class="delete" v-if="(user.id == article.UserId) || (user.isadmin)" @click="deleteArticle">supprimer l'article</button>
     <div class="comments">
       <button v-if="commentsVisible == false" @click="showComments">Voir les commentaires</button>
       <button v-if="commentsVisible == true" @click="hideComments">Masquer les commentaires</button>

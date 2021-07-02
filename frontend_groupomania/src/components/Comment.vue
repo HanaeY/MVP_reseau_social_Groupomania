@@ -3,7 +3,7 @@
     <div class="comment">
       <p class="comment__information"> Posté par {{ comment.User.username }} le {{ date }}</p>
       <p class="comment__content">{{ comment.comment }}</p> 
-      <button class="comment__delete" v-if="user.id == comment.UserId" @click="deleteComment">supprimer mon commentaire</button>
+      <button class="comment__delete" v-if="(user.id == comment.UserId) || (user.isadmin)" @click="deleteComment">supprimer</button>
     </div>  
 
     <p v-if="error">{{ error }}</p>

@@ -1,6 +1,7 @@
 <template>
   <div class="user">
     <h1>Mon compte</h1>
+    <p v-if="user.isadmin">Compte modérateur</p>
     <p>Nom d'utilisateur : {{ user.username }}</p>
     <p>Email : {{ user.email }}</p>
     <p>Compte créé le {{ date }}</p>
