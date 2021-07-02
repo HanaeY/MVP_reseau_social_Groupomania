@@ -9,6 +9,7 @@
       <button v-if="commentsVisible == false" @click.prevent="showComments">Voir les commentaires</button>
       <button v-if="commentsVisible == true" @click.prevent="hideComments">Masquer les commentaires</button>
       <div v-if="commentsVisible == true">
+        <p v-if="this.article.Comments == ''">Pas encore de commentaire... écrivez le premier :) !</p>
         <Comment v-for="comment in article.Comments" :key="comment + comment.createdAt" :comment="comment" :article="article"/>
         <PostComment :article="article"/>
       </div>
