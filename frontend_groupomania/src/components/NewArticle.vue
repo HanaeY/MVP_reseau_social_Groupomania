@@ -2,7 +2,7 @@
   <div class="newarticle">
       <h2>Publier un nouvel article</h2>
       <form>
-          <label for="file">Fichier image</label>
+          <label for="file">Fichier image</label><i class="fas fa-info-circle" title="fichiers acceptés : .jpg, .jpeg, .png, .webp, .gif"></i>
           <input type="file" name="file" id="file" required @change="onFileSelected"><br> 
 
           <label for="alternativeText">Texte alternatif (image)</label>
