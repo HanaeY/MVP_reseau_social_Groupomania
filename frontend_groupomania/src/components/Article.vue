@@ -6,8 +6,12 @@
       <img class="content__image" :src="article.file" :alt="article.alternativeText">
     </div>
     <div class="comments">
-      <Comment v-for="comment in article.Comments" :key="comment + comment.createdAt" :comment="comment" :article="article"/>
-      <PostComment :article="article"/>
+      <button v-if="commentsVisible == false" @click.prevent="showComments">Voir les commentaires</button>
+      <button v-if="commentsVisible == true" @click.prevent="hideComments">Masquer les commentaires</button>
+      <div v-if="commentsVisible == true">
+        <Comment v-for="comment in article.Comments" :key="comment + comment.createdAt" :comment="comment" :article="article"/>
+        <PostComment :article="article"/>
+      </div>
     </div>
   </div>
 </template>
@@ -26,6 +30,19 @@
   computed: {
     date() {
       return this.article.createdAt.split('T')[0];
+    }
+  },
+  methods: {
+    showComments() {
+      this.commentsVisible = true
+    },
+    hideComments() {
+      this.commentsVisible = false
+    }
+  },
+  data() {
+    return {
+      commentsVisible: false
     }
   }
 }
