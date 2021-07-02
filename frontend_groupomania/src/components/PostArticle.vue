@@ -19,41 +19,42 @@
 
 <script>
 import { mapState } from 'vuex'
-import ArticleService from "@/services/ArticleService"
+//import ArticleService from "@/services/ArticleService"
 
 export default {
   name: 'NewArticle',
   data() {
     return {
-      file: null,
+      selectedFile: null,
       alternativeText: null, 
       description: null,
       error: null
     }
   },
   computed: {...mapState(['user'])},
-  props: {
-    //msg: String
-  },
   methods: {
     onFileSelected(event) {
       console.log(event.target.files[0]);
-      this.file = event.target.files[0];
+      this.selectedFile = event.target.files[0];
 
     },
     async postArticle() {
       const fd = new FormData();
-      fd.append('image', this.file, this.file.name);
+      //fd.append('image', this.selectedFile, this.selectedFile.name);
+      console.log(fd);
       fd.append('alternativeText', this.alternativeText);
-      fd.append('description', this.description);
-      fd.append('userid', this.user.id)
+      //fd.append('description', this.description);
+      //fd.append('userid', this.user.id)
+      console.log('FD', fd);
+      /*
       try {
-        const response = await ArticleService.postArticle(fd);
+        const response = await ArticleService.postArticle({fd});
         console.log(response);
         // recharger l'élément parent 
       } catch(e) {
         this.error = e.toString();
       }
+      */
     }
   }
 }
@@ -71,3 +72,4 @@ export default {
   padding: 5px;
 }
 </style>
+
