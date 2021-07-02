@@ -13,6 +13,12 @@ export default {
             body: JSON.stringify(article)
         })
     },
+    deleteArticle(articleid, userid) {
+        return api(`/articles/${articleid}`, {
+            method: "DELETE",
+            body: JSON.stringify(userid)
+        })
+    },
     postComment(articleid, body) {
         return api(`/articles/${articleid}/comments`, {
             method: "POST",
