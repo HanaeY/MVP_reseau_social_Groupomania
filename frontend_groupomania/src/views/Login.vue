@@ -3,7 +3,7 @@
     <h1>Connexion</h1>
     <form @submit.prevent="login">
       <label for="email">email</label><input type="email" name="" id="email" required v-model="email">
-      <label for="password">mot de passe</label><input type="text" name="" id="password" required v-model="password">
+      <label for="password">mot de passe</label><input type="password" name="" id="password" required v-model="password">
       <button type="submit">Je me connecte</button>
     </form>
     <p>Pas encore inscrit(e) ? <router-link to="/signup">Je créé mon compte</router-link></p>

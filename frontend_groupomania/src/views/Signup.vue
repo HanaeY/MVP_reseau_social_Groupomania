@@ -2,9 +2,16 @@
   <div class="user">
     <h1>Inscription</h1>
     <form @submit.prevent="signup">
-      <label for="username">nom d'utilisateur</label><input type="text" name="username" id="username" required v-model="username">
-      <label for="email">email</label><input type="email" name="email" id="email" required v-model="email">
-      <label for="password">mot de passe</label><input type="text" name="password" id="password" required v-model="password">
+      <label for="username">nom d'utilisateur</label>
+      <input type="text" name="username" id="username" minlength="3" maxlength="13" required v-model="username">
+
+      <label for="email">email</label>
+      <input type="email" name="email" id="email" required v-model="email">
+
+      <label for="password">mot de passe</label>
+      <i class="fas fa-info-circle" title="Le mot de passe doit contenir au moins 8 caractères, dont au moins une lettre, un chiffre et un caractère spécial"></i>
+      <input type="password" name="password" id="password" minlength="8" required v-model="password">
+
       <button type="submit">Je m'inscris</button>
     </form>
     <p>déjà inscrit(e) ? <router-link to="/login">Je me connecte</router-link></p>

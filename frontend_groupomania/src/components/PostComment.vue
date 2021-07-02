@@ -1,9 +1,9 @@
 <template>
     <div>
-        <p>Publier un commentaire</p>
-        <form action="">
-            <input type="text" name="newcomment" id="newcomment" placeholder="écrivez votre commentaire ici" v-model="comment">
-            <button type="submit" @click.prevent="postComment">Envoyer</button>
+        <p>Publier un commentaire</p><i class="fas fa-info-circle" title="Max 255 caractères"></i>
+        <form @submit.prevent="postComment">
+            <textarea name="newcomment" id="newcomment" cols="60" rows="5" maxlength="255" required v-model="comment" placeholder="écrivez votre commentaire ici"></textarea>
+            <button type="submit">Envoyer</button>
             <p v-if="error">{{ error }}</p>
         </form>
     </div>

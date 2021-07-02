@@ -3,13 +3,13 @@
       <h2>Publier un nouvel article</h2>
       <form>
           <label for="file">Fichier image</label>
-          <input type="file" name="file" id="file" @change="onFileSelected"><br> 
+          <input type="file" name="file" id="file" required @change="onFileSelected"><br> 
 
           <label for="alternativeText">Texte alternatif (image)</label>
-          <input type="text" name="alternativeText" id="alternativeText" v-model="alternativeText"><br>
+          <input type="text" name="alternativeText" id="alternativeText" maxlength="255" required v-model="alternativeText"><br>
 
           <label for="description">Votre message</label>
-          <input type="text" name="description" id="description" v-model="description"><br>
+          <input type="text" name="description" id="description" maxlength="255" required v-model="description"><br>
 
           <button type="submit" @click="postArticle">Publier</button>
           <p v-if="error">{{ error }}</p>
