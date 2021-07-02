@@ -9,7 +9,7 @@
         <router-link to="/user">Mon compte</router-link>
     </div>
     </header>
-    <button v-if="loggedIn" @click="logout">Me déconnecter</button>
+    <button class="button" v-if="loggedIn" @click="logout">Me déconnecter</button>
     <router-view/>
   </div>
 </template>
@@ -35,6 +35,24 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #000033;
+  background-image: url(assets/images/backgroundpattern.png);
+}
+
+.button {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  background-color: white;
+  border: 2px solid;
+  border-radius: 7px;
+  padding: 5px 10px;
+  font-weight: bolder;
+  &-danger {
+    color: red;
+    border-color: red;
+  }
+  &-bluebkg {
+    background-color: #000033;
+    color: white;
+  }
 }
 
 .header {
@@ -50,7 +68,7 @@ export default {
 
   a {
     font-weight: bold;
-    color: #cc6666;
+    color: white;
     text-decoration: none;
 
     &.router-link-exact-active {

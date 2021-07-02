@@ -3,7 +3,7 @@
       <h1>Forum media</h1>
       <PostArticle/>
       <p v-if="error">{{ error }}</p>
-      <button @click="getArticles">Mettre à jour</button>
+      <button class="button" @click="getArticles">Mettre à jour</button>
       <Article v-for="article in articles" :key="article.id" :article="article"/>
   </div>
 </template>

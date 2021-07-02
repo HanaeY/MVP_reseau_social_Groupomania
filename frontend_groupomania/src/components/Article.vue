@@ -1,14 +1,16 @@
 <template>
   <div class="article">
     <div class="content">
-      <p class="content__description"> Posté par {{ article.User.username }} le {{ date }}</p>
-      <p class="content__description">{{ article.description }}</p>
-      <img class="content__image" :src="article.file" :alt="article.alternativeText">
+      <div class="content__text">
+        <p class="content__text-info"> Posté par {{ article.User.username }} le {{ date }}</p>
+        <p class="content__text-description">{{ article.description }}</p>
+      </div>
+      <button class="content__delete-btn button button-danger" v-if="(user.id == article.UserId) || (user.isadmin)" @click="deleteArticle">supprimer</button>
     </div>
-    <button class="delete" v-if="(user.id == article.UserId) || (user.isadmin)" @click="deleteArticle">supprimer l'article</button>
+    <img class="image" :src="article.file" :alt="article.alternativeText">
+    <button class="button button-bluebkg comments-button" v-if="commentsVisible == false" @click="showComments">Voir les commentaires</button>
+    <button class="button button-bluebkg comments-button" v-if="commentsVisible == true" @click="hideComments">Masquer les commentaires</button>
     <div class="comments">
-      <button v-if="commentsVisible == false" @click="showComments">Voir les commentaires</button>
-      <button v-if="commentsVisible == true" @click="hideComments">Masquer les commentaires</button>
       <div v-if="commentsVisible == true">
         <p v-if="this.article.Comments == ''">Pas encore de commentaire... écrivez le premier :) !</p>
         <Comment v-for="comment in article.Comments" :key="comment + comment.createdAt" :comment="comment" :article="article"/>
@@ -66,18 +68,57 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .article {
-  width: 80%;
+  width: 50vw;
   margin: auto;
-  border: 2px solid;
+  margin-bottom: 20px;
+  box-shadow: 0px 2px 7px #8383bd;
   border-radius: 15px;
   text-align: left;
   padding: 5px;
+  background-color: white;
+  @media all and (max-width: 800px) {
+    width: 90vw;
+    margin-bottom: 10px;
+  }
 }
 
 .content {
-    &__image {
-    height: 300px;
-    margin: auto;
+  display: flex;
+  &__text {
+    flex: 2;
+    &-info {
+    font-style: italic;
+    font-size: 0.9em;
+    }
   }
+  &__delete-btn {
+    height: 30px;
+  }
+
+}
+
+.image {
+  display: block;
+  margin: auto;
+  max-width: 50vw;
+  max-height: 50vh;
+  border-radius: 15px;
+  @media all and (max-width: 800px) {
+    max-width: 90vw;
+    max-height: 90vw;
+  }
+}
+
+.comments-button {
+    display: block;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px 12px;
+}
+
+.comments {
+  background-color: rgba(12, 11, 107, 0.096);
+  border-radius: 0px 0px 10px 10px;
 }
 </style>

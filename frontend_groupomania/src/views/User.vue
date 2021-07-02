@@ -5,7 +5,7 @@
     <p>Nom d'utilisateur : {{ user.username }}</p>
     <p>Email : {{ user.email }}</p>
     <p>Compte créé le {{ date }}</p>
-    <button @click="deleteAccount">Supprimer mon compte</button>
+    <button class="button button-danger" @click="deleteAccount">Supprimer mon compte</button>
     <p v-if="error" >{{ error }}</p>
     
   </div>
