@@ -19,7 +19,7 @@ import UserService from "@/services/UserService"
 export default {
   name: "Login",
   computed: {
-    ...mapState(['message'])
+    ...mapState(['message', 'loggedIn'])
   },
   data() {
     return {
@@ -36,7 +36,15 @@ export default {
       } catch(error) {
         this.error = error.toString();
       }
+    },
+    redirectToHome() {
+      if(this.loggedIn == true) {
+        this.$router.push('/');
+      }
     }
+  },
+  beforeMount() {
+    this.redirectToHome()
   }
 }
 </script>

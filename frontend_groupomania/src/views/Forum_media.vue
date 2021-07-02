@@ -25,20 +25,26 @@ export default {
         error: null,
         }
     },
-    computed: {...mapState(['user', 'articles'])
+    computed: {...mapState(['user', 'articles', 'loggedIn'])
     },
-      methods: {
-    async getArticles() {
-      try {
+    methods: {
+      async getArticles() {
+        try {
           const response = await ArticleService.getArticles();
           this.$store.dispatch("displayArticles", response.articles);
-      } catch (e) {
-        this.error = e.toString();
+        } catch (e) {
+          this.error = e.toString();
+      }
+    }, 
+    redirectToLogin() {
+      if(this.loggedIn == false) {
+        return this.$router.push('/login');
       }
     }
   },
   beforeMount() {
-      this.getArticles();
+    this.redirectToLogin();
+    this.getArticles();
   }
 }
 </script>

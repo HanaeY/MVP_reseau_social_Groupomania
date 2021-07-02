@@ -21,7 +21,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['user']),
+    ...mapState(['user', 'loggedIn']),
     date() {
       return this.user.createdAt.split('T')[0];
     }
@@ -34,7 +34,15 @@ export default {
       } catch(error) {
         this.error = error.toString();
       }
+    },
+    redirectToLogin() {
+      if(this.loggedIn == false) {
+        this.$router.push('/login');
+      }
     }
+  },
+  beforeMount() {
+    this.redirectToLogin()
   }
 
 }

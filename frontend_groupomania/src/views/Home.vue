@@ -32,7 +32,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['user', 'articles'])
+    ...mapState(['user', 'articles', 'loggedIn'])
   },
   methods: {
     async getArticles() {
@@ -42,9 +42,15 @@ export default {
       } catch (e) {
         this.error = e.toString();
       }
+    },
+    redirectToLogin() {
+      if(this.loggedIn == false) {
+        return this.$router.push('/login');
+      }
     }
   },
   beforeMount() {
+    this.redirectToLogin();
     this.getArticles();
   }
 }

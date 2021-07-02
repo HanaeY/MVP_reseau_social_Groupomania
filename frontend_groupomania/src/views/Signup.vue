@@ -5,7 +5,6 @@
       <label for="username">nom d'utilisateur</label><input type="text" name="username" id="username" required v-model="username">
       <label for="email">email</label><input type="email" name="email" id="email" required v-model="email">
       <label for="password">mot de passe</label><input type="text" name="password" id="password" required v-model="password">
-      <!--<Buttoncomponent content="Je m'inscris" type="submit"/>-->
       <button type="submit">Je m'inscris</button>
     </form>
     <p>déjà inscrit(e) ? <router-link to="/login">Je me connecte</router-link></p>
@@ -14,8 +13,8 @@
 </template>
 
 <script>
-//import Buttoncomponent from '@/components/Button.vue'
 import UserService from '@/services/UserService'
+import { mapState } from 'vuex'
 
 export default {
   name: 'Signup',
@@ -27,8 +26,8 @@ export default {
       error: null
     }
   },
-  components: {
-    //Buttoncomponent
+  computed: {
+    ...mapState(['loggedIn'])
   },
   methods: {
     async signup() {
@@ -38,7 +37,15 @@ export default {
       } catch(error) {
         this.error = error.toString();
       }
+    },
+    redirectToHome() {
+      if(this.loggedIn == true) {
+        this.$router.push('/');
+      }
     }
+  },
+  beforeMount() {
+    this.redirectToHome()
   }
 }
 </script>
