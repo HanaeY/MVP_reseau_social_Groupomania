@@ -38,7 +38,6 @@ exports.getAllArticles = (req, res, next) => {
         ]
     })
     .then(articles => {
-        console.log('ARTICLE TEST: ', articles);
         res.status(201).json({articles});
     })
     .catch(error => res.status(500).json({message: error | "impossible d'afficher les articles !"}))

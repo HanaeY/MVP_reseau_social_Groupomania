@@ -11,13 +11,14 @@ exports.addComment = (req, res, next) => {
         models.Comment.create({
             UserId: req.body.userid,
             ArticleId: article.id,
-            comment: req.body.comment
+            comment: req.body.comment, 
+            createdAt: new Date()
         })
-        .then(comment => res.status(201).json({comment}))
-        .catch(() => res.status(500).json({message: "impossible d'enregistrer le commentaire !"}))
+        .then(() => res.status(201).json({message: "commentaire bien enregistré"}))
+        .catch(() => res.status(500).json({error: "impossible d'enregistrer le commentaire !"}))
     })
     .catch(() => {
-        res.status(500).json({message: "impossible de retrouver l'article !"})});
+        res.status(500).json({error: "impossible de retrouver l'article !"})});
 };
 
 exports.deleteComment = (req, res, next) => {

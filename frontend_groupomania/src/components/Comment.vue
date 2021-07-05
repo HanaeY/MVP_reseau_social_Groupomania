@@ -30,6 +30,7 @@
       const date = this.comment.createdAt.split('T')[0];
       const time = this.comment.createdAt.split('T')[1].substring(0, 5);
       return `${date}, ${time}`;
+      //return this.comment.createdAt;
     },
   },
   methods: {
