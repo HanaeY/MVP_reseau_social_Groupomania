@@ -29,9 +29,9 @@ export default {
         async postComment() {
             console.log('article id: ', this.article.id);
             try {
-            const response = await ArticleService.postComment(this.article.id, {userid: this.user.id, comment: this.comment});
-            console.log('RESPONSE', response);
-            // recharger le composant article/la page pour afficher le nouveau commentaire
+            await ArticleService.postComment(this.article.id, {userid: this.user.id, comment: this.comment});
+            this.comment = '';
+            this.$parent.$emit('comment-posted');
             } catch(e) {
                 this.error = e.toString();
             }

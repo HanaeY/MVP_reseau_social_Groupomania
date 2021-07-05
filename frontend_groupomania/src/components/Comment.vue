@@ -21,7 +21,7 @@
   data() {
     return {
       error: null,
-      message: null,
+      message: null
     }
   },
   computed: {
@@ -35,8 +35,8 @@
   methods: {
     async deleteComment() {
       try {
-        const response = await ArticleService.deleteComment(this.article.id, this.comment.id, {userid: this.user.id});
-        this.message = response.message;
+        await ArticleService.deleteComment(this.article.id, this.comment.id, {userid: this.user.id});
+        this.$parent.$emit('comment-deleted');
       } catch(e) {
         this.error = e.toString();
       }
