@@ -9,7 +9,12 @@
     <h2>Dernières publications</h2>
     <p v-if="error">{{ error }}</p>
     <button class="button" @click="getArticles">Rafraichir</button>
-      <Article v-for="article in articles" :key="article.id" :article="article"/>
+      <Article 
+        v-for="article in articles" :key="article.id" 
+        :article="article"
+        @comment-posted="reloadArticles"
+        @comment-deleted="reloadArticles"
+      />
   </div>
 </template>
 
@@ -47,6 +52,9 @@ export default {
       if(this.loggedIn == false) {
         return this.$router.push('/login');
       }
+    },
+    reloadArticles() {
+      this.getArticles();
     }
   },
   beforeMount() {
