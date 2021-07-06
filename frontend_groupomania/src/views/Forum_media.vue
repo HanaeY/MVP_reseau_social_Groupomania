@@ -10,6 +10,7 @@
         @comment-posted="reloadArticles" 
         @comment-deleted="reloadArticles"
       />
+      <BackToTop class="btn-to-top" text="retour en haut" />
   </div>
 </template>
 
@@ -18,12 +19,14 @@ import PostArticle from '@/components/PostArticle.vue'
 import Article from '@/components/Article.vue'
 import { mapState } from 'vuex'
 import ArticleService from '@/services/ArticleService'
+import BackToTop from 'vue-backtotop'
 
 export default {
   name: "ForumMedia",
   components: {
       PostArticle,
-      Article
+      Article,
+      BackToTop
   },
   data() {
       return {
@@ -57,9 +60,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-button {
-  margin-bottom: 5px;
-}
-</style>

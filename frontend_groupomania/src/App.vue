@@ -58,6 +58,7 @@ input {
   padding: 5px 10px;
   font-weight: bolder;
   cursor: pointer;
+  margin-bottom: 5px;
   &-danger {
     border-color: #cc6666;
     padding: 2px 6px;
