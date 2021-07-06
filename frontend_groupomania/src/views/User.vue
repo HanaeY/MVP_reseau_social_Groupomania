@@ -7,7 +7,6 @@
     <p>Compte créé le {{ date }}</p>
     <button class="button button-danger" @click="deleteAccount">Supprimer mon compte</button>
     <p v-if="error" >{{ error }}</p>
-    
   </div>
 </template>
 
@@ -48,3 +47,10 @@ export default {
 
 }
 </script>
+
+<style lang="scss">
+.user {
+  height: 100vh;
+}
+</style>
+

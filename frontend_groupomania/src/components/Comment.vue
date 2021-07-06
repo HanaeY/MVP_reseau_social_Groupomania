@@ -59,6 +59,9 @@
     color: rgb(75, 74, 74);
     font-size: 0.9em;
   }
+  &__delete {
+    margin: 0;
+  }
 }
 
 .comment-content {

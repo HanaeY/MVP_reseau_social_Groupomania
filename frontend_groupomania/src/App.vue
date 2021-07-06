@@ -38,6 +38,18 @@ export default {
   background-image: url(assets/images/backgroundpattern.png);
 }
 
+label {
+  margin-right: 10px;
+}
+
+input {
+  border-radius: 5px;
+  width: 200px;
+  margin-bottom: 10px;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-size: 0.9em;
+}
+
 .button {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   background-color: white;
@@ -47,7 +59,7 @@ export default {
   font-weight: bolder;
   cursor: pointer;
   &-danger {
-    border-color: red;
+    border-color: #cc6666;
     padding: 2px 6px;
   }
 }
