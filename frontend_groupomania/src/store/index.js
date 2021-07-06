@@ -37,6 +37,12 @@ export default new Vuex.Store({
       context.commit('SET_USER', user),
       context.commit('SET_TOKEN', token),
       router.push('/')
+      setTimeout(function(){ 
+        context.commit('SET_LOGGEDIN', false);
+        context.commit('SET_USER', null);
+        context.commit('SET_TOKEN', null);
+        router.push('/login')
+      }, 86400000);
     },
     logout(context, message) {
       context.commit('SET_LOGGEDIN', false),
