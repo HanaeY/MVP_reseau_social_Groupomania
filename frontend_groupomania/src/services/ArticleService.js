@@ -1,8 +1,8 @@
 import { api } from "@/services/api.js";
 
 export default {
-    getArticles() {
-        return api("/articles", {
+    getArticles(limit, offset, order) {
+        return api(`/articles?limit=${limit}&offset=${offset}&order=${order}`, {
             method: "GET"
         });
     },

@@ -3,7 +3,11 @@
       <h1>Forum media</h1>
       <PostArticle/>
       <p v-if="error">{{ error }}</p>
-      <button class="button" @click="getArticles">Rafraichir</button>
+      <div class="forum_media__refreshAndOrder">
+        <p>Rafraîchir et trier : 
+        <a href="" @click.prevent="getArticles('DESC')">du plus récent</a> / 
+        <a href="" @click.prevent="getArticles('ASC')">du plus ancien</a></p>
+      </div>
       <Article 
         v-for="article in articles" :key="article.id" 
         :article="article" 
@@ -37,9 +41,9 @@ export default {
     ...mapState(['user', 'articles', 'loggedIn'])
   },
   methods: {
-    async getArticles() {
+    async getArticles(order) {
       try {
-        const response = await ArticleService.getArticles();
+        const response = await ArticleService.getArticles(null, 0, order); // limit, offset, order
         this.$store.dispatch("displayArticles", response.articles);
       } catch (e) {
         this.error = e.toString();
@@ -51,12 +55,33 @@ export default {
       }
     },
     reloadArticles() {
-      this.getArticles();
+      this.getArticles('DESC');
     }
   },
   beforeMount() {
     this.redirectToLogin();
-    this.getArticles();
+    this.getArticles('DESC');
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.forum_media {
+  &__refreshAndOrder {
+    max-width: 50vw;
+    margin: auto;
+    text-align: left;
+    @media all and (max-width: 800px) {
+      max-width: 90vw;
+    }
+  }
+}
+
+a, a:visited {
+  color: #000033;
+}
+
+a:hover {
+  font-weight: bold;
+}
+</style>

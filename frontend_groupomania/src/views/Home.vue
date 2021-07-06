@@ -8,7 +8,7 @@
       </div>
     <h2>Dernières publications</h2>
     <p v-if="error">{{ error }}</p>
-    <button class="button" @click="getArticles">Rafraichir</button>
+    <button class="button" @click="getArticles">Rafraîchir</button>
       <Article 
         v-for="article in articles" :key="article.id" 
         :article="article"
@@ -42,7 +42,7 @@ export default {
   methods: {
     async getArticles() {
       try {
-          const response = await ArticleService.getArticles();
+          const response = await ArticleService.getArticles(3, 0, 'DESC'); // params : limit, offset, order
           this.$store.dispatch("displayArticles", response.articles);
       } catch (e) {
         this.error = e.toString();

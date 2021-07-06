@@ -11,7 +11,7 @@
           <label for="description">Votre message</label>
           <input type="text" name="description" id="description" maxlength="255" required v-model="description"><br>
 
-          <button type="submit" @click="postArticle">Publier</button>
+          <button class="button" type="submit" @click="postArticle">Publier</button>
           <p v-if="error">{{ error }}</p>
       </form>
   </div>

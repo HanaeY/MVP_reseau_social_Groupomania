@@ -24,6 +24,10 @@ exports.postArticle = (req, res, next) => {
 };
 
 exports.getAllArticles = (req, res, next) => {
+    const limit = parseInt(req.query.limit);
+    const offset = parseInt(req.query.offset);
+    const order = req.query.order;
+    console.log(req.query);
     models.Article.findAll({
         include: [
             {
@@ -35,7 +39,10 @@ exports.getAllArticles = (req, res, next) => {
                 attributes: ['comment', 'id', 'createdAt', 'UserId'],
                 include: [{model: models.User, attributes: ["username"]}]
             }
-        ]
+        ],
+        order: [['createdAt', order]],
+        limit: (!isNaN(limit) ? limit : null),
+        offset: (!isNaN(offset) ? offset : null)
     })
     .then(articles => {
         res.status(201).json({articles});
