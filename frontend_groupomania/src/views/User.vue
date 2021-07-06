@@ -51,6 +51,7 @@ export default {
 <style lang="scss">
 .user {
   height: 100vh;
+  text-align: center;
 }
 </style>
 

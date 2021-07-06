@@ -77,6 +77,16 @@ export default {
   }
 }
 
+h1 {
+  max-width: 50vw;
+  margin: auto;
+  margin-bottom: 20px;
+  @media all and (max-width: 800px) {
+    max-width: 90vw;
+    margin-top: 30px;
+    }
+}
+
 a, a:visited {
   color: #000033;
 }

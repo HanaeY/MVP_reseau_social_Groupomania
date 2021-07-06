@@ -1,14 +1,16 @@
 <template>
   <div class="home">
-    <h1>Bienvenue {{ user.username }}</h1>
-    <h2>Forums</h2>
-      <div id="buttons">
-        <button><router-link to="/forum_media">Forum media</router-link></button>
-        <button>Forum articles</button>
+    <h1>Bienvenue {{ user.username }} !</h1>
+    <h2 id="forum-header">Je visite les forums</h2>
+      <div class="forum-buttons">
+        <router-link to="/forum_media"><button class="forum-buttons__button media-btn">> images</button></router-link>
+        <button class="forum-buttons__button article-btn">> articles</button>
       </div>
-    <h2>Dernières publications</h2>
+    <div class="latest-posts-header">  
+      <h2>Dernières publications</h2>
+      <button class="button" id="refresh-button" @click="getArticles">Rafraîchir</button>
+    </div>
     <p v-if="error">{{ error }}</p>
-    <button class="button" @click="getArticles">Rafraîchir</button>
       <Article 
         v-for="article in articles" :key="article.id" 
         :article="article"
@@ -64,14 +66,95 @@ export default {
 }
 </script>
 
-<style lang="scss">
-  #buttons {
-    display: flex;
-    justify-content: center;
-    button {
-      width: 400px;
-      height: 100px;
-      margin: 10px;
+<style lang="scss" scoped>
+  h1 {
+    position: relative;
+    top: -50px;
+    left: 10px;
+    @media all and (max-width: 800px) {
+      top: 0px;
     }
   }
+
+  #forum-header {
+    width: 50vw;
+    margin: auto;
+    @media all and (max-width: 800px) {
+      width: 90vw;
+    }
+  }
+  .forum-buttons {
+    width: 50vw;
+    margin: auto;
+    display: flex;
+    @media all and (max-width: 800px) {
+      width: 100vw;
+    }
+    &__button {
+      width: 25vw;
+        @media all and (max-width: 800px) {
+        width: 45vw;
+        font-size: 1em;
+      }
+      height: 100px;
+      font-size: 3em;
+      color: white;
+      font-family: Avenir, Helvetica, Arial, sans-serif;
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0px 1px 5px #8383bd;
+      &:hover {
+        cursor: pointer;
+        box-shadow: 0px 0px 4px #8383bd;
+      }
+    }
+  }
+
+  .media-btn {
+    background: url('../assets/images/media-forum-img.jpg') no-repeat 0, 0 #0000338f;
+    background-blend-mode: multiply;
+    background-size: cover;
+    background-position-y: 25%;
+    margin-right: 7px;
+    @media all and (max-width: 800px) {
+      margin-right: 0px;
+    }
+  }
+
+  .article-btn {
+    background: url('../assets/images/article-forum-img.jpg') no-repeat 0, 0 #0000338f;
+    //#0000338f #99e9ff;
+    background-blend-mode: multiply;
+    background-size: cover;
+    background-position-y: 25%;
+  }
+
+  a {
+    //font-weight: bold;
+    //color: white;
+    text-decoration: none;
+
+    &.router-link-exact-active {
+      //color: white;
+      text-decoration: underline;
+    }
+  }
+
+.latest-posts-header {
+  display: flex;
+  width: 50vw;
+  margin: auto;
+  margin-top: 40px;
+  margin-bottom: 15px;
+  align-items: center;
+  @media all and (max-width: 800px) {
+    width: 90vw;
+  }
+  & button {
+    margin: 0;
+  }
+  & h2 {
+    margin-right: 10px;
+  }
+}
 </style>
