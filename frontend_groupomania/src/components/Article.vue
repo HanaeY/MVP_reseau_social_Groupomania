@@ -8,8 +8,8 @@
       <button class="content__delete-btn button button-danger" v-if="(user.id == article.UserId) || (user.isadmin)" @click="deleteArticle">supprimer</button>
     </div>
     <img class="image" :src="article.file" :alt="article.alternativeText">
-    <button class="button button-bluebkg comments-button" v-if="commentsVisible == false" @click="showComments">Voir les commentaires</button>
-    <button class="button button-bluebkg comments-button" v-if="commentsVisible == true" @click="hideComments">Masquer les commentaires</button>
+    <button class="button comments-button" v-if="commentsVisible == false" @click="showComments">Voir les commentaires</button>
+    <button class="button comments-button" v-if="commentsVisible == true" @click="hideComments">Masquer les commentaires</button>
     <div class="comments">
       <div v-if="commentsVisible == true">
         <p v-if="this.article.Comments == ''">Pas encore de commentaire... écrivez le premier :) !</p>
@@ -89,6 +89,7 @@
     &-info {
     font-style: italic;
     font-size: 0.9em;
+    color: rgb(75, 74, 74);
     }
   }
   &__delete-btn {
@@ -114,11 +115,11 @@
     margin: auto;
     margin-top: 10px;
     margin-bottom: 10px;
-    padding: 10px 12px;
 }
 
 .comments {
-  background-color: rgba(12, 11, 107, 0.096);
+  background-color: #ffffff;
   border-radius: 0px 0px 10px 10px;
+  padding: 5px;
 }
 </style>

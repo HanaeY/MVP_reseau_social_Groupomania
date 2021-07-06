@@ -3,7 +3,7 @@
       <h1>Forum media</h1>
       <PostArticle/>
       <p v-if="error">{{ error }}</p>
-      <button class="button" @click="getArticles">Mettre à jour</button>
+      <button class="button" @click="getArticles">Rafraichir</button>
       <Article 
         v-for="article in articles" :key="article.id" 
         :article="article" 
@@ -57,3 +57,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+button {
+  margin-bottom: 5px;
+}
+</style>

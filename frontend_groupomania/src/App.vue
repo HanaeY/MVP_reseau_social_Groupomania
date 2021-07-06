@@ -9,7 +9,7 @@
         <router-link to="/user">Mon compte</router-link>
     </div>
     </header>
-    <button class="button" v-if="loggedIn" @click="logout">Me déconnecter</button>
+    <button class="button" id="logout-button" v-if="loggedIn" @click="logout">Me déconnecter</button>
     <router-view/>
   </div>
 </template>
@@ -45,13 +45,10 @@ export default {
   border-radius: 7px;
   padding: 5px 10px;
   font-weight: bolder;
+  cursor: pointer;
   &-danger {
-    color: red;
     border-color: red;
-  }
-  &-bluebkg {
-    background-color: #000033;
-    color: white;
+    padding: 2px 6px;
   }
 }
 
@@ -76,5 +73,18 @@ export default {
       text-decoration: underline;
     }
   }
+}
+
+/*
+#nav {
+  display: flex;
+  @media all and (max-width: 800px) {
+    flex-direction: column;
+  }
+}
+*/
+
+#logout-button {
+  margin-right: 10px;
 }
 </style>

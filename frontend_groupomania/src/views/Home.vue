@@ -8,7 +8,7 @@
       </div>
     <h2>Dernières publications</h2>
     <p v-if="error">{{ error }}</p>
-    <button class="button" @click="getArticles">Mettre à jour</button>
+    <button class="button" @click="getArticles">Rafraichir</button>
       <Article v-for="article in articles" :key="article.id" :article="article"/>
   </div>
 </template>
