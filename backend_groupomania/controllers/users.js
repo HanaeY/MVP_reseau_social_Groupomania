@@ -101,7 +101,7 @@ exports.deleteAccount = (req, res, next) => {
                             .then(() => {
                                 return res.status(201).json({message: 'compte utilisateur supprimé'});
                             })
-                            .catch(() => res.status(500).json({error: 'impossible de supprimer le compte utilisateur !'}))
+                            .catch(() => res.status(500).json({error: 'impossible de supprimer le compte utilisateur !'}));
                         })
                     }
                 })
@@ -110,7 +110,7 @@ exports.deleteAccount = (req, res, next) => {
             .then(() => {
                 return res.status(201).json({message: 'compte utilisateur supprimé'});
             })
-            .catch(() => res.status(500).json({error: 'impossible de supprimer le compte utilisateur !'}))
+            .catch(() => res.status(500).json({error: 'impossible de supprimer le compte utilisateur !'}));
         })
         .catch(() => res.status(500).json({error: 'impossible de rechercher les articles publiés !'}));
     })
@@ -143,16 +143,16 @@ exports.updateUsername = (req, res, next) => {
                                 username: (req.body.username ? req.body.username : user.username)
                             })
                             .then(user => res.status(201).json({userid: user.id, username: user.username}))
-                            .catch(() => res.status(500).json({error: "impossible de mettre le nom d'utilisateur à jour"}))
+                            .catch(() => res.status(500).json({error: "impossible de mettre le nom d'utilisateur à jour"}));
                         }
                     })
-                    .catch(() => res.status(500).json({error: "impossible de vérifier l'unicité du nom d'utilisateur"}))
+                    .catch(() => res.status(500).json({error: "impossible de vérifier l'unicité du nom d'utilisateur"}));
                 }
             })
-            .catch(() => res.status(500).json({error: "impossible de vérifier le mot de passe saisi"}))
+            .catch(() => res.status(500).json({error: "impossible de vérifier le mot de passe saisi"}));
         }
     })
-    .catch(() => res.status(500).json({error: "impossible de vérifier l'utilisateur"}))
+    .catch(() => res.status(500).json({error: "impossible de vérifier l'utilisateur"}));
 };
 
 exports.updateEmail = (req, res, next) => {
@@ -181,14 +181,46 @@ exports.updateEmail = (req, res, next) => {
                                 email: (req.body.email ? req.body.email : user.email)
                             })
                             .then(user => res.status(201).json({userid: user.id, email: user.email}))
-                            .catch(() => res.status(500).json({error: "impossible de mettre l'email' à jour"}))
+                            .catch(() => res.status(500).json({error: "impossible de mettre l'email' à jour"}));
                         }
                     })
-                    .catch(() => res.status(500).json({error: "impossible de vérifier l'unicité de l'email"}))
+                    .catch(() => res.status(500).json({error: "impossible de vérifier l'unicité de l'email"}));
                 }
             })
-            .catch(() => res.status(500).json({error: "impossible de vérifier le mot de passe saisi"}))
+            .catch(() => res.status(500).json({error: "impossible de vérifier le mot de passe saisi"}));
         }
     })
-    .catch(() => res.status(500).json({error: "impossible de vérifier l'utilisateur"}))
+    .catch(() => res.status(500).json({error: "impossible de vérifier l'utilisateur"}));
+};
+
+exports.updatePassword = (req, res, next) => {
+    models.User.findOne({
+        where: {id: req.body.userid},
+        attributes: ['id', 'password']
+    })
+    .then(user => {
+        if(!user) {
+            return res.status(404).json({error: "utilisateur non trouvé"})
+        } else {
+            bcrypt.compare(req.body.currentPassword, user.password)
+            .then(valid => {
+                if(!valid) {
+                    return res.status(401).json({error: "mot de passe saisi invalide"})
+                } else {
+                    bcrypt.hash(req.body.password, 10)
+                    .then(hash => {
+                        console.log('HASH: ', hash);
+                        user.update({
+                            password: hash
+                        })
+                        .then(() => res.status(201).json({message: "mot de passe bien mis à jour"}))
+                        .catch(() => res.status(500).json({error: "échec de la mise à jour du mot de passe"}));
+                    })
+                    .catch(() => res.status(500).json({error: "échec du cryptage du mot de passe"}));
+                }
+            })
+            .catch(() => res.status(500).json({error: "impossible de vérifier le mot de passe saisi"}));
+        }
+    })
+    .catch(() => res.status(500).json({error: "impossible de vérifier l'utilisateur"}));
 };

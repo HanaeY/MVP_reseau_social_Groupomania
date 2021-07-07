@@ -31,4 +31,10 @@ export default {
             body: JSON.stringify(userid, email, password)
         })
     },
+    updatePassword(userid, password, currentPassword) {
+        return api("/users/myaccount/updatePassword", {
+            method:"PUT",
+            body: JSON.stringify(userid, password, currentPassword)
+        })
+    },
 };

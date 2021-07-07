@@ -13,6 +13,7 @@ router.post('/login', ctrl.login);
 router.delete('/myaccount', authentification, ctrl.deleteAccount);
 router.put('/myaccount/updateUsername', authentification, validate.validateUsername, ctrl.updateUsername);
 router.put('/myaccount/updateEmail', authentification, validate.validateEmail, ctrl.updateEmail);
+router.put('/myaccount/updatePassword', authentification, validate.validatePassword, ctrl.updatePassword);
 
 // export du routeur qui sera importé dans app
 module.exports = router;

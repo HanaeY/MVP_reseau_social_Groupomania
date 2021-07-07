@@ -18,22 +18,39 @@
 
         <h3>Changer mon email</h3>
           <form @submit.prevent="updateEmail">
-            <label for="new-email">Nouvel email</label><input type="email" id="new-email" v-model="newEmail"><br>
-            <label for="password">Valider avec le mot de passe</label><input type="password" id="password" v-model="currentPassword">
+            <div>
+              <label for="new-email">Nouvel email</label>
+              <input type="email" id="new-email" v-model="newEmail" required><br>
+
+              <label for="password">Mot de passe actuel</label>
+              <input type="password" id="password" v-model="currentPassword1" required>
+            </div>
             <button class="button" type="submit">Envoyer</button>
           </form>
 
         <h3>Changer mon nom d'utilisateur</h3>
           <form @submit.prevent="updateUsername">
-            <label for="new-username">Nouveau nom d'utilisateur</label><input type="text" id="new-username" v-model="newUsername"><br>
-            <label for="password">Valider avec le mot de passe</label><input type="password" id="password" v-model="currentPassword">
+            <div>
+              <label for="new-username">Nouveau nom d'utilisateur</label>
+              <input type="text" id="new-username" v-model="newUsername" required><br>
+
+              <label for="password">Mot de passe actuel</label>
+              <input type="password" id="password" v-model="currentPassword2" required>
+            </div>
+
             <button class="button" type="submit">Envoyer</button>
           </form>
 
         <h3>Changer mon mot de passe</h3>
           <form @submit.prevent="updatePassword">
-            <label for="new-password">Nouveau mot de passe</label><input type="text" id="new-password" v-model="newPassword"><br>
-            <label for="password">Valider avec le mot de passe</label><input type="password" id="password" v-model="currentPassword">
+            <div>
+              <label for="new-password">Nouveau mot de passe</label>
+              <input type="password" id="new-password" v-model="newPassword" required><br>
+
+              <label for="password">Mot de passe actuel</label>
+              <input type="password" id="password" v-model="currentPassword3" required>
+            </div>
+
             <button class="button" type="submit">Envoyer</button>
           </form>
     </div>
@@ -52,7 +69,9 @@ export default {
       newUsername: null,
       newEmail: null, 
       newPassword: null,
-      currentPassword: null, 
+      currentPassword1: null, 
+      currentPassword2: null,
+      currentPassword3: null,
       validationMessage: null
     }
   },
@@ -77,39 +96,50 @@ export default {
       }
     },
     clearData() {
-        this.currentPassword = null;
+        this.currentPassword1 = null;
+        this.currentPassword2 = null;
+        this.currentPassword3 = null;
         this.newEmail = null;
         this.newPassword = null;
         this.newUsername = null;
     },
     async updateUsername() {
       try {
-        const response = await UserService.updateUsername({userid: this.user.id, username: this.newUsername, password: this.currentPassword});
-        this.user.username = response.username;
+        const response = await UserService.updateUsername({userid: this.user.id, username: this.newUsername, password: this.currentPassword2});
         this.clearData();
         this.error = null;
         this.$store.dispatch("updateUsername", response.username);
         this.validationMessage = "Nom d'utilisateur bien modifié !";
       } catch(e) {
         this.clearData();
+        this.message = null;
         this.error = e.toString();
       }
     },
     async updateEmail() {
       try {
-        const response = await UserService.updateEmail({userid: this.user.id, email: this.newEmail, password: this.currentPassword});
-        this.user.email = response.email;
+        const response = await UserService.updateEmail({userid: this.user.id, email: this.newEmail, password: this.currentPassword1});
         this.clearData();
         this.error = null;
         this.$store.dispatch("updateEmail", response.email);
         this.validationMessage = "Email bien modifié !"
       } catch(e) {
         this.clearData();
+        this.message = null;
         this.error = e.toString();
       }
     },
-    updatePassword() {
-      //...
+    async updatePassword() {
+      try {
+        const response = await UserService.updatePassword({userid: this.user.id, password: this.newPassword, currentPassword: this.currentPassword3});
+        this.clearData();
+        this.error = null;
+        this.validationMessage = response.message;
+      } catch(e) {
+        this.clearData();
+        this.message = null;
+        this.error = e.toString();
+      }
     }
   },
   beforeMount() {
@@ -119,12 +149,13 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .user {
   //height: 100vh;
   width: 530px;
   @media all and (max-width: 800px) {
     width: 90vw;
+    text-align: center;
   }
 }
 
@@ -138,5 +169,20 @@ export default {
     text-align: center;
   }
 }
+
+form {
+  display: flex;
+  align-items: center;
+  @media all and (max-width: 800px) {
+    flex-direction: column;
+  }
+  button {
+    margin-right: 5px;
+    @media all and (max-width: 800px) {
+      margin: auto;
+    }
+  }
+}
+
 </style>
 
