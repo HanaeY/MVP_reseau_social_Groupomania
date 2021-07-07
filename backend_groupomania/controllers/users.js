@@ -153,30 +153,42 @@ exports.updateUsername = (req, res, next) => {
         }
     })
     .catch(() => res.status(500).json({error: "impossible de vérifier l'utilisateur"}))
-}
+};
 
-/*
-
-       models.User.findOne({
-            where: {username: req.body.username},
-            attributes: ['username']
-        })
-        .then(otherUser => {
-            if(otherUser) {
-                return res.status(409).json({error: "nom d'utilisateur déjà utilisé"})
-            } else {
-                user.update({
-                    username: (req.body.username ? req.body.username : user.username)
-                })
-                .then(user => {
-                    console.log(user);
-                    res.status(201).json({user});
-                })
-                .catch(() => res.status(500).json({error: "impossible de mettre le nom d'utilisateur à jour"}))
-            }
-        })
-        .catch(() => res.status(500).json({error: "impossible de vérifier l'unicité du nom d'utilisateur"}))
+exports.updateEmail = (req, res, next) => {
+    models.User.findOne({
+        where: {id: req.body.userid},
+        attributes: ['id', 'email', 'password']
     })
-
-    */
-
+    .then(user => {
+        if(!user) {
+            return res.status(404).json({error: "utilisateur non trouvé"})
+        } else {
+            bcrypt.compare(req.body.password, user.password)
+            .then(valid => {
+                if(!valid) {
+                    return res.status(401).json({error: "mot de passe saisi invalide"})
+                } else {
+                    models.User.findOne({
+                        where: {email: req.body.email},
+                        attributes: ['email']
+                    })
+                    .then(otherUser => {
+                        if(otherUser) {
+                            return res.status(409).json({error: "email déjà utilisé"})
+                        } else {
+                            user.update({
+                                email: (req.body.email ? req.body.email : user.email)
+                            })
+                            .then(user => res.status(201).json({userid: user.id, email: user.email}))
+                            .catch(() => res.status(500).json({error: "impossible de mettre l'email' à jour"}))
+                        }
+                    })
+                    .catch(() => res.status(500).json({error: "impossible de vérifier l'unicité de l'email"}))
+                }
+            })
+            .catch(() => res.status(500).json({error: "impossible de vérifier le mot de passe saisi"}))
+        }
+    })
+    .catch(() => res.status(500).json({error: "impossible de vérifier l'utilisateur"}))
+};

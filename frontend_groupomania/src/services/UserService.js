@@ -25,4 +25,10 @@ export default {
             body: JSON.stringify(userid, username, password)
         })
     },
+    updateEmail(userid, email, password) {
+        return api("/users/myaccount/updateEmail", {
+            method:"PUT",
+            body: JSON.stringify(userid, email, password)
+        })
+    },
 };

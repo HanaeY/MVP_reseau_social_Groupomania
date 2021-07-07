@@ -18,7 +18,7 @@
 
         <h3>Changer mon email</h3>
           <form @submit.prevent="updateEmail">
-            <label for="new-email">Nouveau nom d'utilisateur</label><input type="email" id="new-email" v-model="newEmail"><br>
+            <label for="new-email">Nouvel email</label><input type="email" id="new-email" v-model="newEmail"><br>
             <label for="password">Valider avec le mot de passe</label><input type="password" id="password" v-model="currentPassword">
             <button class="button" type="submit">Envoyer</button>
           </form>
@@ -32,7 +32,7 @@
 
         <h3>Changer mon mot de passe</h3>
           <form @submit.prevent="updatePassword">
-            <label for="new-password">Nouveau nom d'utilisateur</label><input type="text" id="new-password" v-model="newPassword"><br>
+            <label for="new-password">Nouveau mot de passe</label><input type="text" id="new-password" v-model="newPassword"><br>
             <label for="password">Valider avec le mot de passe</label><input type="password" id="password" v-model="currentPassword">
             <button class="button" type="submit">Envoyer</button>
           </form>
@@ -85,18 +85,28 @@ export default {
     async updateUsername() {
       try {
         const response = await UserService.updateUsername({userid: this.user.id, username: this.newUsername, password: this.currentPassword});
-        console.log(response);
         this.user.username = response.username;
         this.clearData();
         this.error = null;
-        this.validationMessage = "Nom d'utilisateur bien modifié !"
+        this.$store.dispatch("updateUsername", response.username);
+        this.validationMessage = "Nom d'utilisateur bien modifié !";
       } catch(e) {
         this.clearData();
         this.error = e.toString();
       }
     },
-    updateEmail() {
-      //...
+    async updateEmail() {
+      try {
+        const response = await UserService.updateEmail({userid: this.user.id, email: this.newEmail, password: this.currentPassword});
+        this.user.email = response.email;
+        this.clearData();
+        this.error = null;
+        this.$store.dispatch("updateEmail", response.email);
+        this.validationMessage = "Email bien modifié !"
+      } catch(e) {
+        this.clearData();
+        this.error = e.toString();
+      }
     },
     updatePassword() {
       //...

@@ -29,7 +29,13 @@ export default new Vuex.Store({
     },
     SET_ARTICLES(state, articles) {
       state.articles = articles
-    }
+    },
+    SET_USERNAME(state, username) {
+      state.user.username = username
+    },
+    SET_EMAIL(state, email) {
+      state.user.email = email
+    },
   },
   actions: {
     login(context, {user, token}) {
@@ -53,7 +59,13 @@ export default new Vuex.Store({
     },
     displayArticles(context, articles) {
       context.commit('SET_ARTICLES', articles);
-    }
+    },
+    updateUsername(context, username) {
+      context.commit('SET_USERNAME', username)
+    },
+    updateEmail(context, email) {
+      context.commit('SET_EMAIL', email)
+    },
   },
   modules: {
   }
