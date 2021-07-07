@@ -1,5 +1,5 @@
 <template>
-  <div class="postarticle">
+  <div class="postarticle container">
       <h2>Publier un nouvel article</h2>
       <form>
           <label for="file">Fichier image</label><i class="fas fa-info-circle" title="fichiers acceptés : .jpg, .jpeg, .png, .webp, .gif"></i>
@@ -64,8 +64,6 @@ export default {
 <style scoped lang="scss">
 
 .postarticle {
-  width: 50vw;
-  margin: auto;
   margin-bottom: 20px;
   box-shadow: 0px 2px 7px gray;
   border-radius: 15px;
@@ -73,7 +71,6 @@ export default {
   padding: 5px;
   background-color: white;
   @media all and (max-width: 800px) {
-    width: 90vw;
     margin-bottom: 10px;
   }
 }

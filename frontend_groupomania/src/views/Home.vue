@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home container">
     <h1>Bienvenue {{ user.username }} !</h1>
     <h2 id="forum-header">Je visite les forums</h2>
       <div class="forum-buttons">
@@ -76,13 +76,6 @@ export default {
     }
   }
 
-  #forum-header {
-    width: 50vw;
-    margin: auto;
-    @media all and (max-width: 800px) {
-      width: 90vw;
-    }
-  }
   .forum-buttons {
     width: 50vw;
     margin: auto;
@@ -142,14 +135,9 @@ export default {
 
 .latest-posts-header {
   display: flex;
-  width: 50vw;
-  margin: auto;
   margin-top: 40px;
   margin-bottom: 15px;
   align-items: center;
-  @media all and (max-width: 800px) {
-    width: 90vw;
-  }
   & button {
     margin: 0;
   }

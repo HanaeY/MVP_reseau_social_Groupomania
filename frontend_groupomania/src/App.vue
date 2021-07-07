@@ -38,6 +38,14 @@ export default {
   background-image: url(assets/images/backgroundpattern.png);
 }
 
+.container {
+  width: 50vw;
+  margin: auto;
+  @media all and (max-width: 800px) {
+    width: 90vw;
+  }
+}
+
 label {
   margin-right: 10px;
 }

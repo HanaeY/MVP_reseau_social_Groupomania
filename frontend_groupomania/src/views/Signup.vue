@@ -60,5 +60,6 @@ export default {
 <style lang="scss">
 #signup {
   height: 100vh;
+  text-align: center;
 }
 </style>

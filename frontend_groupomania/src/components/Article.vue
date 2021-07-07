@@ -1,5 +1,5 @@
 <template>
-  <div class="article">
+  <div class="article container">
     <div class="content">
       <div class="content__text">
         <p class="content__text-info"> Posté par {{ article.User.username }} le {{ date }}</p>
@@ -68,8 +68,6 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .article {
-  width: 50vw;
-  margin: auto;
   margin-bottom: 20px;
   box-shadow: 0px 2px 7px #8383bd;
   border-radius: 15px;
@@ -77,7 +75,6 @@
   padding: 5px;
   background-color: white;
   @media all and (max-width: 800px) {
-    width: 90vw;
     margin-bottom: 10px;
   }
 }

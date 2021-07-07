@@ -52,5 +52,6 @@ export default {
 <style lang="scss">
 .login {
   height: 100vh;
+  text-align: center;
 }
 </style>
