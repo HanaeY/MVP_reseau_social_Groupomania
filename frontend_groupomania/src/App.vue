@@ -11,6 +11,7 @@
     </header>
     <button class="button" id="logout-button" v-if="loggedIn" @click="logout">Me déconnecter</button>
     <router-view/>
+    <footer></footer>
   </div>
 </template>
 
@@ -33,7 +34,6 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  //text-align: center;
   color: #000033;
   background-image: url(assets/images/backgroundpattern.png);
 }
@@ -60,8 +60,9 @@ input {
 
 .button {
   font-family: Avenir, Helvetica, Arial, sans-serif;
+  color: #000033;
   background-color: white;
-  border: 2px solid;
+  border: 2px solid #000033;
   border-radius: 7px;
   padding: 5px 10px;
   font-weight: bolder;
@@ -94,6 +95,11 @@ input {
       text-decoration: underline;
     }
   }
+}
+
+footer {
+  padding: 20px;
+  background-color: #cc6666;
 }
 
 /*

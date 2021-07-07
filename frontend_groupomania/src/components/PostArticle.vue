@@ -1,6 +1,6 @@
 <template>
   <div class="postarticle container">
-      <h2>Publier un nouvel article</h2>
+      <h2>Publier</h2>
       <form>
           <label for="file">Fichier image</label><i class="fas fa-info-circle" title="fichiers acceptés : .jpg, .jpeg, .png, .webp, .gif"></i>
           <input type="file" name="file" id="file" required @change="onFileSelected"><br> 
@@ -68,10 +68,13 @@ export default {
   box-shadow: 0px 2px 7px gray;
   border-radius: 15px;
   text-align: left;
-  padding: 5px;
+  padding: 10px;
   background-color: white;
   @media all and (max-width: 800px) {
     margin-bottom: 10px;
+    padding: 5px;
+    width: 80vw;
+    
   }
 }
 </style>

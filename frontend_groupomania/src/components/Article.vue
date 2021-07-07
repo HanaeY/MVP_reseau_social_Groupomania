@@ -72,10 +72,12 @@
   box-shadow: 0px 2px 7px #8383bd;
   border-radius: 15px;
   text-align: left;
-  padding: 5px;
+  padding: 10px;
   background-color: white;
   @media all and (max-width: 800px) {
     margin-bottom: 10px;
+    padding: 5px;
+    width: 80vw;;
   }
 }
 
@@ -102,7 +104,7 @@
   max-height: 50vh;
   border-radius: 15px;
   @media all and (max-width: 800px) {
-    max-width: 90vw;
+    max-width: 80vw;
     max-height: 90vw;
   }
 }
