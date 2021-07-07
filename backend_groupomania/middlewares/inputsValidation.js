@@ -3,7 +3,7 @@ const fs = require('fs');
 //constantes
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const PASSWORD_REGEX = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/; // 8 caractères min, au moins 1 lettre, 1 chiffre et 1 caractère spécial
-const TEXT_REGEX = /^[a-zA-Zéàèïç\d\-_.,!'\s]+$/i
+const TEXT_REGEX = /^[a-zA-Zéàèïëç\d\-_.,!'\s]+$/i
 
 exports.validateUsername = (req, res, next) => {
     if(!req.body.username) {

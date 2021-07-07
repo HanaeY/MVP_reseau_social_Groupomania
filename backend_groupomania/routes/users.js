@@ -11,6 +11,7 @@ const authentification = require('../middlewares/auth');
 router.post('/signup', validate.validateUsername, validate.validateEmail, validate.validatePassword, ctrl.signup);
 router.post('/login', ctrl.login);
 router.delete('/myaccount', authentification, ctrl.deleteAccount);
+router.put('/myaccount/updateUsername', authentification, validate.validateUsername, ctrl.updateUsername);
 
 // export du routeur qui sera importé dans app
 module.exports = router;

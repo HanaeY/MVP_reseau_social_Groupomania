@@ -19,4 +19,10 @@ export default {
             body: JSON.stringify(userid)
         });
     },
+    updateUsername(userid, username, password) {
+        return api("/users/myaccount/updateUsername", {
+            method:"PUT",
+            body: JSON.stringify(userid, username, password)
+        })
+    },
 };
