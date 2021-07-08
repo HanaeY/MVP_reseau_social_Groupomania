@@ -39,13 +39,14 @@ exports.validatePassword = (req, res, next) => {
 };
 
 exports.validateArticle = (req, res, next) => {
-    if(!req.body.description || !req.body.userid ||!req.body.alternativeText) {
+    const reqBody = JSON.parse(req.body.textContent);
+    if(!reqBody.description || !reqBody.userid ||!reqBody.alternativeText) {
         fs.unlink(`./files/${req.file.filename}`, () => res.status(400).json({error: "paramètre manquant !"}));
     } 
-    if(req.body.description.length < 1 || req.body.description.length > 255 ) {
+    if(reqBody.description.length < 1 || reqBody.description.length > 255 ) {
         fs.unlink(`./files/${req.file.filename}`, () => res.status(400).json({error: "le message doit contenir entre 1 et 255 caractères !"}));
     }
-    if(req.body.alternativeText.length < 1 || req.body.alternativeText.length > 255 ) {
+    if(reqBody.alternativeText.length < 1 || reqBody.alternativeText.length > 255 ) {
         fs.unlink(`./files/${req.file.filename}`, () => res.status(400).json({error: "le texte alternatif doit contenir entre 1 et 255 caractères !"}));
     }
     next();

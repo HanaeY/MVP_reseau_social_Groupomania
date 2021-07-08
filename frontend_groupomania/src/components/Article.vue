@@ -55,8 +55,8 @@
     },
     async deleteArticle() {
       try {
-        const response = await ArticleService.deleteArticle(this.article.id, {userid: this.user.id});
-        console.log(response);
+        await ArticleService.deleteArticle(this.article.id, {userid: this.user.id});
+        this.$emit('article-deleted');
       } catch(e) {
         this.error = e.toString();
       }

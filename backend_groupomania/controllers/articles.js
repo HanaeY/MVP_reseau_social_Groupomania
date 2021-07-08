@@ -4,18 +4,19 @@ const fs = require('fs');
 
 // fonctions
 exports.postArticle = (req, res, next) => {
+    const reqBody = JSON.parse(req.body.textContent);
     const fileUrl = `${req.protocol}://${req.get('host')}/files/${req.file.filename}`;
 
     models.User.findOne({ 
-        where: {id: req.body.userid},
+        where: {id: reqBody.userid},
         attributes: ['id']
     })
     .then(user => {
         models.Article.create({ // on créé un nouvel article qu'on enregistre dans la base de données
             UserId: user.id,
-            description: req.body.description,
+            description: reqBody.description,
             file: fileUrl,
-            alternativeText: req.body.alternativeText
+            alternativeText: reqBody.alternativeText
         })
         .then(newArticle => res.status(201).json({newArticle}))
         .catch(() => fs.unlink(`./files/${req.file.filename}`, () => res.status(500).json({message: "impossible de publier l'article !"})));

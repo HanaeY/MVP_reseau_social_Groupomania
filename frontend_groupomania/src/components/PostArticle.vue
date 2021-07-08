@@ -2,8 +2,15 @@
   <div class="postarticle container">
       <h2>Publier</h2>
       <form>
-          <label for="file">Fichier image</label><i class="fas fa-info-circle" title="fichiers acceptés : .jpg, .jpeg, .png, .webp, .gif"></i>
-          <input type="file" name="file" id="file" required @change="onFileSelected"><br> 
+          <label for="file">Fichier image</label>
+          <i class="fas fa-info-circle" title="fichiers acceptés : .jpg, .jpeg, .png, .webp, .gif"></i>
+          <input 
+            type="file" name="file" id="file" 
+            required 
+            @change="onFileSelected"
+            accept="image/jpeg, image/jpg, image/webp, image/gif, image/png"
+          >
+          <br> 
 
           <label for="alternativeText">Texte alternatif (image)</label>
           <input type="text" name="alternativeText" id="alternativeText" maxlength="255" required v-model="alternativeText"><br>
@@ -11,7 +18,7 @@
           <label for="description">Votre message</label>
           <input type="text" name="description" id="description" maxlength="255" required v-model="description"><br>
 
-          <button class="button" type="submit" @click="postArticle">Publier</button>
+          <button class="button" type="submit" @click.prevent="postArticle">Publier</button>
           <p v-if="error">{{ error }}</p>
       </form>
   </div>
@@ -19,7 +26,7 @@
 
 <script>
 import { mapState } from 'vuex'
-//import ArticleService from "@/services/ArticleService"
+import ArticleService from "@/services/ArticleService"
 
 export default {
   name: 'NewArticle',
@@ -34,27 +41,29 @@ export default {
   computed: {...mapState(['user'])},
   methods: {
     onFileSelected(event) {
-      console.log(event.target.files[0]);
       this.selectedFile = event.target.files[0];
 
     },
     async postArticle() {
       const fd = new FormData();
-      //fd.append('image', this.selectedFile, this.selectedFile.name);
-      console.log(fd);
-      fd.append('alternativeText', this.alternativeText);
-      //fd.append('description', this.description);
-      //fd.append('userid', this.user.id)
-      console.log('FD', fd);
-      /*
+      const textContent = {alternativeText: this.alternativeText, description: this.description, userid: this.user.id};
+
+      fd.append('textContent', JSON.stringify(textContent));
+      fd.append('image', this.selectedFile);
+  
       try {
-        const response = await ArticleService.postArticle({fd});
-        console.log(response);
+        await ArticleService.postArticle(fd);
+        this.alternativeText = null;
+        this.description = null;
+        this.error = null;
         // recharger l'élément parent 
+        this.$emit('article-posted');
       } catch(e) {
-        this.error = e.toString();
+          this.selectedFile = null;
+          this.alternativeText = null;
+          this.description = null;
+          this.error = e.toString();
       }
-      */
     }
   }
 }

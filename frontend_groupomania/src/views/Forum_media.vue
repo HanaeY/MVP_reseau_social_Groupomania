@@ -1,7 +1,7 @@
 <template>
   <div class="forum_media container">
       <h1>Forum media</h1>
-      <PostArticle/>
+      <PostArticle @article-posted="reloadArticles"/>
       <p v-if="error">{{ error }}</p>
       <div class="forum_media__refreshAndOrder">
         <p>Rafraîchir et trier : 
@@ -11,6 +11,7 @@
       <Article 
         v-for="article in articles" :key="article.id" 
         :article="article" 
+        @article-deleted="reloadArticles"
         @comment-posted="reloadArticles" 
         @comment-deleted="reloadArticles"
       />

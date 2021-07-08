@@ -1,4 +1,5 @@
 import { api } from "@/services/api.js";
+import { api2 } from "@/services/api.js";
 
 export default {
     getArticles(limit, offset, order) {
@@ -6,11 +7,10 @@ export default {
             method: "GET"
         });
     },
-    postArticle(article) {
-        return api("/articles", {
+    postArticle(content) {
+        return api2("/articles", {
             method: "POST",
-            "Content-type": "multipart/form-data",
-            body: JSON.stringify(article)
+            body: content
         })
     },
     deleteArticle(articleid, userid) {
