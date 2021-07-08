@@ -38,7 +38,8 @@ exports.getAllArticles = (req, res, next) => {
             {
                 model: models.Comment, 
                 attributes: ['comment', 'id', 'createdAt', 'UserId'],
-                include: [{model: models.User, attributes: ["username"]}]
+                include: [{model: models.User, attributes: ["username"]}],
+                //order: [['createdAt', 'ASC']]
             }
         ],
         order: [['createdAt', order]],
