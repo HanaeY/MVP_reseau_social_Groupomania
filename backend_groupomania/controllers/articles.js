@@ -12,23 +12,25 @@ exports.postArticle = (req, res, next) => {
         attributes: ['id']
     })
     .then(user => {
+        if(!user) {
+            return res.status(404).json({error: "utilisateur non trouvé"});
+        }
         models.Article.create({ // on créé un nouvel article qu'on enregistre dans la base de données
             UserId: user.id,
             description: reqBody.description,
             file: fileUrl,
             alternativeText: reqBody.alternativeText
         })
-        .then(newArticle => res.status(201).json({newArticle}))
-        .catch(() => fs.unlink(`./files/${req.file.filename}`, () => res.status(500).json({message: "impossible de publier l'article !"})));
+        .then(() => res.status(201).json({message: "article bien créé"}))
+        .catch(() => fs.unlink(`./files/${req.file.filename}`, () => res.status(500).json({error: "impossible de publier l'article, veuillez réessayer ultérieurement"})));
     })
-    .catch(() => fs.unlink(`./files/${req.file.filename}`, () => res.status(404).json({message: "utilisateur non trouvé !"})));
+    .catch(() => fs.unlink(`./files/${req.file.filename}`, () => res.status(500).json({error: "impossible de rechercher l'utilisateur, veuillez réessayer ultérieurement"})));
 };
 
 exports.getAllArticles = (req, res, next) => {
     const limit = parseInt(req.query.limit);
     const offset = parseInt(req.query.offset);
     const order = req.query.order;
-    console.log(req.query);
     models.Article.findAll({
         include: [
             {
@@ -47,9 +49,9 @@ exports.getAllArticles = (req, res, next) => {
         offset: (!isNaN(offset) ? offset : null)
     })
     .then(articles => {
-        res.status(201).json({articles});
+        res.status(200).json({articles});
     })
-    .catch(error => res.status(500).json({message: error | "impossible d'afficher les articles !"}))
+    .catch(() => res.status(500).json({error: "impossible d'afficher les articles, veuillez réessayer ultérieurement"}))
 };
 
 exports.deleteArticle = (req, res, next) => {
@@ -58,20 +60,19 @@ exports.deleteArticle = (req, res, next) => {
     })
     .then(article => {
         if(!article) {
-            res.status(404).json({message: 'article introuvable !'});
+            return res.status(404).json({error: 'article introuvable'});
         } else {
             // suppression du fichier joint
             const filename = article.file.split('/files/')[1];
             fs.unlink(`./files/${filename}`, () => { // callback : suppression de l'article
                 article.destroy()
                 .then(() => {
-                    //res.redirect('/');
-                    res.status(201).json({message: 'article supprimé !'});
+                    res.status(200).json({message: "article bien supprimé"});
                 })
-                .catch(error => res.status(500).json({error}));
+                .catch(() => res.status(500).json({error: "impossible de supprimer l'article, veuillez réessayer ultérieurement"}));
             })
         }
     })
-    .catch(() => res.status(500).json({message: "impossible de rechercher l'article !"}))
+    .catch(() => res.status(500).json({error: "impossible de rechercher l'article, veuillez réessayer ultérieurement"}))
 };
 

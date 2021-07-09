@@ -8,16 +8,18 @@ exports.addComment = (req, res, next) => {
         attributes: ['id']
     })
     .then(article => {
+        if(!article) {
+            return res.status(404).json({error: "référence de l'article incorrecte"});
+        }
         models.Comment.create({
             UserId: req.body.userid,
             ArticleId: article.id,
             comment: req.body.comment,
         })
         .then(() => res.status(201).json({message: "commentaire bien enregistré"}))
-        .catch(() => res.status(500).json({error: "échec de l'enregistrement du commentaire"}))
+        .catch(() => res.status(500).json({error: "échec de l'enregistrement du commentaire, veuillez réessayer ultérieurement"}))
     })
-    .catch(() => {
-        res.status(500).json({error: "échec de l'enregistrement du commentaire, référence non trouvée"})});
+    .catch(() => {res.status(500).json({error: "échec de l'enregistrement du commentaire, veuillez réessayer ultérieurement"})});
 };
 
 exports.deleteComment = (req, res, next) => {
@@ -25,22 +27,12 @@ exports.deleteComment = (req, res, next) => {
         where: {id: req.params.commentid}
     })
     .then(comment => {
-        comment.destroy()
-        .then(() => res.status(201).json({message: "commentaire supprimé"}))
-        .catch(() => res.status(401).json({message: "échec de la suppression"}))
-    })
-    .catch(() => res.status(500).json({message: "échec de la suppression, référence non trouvée"}));
-};
-
-exports.getComments = (req, res, next) => {
-    models.Comment.findAndCountAll({
-        where: {ArticleId: req.params.id}
-    })
-    .then((count, rows) => {
-        if(count == 0) {
-            return res.status(401).json({error: 'pas de commentaires à afficher !'})
+        if(!comment) {
+            return res.status(404).json({error: "référence non trouvée"});
         }
-        res.status(201).json({count, rows});
+        comment.destroy()
+        .then(() => res.status(200).json({message: "commentaire supprimé"}))
+        .catch(() => res.status(500).json({error: "échec de la suppression, veuillez réessayer ultérieurement"}))
     })
-    .catch(() => res.status(500).json({error: 'impossible de rechercher les commentaires'}));
+    .catch(() => res.status(500).json({error: "référence non trouvée, veuillez réessayer ultérieurement"}));
 };

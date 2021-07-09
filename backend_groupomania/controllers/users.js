@@ -1,33 +1,40 @@
+//imports
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const models = require('../models');
 const fs = require('fs');
 
+//fonctions exportées
 exports.signup = (req, res, next) => {
-    models.User.findOne({ // vérification email
-        attributes: ['email'], // attributs que l'on veut récupérer
+    // vérification email
+    models.User.findOne({ 
+        attributes: ['email'], 
         where: {email: req.body.email}
     })
     .then(userFound => {
         if(userFound) {
-            res.status(409).json({error: 'email déjà utilisé !'}) // 409 : conflit 
+            res.status(409).json({error: 'email déjà utilisé'}); 
         } else {
-            models.User.findOne({ // vérification username
+            // vérification username
+            models.User.findOne({ 
                 attributes: ['username'],
                 where: {username: req.body.username}
             })
             .then(userFound => {
                 if(userFound) {
-                    res.status(409).json({error: "nom d'utilisateur déjà utilisé !"}); 
+                    res.status(409).json({error: "nom d'utilisateur déjà utilisé"}); 
                 } else {
-                    bcrypt.hash(req.body.password, 10) // cryptage du mot de passe 
+                    // cryptage du mot de passe
+                    bcrypt.hash(req.body.password, 10)  
                     .then(hash => {
-                        models.User.create({ // création du nouvel utilisateur 
+                        // création du nouvel utilisateur 
+                        models.User.create({ 
                             email: req.body.email,
                             username: req.body.username,
                             password: hash,
                             isadmin: 0 
                         })
+                        // création du token d'authentification
                         .then(user => {
                             const token = jwt.sign(
                                 {userid: user.id}, //payload
@@ -35,33 +42,33 @@ exports.signup = (req, res, next) => {
                                 {expiresIn: '24h'}
                             )
                             res.status(201).json({user, token})})
-                        .catch(() => res.status(500).json({error: "impossible de créer le compte utilisateur"}));
+                        .catch(() => res.status(500).json({error: "impossible de créer le compte utilisateur, veuillez essayer ultérieurement"}));
         
                     })
-                    .catch(() => res.status(500).json({error: "impossible de crypter le mot de passe !"})); 
+                    .catch(() => res.status(500).json({error: "impossible de crypter le mot de passe, veuillez essayer ultérieurement"})); 
                 }
             })
-            .catch(() => res.status(500).json({error: "impossible de vérifier le nom d'utilisateur !"}));
+            .catch(() => res.status(500).json({error: "impossible de vérifier le nom d'utilisateur, veuillez essayer ultérieurement"}));
         }
     })
-    .catch(() => res.status(500).json({error: 'impossible de valider le mail'}));
+    .catch(() => res.status(500).json({error: "impossible de vérifier l'email, veuillez essayer ultérieurement"}));
 };
 
 exports.login = (req, res, next) => {
     if(!req.body.email || !req.body.password) {
-        return res.status(400).json({error: "paramètre manquant !"});
+        return res.status(400).json({error: "paramètre manquant"});
     }
     models.User.findOne({
         where: {email: req.body.email}
     })
     .then(user => {
         if(!user) {
-            res.status(401).json({error: 'utilisateur non trouvé !'})
+            res.status(404).json({error: 'aucun utilisateur ne correspond à cet email'})
         } 
         bcrypt.compare(req.body.password, user.password) // retourne true ou false
         .then(valid => {
             if(!valid) {
-                res.status(401).json({error: 'mot de passe incorrect !'})
+                res.status(401).json({error: 'mot de passe incorrect'})
             } else {
                 res.status(200).json({
                     user,
@@ -73,9 +80,9 @@ exports.login = (req, res, next) => {
                 });
             }
         })
-        .catch(() => res.status(500).json({error: 'impossible de vérifier le mot de passe !'}));
+        .catch(() => res.status(500).json({error: 'impossible de vérifier le mot de passe, veuillez réessayer ultérieurement'}));
     })
-    .catch(() => res.status(500).json({error: 'impossible de rechercher cet utilisateur !'}));
+    .catch(() => res.status(500).json({error: 'impossible de rechercher cet utilisateur, veuillez réessayer ultérieurement'}));
 };
 
 exports.deleteAccount = (req, res, next) => {
@@ -85,8 +92,9 @@ exports.deleteAccount = (req, res, next) => {
     })
     .then(user => {
         if(!user) {
-            return res.statut(404).json({error: 'utilisateur non trouvé !'});
+            return res.statut(404).json({error: 'utilisateur non trouvé'});
         }
+        // suppression des images publiées par l'utilisateur du système de fichiers
         models.Article.findAll({
             where: {UserId: user.id},
             attributes: ['file']
@@ -99,22 +107,22 @@ exports.deleteAccount = (req, res, next) => {
                         fs.unlink(`./files/${filename}`, () => {
                             user.destroy()
                             .then(() => {
-                                return res.status(201).json({message: 'compte utilisateur supprimé'});
+                                return res.status(200).json({message: 'compte utilisateur supprimé'});
                             })
-                            .catch(() => res.status(500).json({error: 'impossible de supprimer le compte utilisateur !'}));
+                            .catch(() => res.status(500).json({error: 'erreur, veuillez réessayer ultérieurement'}));
                         })
                     }
                 })
             }
             user.destroy()
             .then(() => {
-                return res.status(201).json({message: 'compte utilisateur supprimé'});
+                return res.status(200).json({message: 'compte utilisateur supprimé'});
             })
-            .catch(() => res.status(500).json({error: 'impossible de supprimer le compte utilisateur !'}));
+            .catch(() => res.status(500).json({error: 'erreur, veuillez réessayer ultérieurement'}));
         })
-        .catch(() => res.status(500).json({error: 'impossible de rechercher les articles publiés !'}));
+        .catch(() => res.status(500).json({error: 'erreur, veuillez réessayer ultérieurement'}));
     })
-    .catch(() => res.status(500).json({error: 'impossible de rechercher cet utilisateur !'}));
+    .catch(() => res.status(500).json({error: 'erreur, veuillez réessayer ultérieurement'}));
 };
 
 exports.updateUsername = (req, res, next) => {
@@ -126,11 +134,13 @@ exports.updateUsername = (req, res, next) => {
         if(!user) {
             return res.status(404).json({error: "utilisateur non trouvé"})
         } else {
+            // vérification du mot de passe actuel
             bcrypt.compare(req.body.password, user.password)
             .then(valid => {
                 if(!valid) {
                     return res.status(401).json({error: "mot de passe saisi invalide"})
                 } else {
+                    // vérification de l'existance ou non d'un autre utilisateur ayant le même username
                     models.User.findOne({
                         where: {username: req.body.username},
                         attributes: ['username']
@@ -139,20 +149,21 @@ exports.updateUsername = (req, res, next) => {
                         if(otherUser) {
                             return res.status(409).json({error: "nom d'utilisateur déjà utilisé"})
                         } else {
+                            // mise à jour du compte de l'utilisateur
                             user.update({
                                 username: (req.body.username ? req.body.username : user.username)
                             })
-                            .then(user => res.status(201).json({userid: user.id, username: user.username}))
-                            .catch(() => res.status(500).json({error: "impossible de mettre le nom d'utilisateur à jour"}));
+                            .then(user => res.status(200).json({userid: user.id, username: user.username}))
+                            .catch(() => res.status(500).json({error: "erreur, veuillez réessayer ultérieurement"}));
                         }
                     })
-                    .catch(() => res.status(500).json({error: "impossible de vérifier l'unicité du nom d'utilisateur"}));
+                    .catch(() => res.status(500).json({error: "erreur, veuillez réessayer ultérieurement"}));
                 }
             })
-            .catch(() => res.status(500).json({error: "impossible de vérifier le mot de passe saisi"}));
+            .catch(() => res.status(500).json({error: "erreur, veuillez réessayer ultérieurement"}));
         }
     })
-    .catch(() => res.status(500).json({error: "impossible de vérifier l'utilisateur"}));
+    .catch(() => res.status(500).json({error: "erreur, veuillez réessayer ultérieurement"}));
 };
 
 exports.updateEmail = (req, res, next) => {
@@ -180,17 +191,17 @@ exports.updateEmail = (req, res, next) => {
                             user.update({
                                 email: (req.body.email ? req.body.email : user.email)
                             })
-                            .then(user => res.status(201).json({userid: user.id, email: user.email}))
-                            .catch(() => res.status(500).json({error: "impossible de mettre l'email' à jour"}));
+                            .then(user => res.status(200).json({userid: user.id, email: user.email}))
+                            .catch(() => res.status(500).json({error: "erreur, veuillez réessayer ultérieurement"}));
                         }
                     })
-                    .catch(() => res.status(500).json({error: "impossible de vérifier l'unicité de l'email"}));
+                    .catch(() => res.status(500).json({error: "erreur, veuillez réessayer ultérieurement"}));
                 }
             })
-            .catch(() => res.status(500).json({error: "impossible de vérifier le mot de passe saisi"}));
+            .catch(() => res.status(500).json({error: "erreur, veuillez réessayer ultérieurement"}));
         }
     })
-    .catch(() => res.status(500).json({error: "impossible de vérifier l'utilisateur"}));
+    .catch(() => res.status(500).json({error: "erreur, veuillez réessayer ultérieurement"}));
 };
 
 exports.updatePassword = (req, res, next) => {
@@ -209,18 +220,17 @@ exports.updatePassword = (req, res, next) => {
                 } else {
                     bcrypt.hash(req.body.password, 10)
                     .then(hash => {
-                        console.log('HASH: ', hash);
                         user.update({
                             password: hash
                         })
-                        .then(() => res.status(201).json({message: "mot de passe bien mis à jour"}))
-                        .catch(() => res.status(500).json({error: "échec de la mise à jour du mot de passe"}));
+                        .then(() => res.status(200).json({message: "mot de passe bien mis à jour"}))
+                        .catch(() => res.status(500).json({error: "erreur, veuillez réessayer ultérieurement"}));
                     })
-                    .catch(() => res.status(500).json({error: "échec du cryptage du mot de passe"}));
+                    .catch(() => res.status(500).json({error: "erreur, veuillez réessayer ultérieurement"}));
                 }
             })
-            .catch(() => res.status(500).json({error: "impossible de vérifier le mot de passe saisi"}));
+            .catch(() => res.status(500).json({error: "erreur, veuillez réessayer ultérieurement"}));
         }
     })
-    .catch(() => res.status(500).json({error: "impossible de vérifier l'utilisateur"}));
+    .catch(() => res.status(500).json({error: "erreur, veuillez réessayer ultérieurement"}));
 };
