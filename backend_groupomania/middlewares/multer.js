@@ -7,7 +7,9 @@ const MIME_TYPES = {
     'image/jpeg': 'jpg',
     'image/png': 'png',
     'image/webp' : 'webp',
-    'image/gif' : 'gif'
+    'image/gif' : 'gif',
+    'video/mp4' : 'mp4',
+    'video/webm' : 'webm'
 };
 
 //objet de config pour multer

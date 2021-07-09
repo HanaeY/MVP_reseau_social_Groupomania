@@ -7,7 +7,17 @@
       </div>
       <button class="content__delete-btn button button-danger" v-if="(user.id == article.UserId) || (user.isadmin)" @click="deleteArticle">supprimer</button>
     </div>
-    <img class="image" :src="article.file" :alt="article.alternativeText">
+    <img 
+      v-if="!article.file.match('mp4$') && !article.file.match('webm$')" 
+      class="image" 
+      :src="article.file" :alt="article.alternativeText" 
+      loading="lazy"
+    >
+    <video 
+      v-if="article.file.match('mp4$') || article.file.match('webm$')" 
+      :src="article.file" :alt="article.alternativeText" 
+      autoplay loop muted controls loading="lazy">
+    </video>
     <button class="button comments-button" v-if="commentsVisible == false" @click="showComments">Voir les commentaires</button>
     <button class="button comments-button" v-if="commentsVisible == true" @click="hideComments">Masquer les commentaires</button>
     <div class="comments">
@@ -94,10 +104,9 @@
   &__delete-btn {
     height: 30px;
   }
-
 }
 
-.image {
+.image, video {
   display: block;
   margin: auto;
   max-width: 50vw;
@@ -121,4 +130,5 @@
   border-radius: 0px 0px 10px 10px;
   padding: 5px;
 }
+
 </style>

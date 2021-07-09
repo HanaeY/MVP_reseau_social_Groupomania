@@ -3,12 +3,12 @@
       <h2>Publier</h2>
       <form>
           <label for="file">Fichier image</label>
-          <i class="fas fa-info-circle" title="fichiers acceptés : .jpg, .jpeg, .png, .webp, .gif"></i>
+          <i class="fas fa-info-circle" title="fichiers acceptés : .jpg, .jpeg, .png, .webp, .gif, .mp4, .webm" aria-label="informations sur les fichiers acceptés"></i>
           <input 
             type="file" name="file" id="file" 
             required 
             @change="onFileSelected"
-            accept="image/jpeg, image/jpg, image/webp, image/gif, image/png"
+            accept="image/jpeg, image/jpg, image/webp, image/gif, image/png, video/mp4, video/webm"
           >
           <br> 
 
