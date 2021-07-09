@@ -109,7 +109,7 @@ export default {
         this.clearData();
         this.error = null;
         this.$store.dispatch("updateUsername", response.username);
-        this.validationMessage = "Nom d'utilisateur bien modifié !";
+        this.validationMessage = "Nom d'utilisateur bien modifié";
       } catch(e) {
         this.clearData();
         this.message = null;
@@ -122,7 +122,7 @@ export default {
         this.clearData();
         this.error = null;
         this.$store.dispatch("updateEmail", response.email);
-        this.validationMessage = "Email bien modifié !"
+        this.validationMessage = "Email bien modifié"
       } catch(e) {
         this.clearData();
         this.message = null;

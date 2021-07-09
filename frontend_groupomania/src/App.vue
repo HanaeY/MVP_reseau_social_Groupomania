@@ -102,16 +102,7 @@ footer {
   background-color: #cc6666;
 }
 
-/*
-#nav {
-  display: flex;
-  @media all and (max-width: 800px) {
-    flex-direction: column;
-  }
-}
-*/
-
 #logout-button {
-  margin-right: 10px;
+  margin-top: 10px;
 }
 </style>

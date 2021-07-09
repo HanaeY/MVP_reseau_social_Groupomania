@@ -75,7 +75,6 @@
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .article {
   margin-bottom: 20px;
@@ -130,5 +129,4 @@
   border-radius: 0px 0px 10px 10px;
   padding: 5px;
 }
-
 </style>
