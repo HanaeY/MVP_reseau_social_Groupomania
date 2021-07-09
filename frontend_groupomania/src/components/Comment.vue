@@ -27,9 +27,8 @@
   computed: {
     ...mapState(['user']),
     date() {
-      const date = this.comment.createdAt.split('T')[0];
-      const time = this.comment.createdAt.split('T')[1].substring(0, 5);
-      return `${date}, ${time}`;
+      const date = new Date(this.comment.createdAt).toLocaleString();
+      return date;
     },
   },
   methods: {

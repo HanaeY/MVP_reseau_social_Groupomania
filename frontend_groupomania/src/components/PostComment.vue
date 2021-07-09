@@ -30,7 +30,6 @@ export default {
     },
     methods: {
         async postComment() {
-            console.log('article id: ', this.article.id);
             try {
                 await ArticleService.postComment(this.article.id, {userid: this.user.id, comment: this.comment});
                 this.comment = '';
