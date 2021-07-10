@@ -21,8 +21,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
-//import HelloWorld from '@/components/HelloWorld.vue'
 import Article from '@/components/Article.vue'
 import { mapState } from 'vuex'
 import ArticleService from '@/services/ArticleService'

@@ -56,7 +56,6 @@ export default {
         this.alternativeText = null;
         this.description = null;
         this.error = null;
-        // recharger l'élément parent 
         this.$emit('article-posted');
       } catch(e) {
           this.selectedFile = null;
@@ -69,9 +68,7 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-
 .postarticle {
   margin-bottom: 20px;
   box-shadow: 0px 2px 7px gray;
