@@ -65,6 +65,20 @@ main {
   }
 }
 
+.message-info {
+  background-color: #18a52b60;
+  width: 30vw;
+  margin: auto;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 1.1em;
+  text-align: center;
+  margin-bottom: 20px;
+  @media all and (max-width: 800px) {
+    width: 80vw;
+  }
+}
+
 input {
   border-radius: 5px;
   width: 200px;

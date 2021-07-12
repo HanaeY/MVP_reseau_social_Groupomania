@@ -11,13 +11,13 @@
       <button class="button button-danger" @click="deleteAccount">Supprimer mon compte</button>
     </div>
 
-    <div  v-if="error" class="error user-error">
+    <div v-if="error" class="error user-error">
       <p>{{ error }}</p>
     </div>
 
     <div class="bloc">
       <h2>Modifier mon profile</h2>
-        <p v-if="validationMessage">{{ validationMessage }}</p>
+        <p v-if="validationMessage" class="message-info">{{ validationMessage }}</p>
 
         <h3>Changer mon email</h3>
           <form @submit.prevent="updateEmail">
