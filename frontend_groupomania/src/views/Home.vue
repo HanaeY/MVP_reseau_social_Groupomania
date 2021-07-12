@@ -14,6 +14,7 @@
       <Article 
         v-for="article in articles" :key="article.id" 
         :article="article"
+        @article-deleted="reloadArticles"
         @comment-posted="reloadArticles"
         @comment-deleted="reloadArticles"
       />
