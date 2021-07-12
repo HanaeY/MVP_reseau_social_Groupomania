@@ -41,7 +41,7 @@ exports.signup = (req, res, next) => {
                                 'superclesecrete', //process.env.SECRET_KEY
                                 {expiresIn: '24h'}
                             )
-                            res.status(201).json({user, token})})
+                            res.status(201).json({user: {id: user.id, username: user.username, createdAt: user.createdAt, email: user.email, isadmin: user.isadmin}, token})})
                         .catch(() => res.status(500).json({error: "impossible de créer le compte utilisateur, veuillez essayer ultérieurement"}));
         
                     })
@@ -71,7 +71,7 @@ exports.login = (req, res, next) => {
                 res.status(401).json({error: 'mot de passe incorrect'})
             } else {
                 res.status(200).json({
-                    user,
+                    user: {id: user.id, username: user.username, createdAt: user.createdAt, email: user.email, isadmin: user.isadmin},
                     token: jwt.sign(
                         {userid: user.id}, //payload
                         'superclesecrete', //process.env.SECRET_KEY
