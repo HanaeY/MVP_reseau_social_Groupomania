@@ -4,6 +4,7 @@
     <form @submit.prevent="login">
       <label for="email">email</label><input type="email" name="" id="email" required v-model="email"><br>
       <label for="password">mot de passe</label><input type="password" name="" id="password" required v-model="password">
+      <br>
       <button type="submit" class="button">Je me connecte</button>
     </form>
     <p>Pas encore inscrit(e) ? <router-link to="/signup">Je créé mon compte</router-link></p>

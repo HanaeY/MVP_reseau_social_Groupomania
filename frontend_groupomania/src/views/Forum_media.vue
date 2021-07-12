@@ -1,6 +1,6 @@
 <template>
   <div class="forum_media container">
-      <h1>Forum media</h1>
+      <h1>Forum multimedia</h1>
       <PostArticle @article-posted="reloadArticles"/>
       <p v-if="error">{{ error }}</p>
       <div class="forum_media__refreshAndOrder">

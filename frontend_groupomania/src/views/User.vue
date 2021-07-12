@@ -25,7 +25,7 @@
               <label for="password">Mot de passe actuel</label>
               <input type="password" id="password" v-model="currentPassword1" required>
             </div>
-            <button class="button" type="submit">Envoyer</button>
+            <button class="button form-btn" type="submit">Valider</button>
           </form>
 
         <h3>Changer mon nom d'utilisateur</h3>
@@ -38,7 +38,7 @@
               <input type="password" id="password" v-model="currentPassword2" required>
             </div>
 
-            <button class="button" type="submit">Envoyer</button>
+            <button class="button form-btn" type="submit">Valider</button>
           </form>
 
         <h3>Changer mon mot de passe</h3>
@@ -51,7 +51,7 @@
               <input type="password" id="password" v-model="currentPassword3" required>
             </div>
 
-            <button class="button" type="submit">Envoyer</button>
+            <button class="button form-btn" type="submit">Valider</button>
           </form>
     </div>
 
@@ -176,12 +176,10 @@ form {
   @media all and (max-width: 800px) {
     flex-direction: column;
   }
-  button {
-    margin-right: 5px;
-    @media all and (max-width: 800px) {
-      margin: auto;
-    }
-  }
+}
+
+.form-btn {
+  margin: 10px;
 }
 
 </style>

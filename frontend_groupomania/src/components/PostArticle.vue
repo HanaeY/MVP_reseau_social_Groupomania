@@ -13,9 +13,11 @@
           <br> 
 
           <label for="alternativeText">Texte alternatif (image)</label>
+          <br>
           <input type="text" name="alternativeText" id="alternativeText" maxlength="255" required v-model="alternativeText"><br>
 
           <label for="description">Votre message</label>
+          <br>
           <input type="text" name="description" id="description" maxlength="255" required v-model="description"><br>
 
           <button class="button" type="submit" @click.prevent="postArticle">Publier</button>
@@ -73,15 +75,31 @@ export default {
   margin-bottom: 20px;
   box-shadow: 0px 2px 7px gray;
   border-radius: 15px;
+  border: 3px solid #000033;
   text-align: left;
   padding: 10px;
   background-color: white;
   @media all and (max-width: 800px) {
     margin-bottom: 10px;
     padding: 5px;
-    width: 80vw;
-    
+    width: 80vw;  
   }
+}
+
+h2 {
+  margin: 0 0 10px 0;
+}
+
+input {
+  width: 45vw;
+  @media all and (max-width: 800px) {
+    width: 75vw; 
+  }
+}
+
+label {
+  display: inline-block;
+  margin-bottom: 5px;
 }
 </style>
 

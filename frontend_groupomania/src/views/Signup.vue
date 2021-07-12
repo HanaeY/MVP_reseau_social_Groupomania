@@ -11,7 +11,7 @@
       <label for="password">mot de passe</label>
       <i class="fas fa-info-circle" title="Le mot de passe doit contenir au moins 8 caractères, dont au moins une lettre, un chiffre et un caractère spécial"></i>
       <input type="password" name="password" id="password" minlength="8" required v-model="password">
-
+      <br>
       <button type="submit" class="button">Je m'inscris</button>
     </form>
     <p>déjà inscrit(e) ? <router-link to="/login">Je me connecte</router-link></p>

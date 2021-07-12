@@ -1,17 +1,15 @@
 <template>
   <div id="app">
     <header class="header">
-      <div>
-        <img src="./assets/images/logo_groupomania.svg" alt="logo Groupomania">
-      </div>
-      <div id="nav" v-if="loggedIn">
-        <router-link to="/">Accueil</router-link> |
-        <router-link to="/user">Mon compte</router-link>
+      <img class="header__logo" src="./assets/images/logo_groupomania.svg" alt="logo Groupomania">
+      <div class="header__nav" v-if="loggedIn">
+        <router-link to="/" class="header__nav-child">Accueil</router-link> 
+        <router-link to="/user" class="header__nav-child header__nav-child-2">Mon compte</router-link> 
+        <button @click="logout" class="header__nav-child">Me déconnecter</button>
     </div>
     </header>
-    <button class="button" id="logout-button" v-if="loggedIn" @click="logout">Me déconnecter</button>
     <router-view/>
-    <footer></footer>
+    <footer class="footer"></footer>
   </div>
 </template>
 
@@ -36,6 +34,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #000033;
   background-image: url(assets/images/backgroundpattern.png);
+  min-height: 100vh;
 }
 
 .container {
@@ -72,37 +71,83 @@ input {
     border-color: #cc6666;
     padding: 2px 6px;
   }
+  &-logout {
+    margin-top: 10px;
+    float: right;
+    margin-right: 10px;
+  }
 }
 
 .header {
-  padding: 20px;
   background-color: #000033;
+  color: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  img {
-    width: 150px;
+    @media all and (max-width: 800px) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  padding: 10px;
+  &__logo {
+    display: block;
+    width: 200px;
+    @media all and (max-width: 800px) {
+      width: 150px;
+    }
   }
-
-  a {
-    font-weight: bold;
-    color: white;
-    text-decoration: none;
-
-    &.router-link-exact-active {
+  &__nav {
+    display: flex;
+    justify-content: space-between;
+    @media all and (max-width: 800px) {
+       align-self: center;
+    }
+    a {
+      text-decoration: none;
       color: white;
-      text-decoration: underline;
+      font-weight: bold;
+      &:hover {
+        text-decoration-line: underline;
+      }
+    }
+    button {
+      color: white;
+      background-color: unset;
+      border: none;
+      font-family: Avenir, Helvetica, Arial, sans-serif;
+      font-weight: bold;
+      font-size: 1em;
+      padding: 0px;
+      @media all and (max-width: 800px) {
+       font-size: 0.8em;
+      }
+      &:hover {
+        cursor: pointer;
+        text-decoration-line: underline;
+      }
+    }
+    &-child {
+      margin: 10px;
+      @media all and (max-width: 800px) {
+       font-size: 0.8em;
+       margin: 5px;
+       margin-top: 10px;
+       &-2 {
+         border-left: 1px solid white;
+         border-right: 1px solid white;
+         padding: 0px 10px 0px 10px;
+       }
+      }
     }
   }
 }
 
-footer {
+.footer {
   padding: 20px;
   background-color: #cc6666;
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
 }
 
-#logout-button {
-  margin-top: 10px;
-}
 </style>
