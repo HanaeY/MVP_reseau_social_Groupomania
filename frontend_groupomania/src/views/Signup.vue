@@ -15,7 +15,7 @@
       <button type="submit" class="button">Je m'inscris</button>
     </form>
     <p>déjà inscrit(e) ? <router-link to="/login">Je me connecte</router-link></p>
-    <p v-if="error" >{{ error }}</p>
+    <p v-if="error" class="error">{{ error }}</p>
   </div>
 </template>
 

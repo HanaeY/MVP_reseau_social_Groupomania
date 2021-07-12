@@ -51,6 +51,20 @@ main {
   }
 }
 
+.error {
+  background-color: #cc666660;
+  width: 40vw;
+  margin: auto;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 1.1em;
+  text-align: center;
+  margin-bottom: 20px;
+  @media all and (max-width: 800px) {
+    width: 90vw;
+  }
+}
+
 input {
   border-radius: 5px;
   width: 200px;

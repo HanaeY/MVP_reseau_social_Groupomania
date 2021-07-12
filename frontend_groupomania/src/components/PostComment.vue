@@ -4,10 +4,10 @@
             <p class="postcomment-header__text">Publier un commentaire</p>
             <i class="fas fa-info-circle" title="Max 255 caractères" aria-label="informations"></i>
         </div>
+        <p v-if="error" class="error comment-error">{{ error }}</p>
         <form @submit.prevent="postComment">
             <textarea name="newcomment" id="newcomment" cols="60" rows="5" maxlength="255" required v-model="comment" placeholder="écrivez votre commentaire ici"></textarea><br>
             <button type="submit" class="button">Envoyer</button>
-            <p v-if="error">{{ error }}</p>
         </form>
     </div>
 </template>
@@ -65,5 +65,9 @@ button {
     display: block;
     margin: auto;
     margin-top: 10px;
+}
+
+.comment-error {
+    width: 100%;
 }
 </style>

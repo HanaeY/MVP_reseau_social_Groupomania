@@ -6,7 +6,7 @@
     </div>   
       <p class="comment-content">{{ comment.comment }}</p>  
 
-    <p v-if="error">{{ error }}</p>
+    <p v-if="error" class="error deletecomment-error">{{ error }}</p>
     <p v-if="message">{{ message }}</p>
   </div>
 </template>
@@ -67,5 +67,9 @@
   background:#000033;;
   border-radius: 10px;
   padding: 5px 10px;
+}
+
+.deletecomment-error {
+  width: 90%;
 }
 </style>

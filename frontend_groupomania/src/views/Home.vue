@@ -14,7 +14,7 @@
       <h2>Dernières publications</h2>
       <button class="button" id="refresh-button" @click="getArticles">Rafraîchir</button>
     </div>
-    <p v-if="error">{{ error }}</p>
+    <p v-if="error" class="error">{{ error }}</p>
       <Article 
         v-for="article in articles" :key="article.id" 
         :article="article"

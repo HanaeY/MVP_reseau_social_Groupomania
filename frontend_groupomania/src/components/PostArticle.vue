@@ -21,7 +21,7 @@
           <input type="text" name="description" id="description" maxlength="255" required v-model="description"><br>
 
           <button class="button" type="submit">Publier</button>
-          <p v-if="error">{{ error }}</p>
+          <p v-if="error" class="error">{{ error }}</p>
       </form>
   </div>
 </template>

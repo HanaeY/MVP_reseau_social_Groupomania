@@ -1,5 +1,6 @@
 <template>
   <div class="article container">
+    <p v-if="this.error" class="error">{{ error }}</p>
     <div class="content">
       <div class="content__text">
         <p class="content__text-info"> Posté par {{ article.User.username }} le {{ date }}</p>
@@ -26,7 +27,6 @@
         <Comment v-for="comment in article.Comments" :key="comment + comment.createdAt" :comment="comment" :article="article"/>
         <PostComment :article="article"/>
       </div>
-      <p v-if="this.error">{{ error }}</p>
     </div>
   </div>
 </template>

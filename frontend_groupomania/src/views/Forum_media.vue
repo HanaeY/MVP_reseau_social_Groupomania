@@ -2,7 +2,7 @@
   <div class="forum_media container">
       <h1>Forum multimedia</h1>
       <PostArticle @article-posted="reloadArticles"/>
-      <p v-if="error">{{ error }}</p>
+      <p v-if="error" class="error">{{ error }}</p>
       <div class="forum_media__refreshAndOrder">
         <p>Rafraîchir et trier : 
         <a href="" @click.prevent="getArticles('DESC')">du plus récent</a> / 

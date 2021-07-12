@@ -1,6 +1,5 @@
 <template>
   <div class="user container">
-    <p v-if="error" >{{ error }}</p>
     <h1>Mon compte</h1>
 
     <div class="bloc bloc__info">
@@ -10,6 +9,10 @@
       <p>Email : {{ user.email }}</p>
       <p>Compte créé le {{ date }}</p>
       <button class="button button-danger" @click="deleteAccount">Supprimer mon compte</button>
+    </div>
+
+    <div  v-if="error" class="error user-error">
+      <p>{{ error }}</p>
     </div>
 
     <div class="bloc">
@@ -174,6 +177,11 @@ form {
   display: flex;
   align-items: center;
   flex-direction: column;
+}
+
+.user-error {
+  width: 520px;
+  margin-bottom: 20px;
 }
 </style>
 
