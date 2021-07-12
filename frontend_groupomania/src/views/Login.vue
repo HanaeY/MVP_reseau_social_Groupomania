@@ -2,8 +2,10 @@
   <div class="login">
     <h1>Connexion</h1>
     <form @submit.prevent="login">
-      <label for="email">email</label><input type="email" name="" id="email" required v-model="email"><br>
-      <label for="password">mot de passe</label><input type="password" name="" id="password" required v-model="password">
+      <label for="email">email</label><br>
+      <input type="email" name="" id="email" required v-model="email"><br>
+      <label for="password">mot de passe</label><br>
+      <input type="password" name="" id="password" required v-model="password">
       <br>
       <button type="submit" class="button">Je me connecte</button>
     </form>

@@ -1,7 +1,7 @@
 <template>
   <div class="postarticle container">
       <h2>Publier</h2>
-      <form>
+      <form @submit.prevent="postArticle">
           <label for="file">Fichier image</label>
           <i class="fas fa-info-circle" title="fichiers acceptés : .jpg, .jpeg, .png, .webp, .gif, .mp4, .webm" aria-label="informations sur les fichiers acceptés"></i>
           <input 
@@ -20,7 +20,7 @@
           <br>
           <input type="text" name="description" id="description" maxlength="255" required v-model="description"><br>
 
-          <button class="button" type="submit" @click.prevent="postArticle">Publier</button>
+          <button class="button" type="submit">Publier</button>
           <p v-if="error">{{ error }}</p>
       </form>
   </div>

@@ -2,13 +2,13 @@
   <div id="signup">
     <h1>Inscription</h1>
     <form @submit.prevent="signup">
-      <label for="username">nom d'utilisateur</label>
+      <label for="username">nom d'utilisateur</label><br>
       <input type="text" name="username" id="username" minlength="3" maxlength="13" required v-model="username"><br>
 
-      <label for="email">email</label>
+      <label for="email">email</label><br>
       <input type="email" name="email" id="email" required v-model="email"><br>
 
-      <label for="password">mot de passe</label>
+      <label for="password">mot de passe</label><br>
       <i class="fas fa-info-circle" title="Le mot de passe doit contenir au moins 8 caractères, dont au moins une lettre, un chiffre et un caractère spécial"></i>
       <input type="password" name="password" id="password" minlength="8" required v-model="password">
       <br>

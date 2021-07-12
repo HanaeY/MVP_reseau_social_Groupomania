@@ -45,10 +45,6 @@ export default {
   }
 }
 
-label {
-  margin-right: 10px;
-}
-
 input {
   border-radius: 5px;
   width: 200px;
