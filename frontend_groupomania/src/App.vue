@@ -6,9 +6,9 @@
         <router-link to="/" class="header__nav-child">Accueil</router-link> 
         <router-link to="/user" class="header__nav-child header__nav-child-2">Mon compte</router-link> 
         <button @click="logout" class="header__nav-child">Me déconnecter</button>
-    </div>
+      </div>
     </header>
-    <router-view/>
+    <main><router-view/></main>
     <footer class="footer"></footer>
   </div>
 </template>
@@ -35,6 +35,12 @@ export default {
   color: #000033;
   background-image: url(assets/images/backgroundpattern.png);
   min-height: 100vh;
+  width: 100vw;
+  position: relative;
+}
+
+main {
+  padding-bottom: 40px;
 }
 
 .container {
@@ -84,7 +90,7 @@ input {
       flex-direction: column;
       align-items: flex-start;
     }
-  padding: 10px;
+  padding: 10px 20px 10px 20px;
   &__logo {
     display: block;
     width: 200px;
@@ -139,11 +145,11 @@ input {
 }
 
 .footer {
-  padding: 20px;
   background-color: #cc6666;
-  position: fixed;
+  position: absolute;
   bottom: 0;
   width: 100vw;
+  height: 40px;
 }
 
 </style>

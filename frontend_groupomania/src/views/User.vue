@@ -19,10 +19,10 @@
         <h3>Changer mon email</h3>
           <form @submit.prevent="updateEmail">
             <div>
-              <label for="new-email">Nouvel email</label>
+              <label for="new-email">Nouvel email</label><br>
               <input type="email" id="new-email" v-model="newEmail" required><br>
 
-              <label for="password">Mot de passe actuel</label>
+              <label for="password">Mot de passe actuel</label><br>
               <input type="password" id="password" v-model="currentPassword1" required>
             </div>
             <button class="button form-btn" type="submit">Valider</button>
@@ -31,10 +31,10 @@
         <h3>Changer mon nom d'utilisateur</h3>
           <form @submit.prevent="updateUsername">
             <div>
-              <label for="new-username">Nouveau nom d'utilisateur</label>
+              <label for="new-username">Nouveau nom d'utilisateur</label><br>
               <input type="text" id="new-username" v-model="newUsername" required><br>
 
-              <label for="password">Mot de passe actuel</label>
+              <label for="password">Mot de passe actuel</label><br>
               <input type="password" id="password" v-model="currentPassword2" required>
             </div>
 
@@ -44,10 +44,10 @@
         <h3>Changer mon mot de passe</h3>
           <form @submit.prevent="updatePassword">
             <div>
-              <label for="new-password">Nouveau mot de passe</label>
+              <label for="new-password">Nouveau mot de passe</label><br>
               <input type="password" id="new-password" v-model="newPassword" required><br>
 
-              <label for="password">Mot de passe actuel</label>
+              <label for="password">Mot de passe actuel</label><br>
               <input type="password" id="password" v-model="currentPassword3" required>
             </div>
 
@@ -151,7 +151,6 @@ export default {
 
 <style lang="scss" scoped>
 .user {
-  //height: 100vh;
   width: 530px;
   @media all and (max-width: 800px) {
     width: 90vw;
@@ -163,8 +162,9 @@ export default {
   background-color: white;
   border-radius: 10px;
   padding: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   box-shadow: 0px 2px 7px #8383bd;
+  text-align: center;
   &__info {
     text-align: center;
   }
@@ -173,14 +173,7 @@ export default {
 form {
   display: flex;
   align-items: center;
-  @media all and (max-width: 800px) {
-    flex-direction: column;
-  }
+  flex-direction: column;
 }
-
-.form-btn {
-  margin: 10px;
-}
-
 </style>
 
