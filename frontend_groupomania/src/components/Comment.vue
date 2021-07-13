@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <div aria-label="commentaire">
     <div class="comment-header">
       <p class="comment-header__information"> Posté par {{ comment.User.username }} le {{ date }}</p>
       <button class="comment-header__delete button button-danger" v-if="(user.id == comment.UserId) || (user.isadmin)" @click="deleteComment">supprimer</button>
     </div>   
       <p class="comment-content">{{ comment.comment }}</p>  
 
-    <p v-if="error">{{ error }}</p>
+    <p v-if="error" class="error deletecomment-error" role="alert">{{ error }}</p>
     <p v-if="message">{{ message }}</p>
   </div>
 </template>
@@ -45,27 +45,31 @@
 </script>
 
 <style scoped lang="scss">
-.comment-header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  &__information {
-    margin-right: 10px;
-    font-style: italic;
-    color: rgb(75, 74, 74);
-    font-size: 0.9em;
+  .comment-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    &__information {
+      margin-right: 10px;
+      font-style: italic;
+      color: rgb(75, 74, 74);
+      font-size: 0.9em;
+    }
+    &__delete {
+      margin: 0;
+    }
   }
-  &__delete {
-    margin: 0;
-  }
-}
 
-.comment-content {
-  margin-top: 0;
-  color: #FFFFFF;
-  background:#000033;;
-  border-radius: 10px;
-  padding: 5px 10px;
-}
+  .comment-content {
+    margin-top: 0;
+    color: #FFFFFF;
+    background:#000033;;
+    border-radius: 10px;
+    padding: 5px 10px;
+  }
+
+  .deletecomment-error {
+    width: 90%;
+  }
 </style>
