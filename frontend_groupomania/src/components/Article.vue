@@ -1,6 +1,6 @@
 <template>
   <article class="article container">
-    <p v-if="this.error" class="error">{{ error }}</p>
+    <p v-if="this.error" class="error" role="alert">{{ error }}</p>
     <!-- Text/info -->
     <div class="content">
       <div class="content__text">
@@ -95,7 +95,7 @@
     @media all and (max-width: 800px) {
       margin-bottom: 10px;
       padding: 5px;
-      width: 80vw;
+      width: 85vw;
     }
   }
 

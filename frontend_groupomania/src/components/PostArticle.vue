@@ -21,7 +21,7 @@
           <input type="text" name="description" id="description" maxlength="255" required v-model="description"><br>
 
           <button class="button" type="submit">Publier</button>
-          <p v-if="error" class="error">{{ error }}</p>
+          <p v-if="error" class="error" role="alert">{{ error }}</p>
       </form>
   </div>
 </template>
@@ -81,7 +81,7 @@
     background-color: white;
     @media all and (max-width: 800px) {
       margin-bottom: 10px;
-      padding: 5px;
+      padding: 10px;
       width: 80vw;  
     }
   }

@@ -5,13 +5,26 @@
       <nav class="header__nav" v-if="loggedIn">
         <router-link to="/" class="header__nav-child">Accueil</router-link> 
         <router-link to="/user" class="header__nav-child header__nav-child-2">Mon compte</router-link> 
-        <button @click="logout" class="header__nav-child">Me déconnecter</button>
+        <button @click="logout" class="header__nav-child">Déconnexion</button>
       </nav>
     </header>
     <main>
       <router-view/>
     </main>
-    <footer class="footer"></footer>
+    <footer class="footer">
+      <div class="sitemap">
+      <h3>Accès directs</h3>
+        <nav>
+          <ul>
+            <li><router-link v-if="!loggedIn" to="/signup"><i class="fas fa-rocket"></i> Connexion</router-link></li>
+            <li><router-link v-if="!loggedIn" to="/login"><i class="fas fa-rocket"></i> Inscription</router-link></li>
+            <li><router-link v-if="loggedIn" to="/"><i class="fas fa-rocket"></i> Accueil</router-link></li>
+            <li><router-link v-if="loggedIn" to="/user"><i class="fas fa-rocket"></i> Mon compte</router-link></li>
+            <li><router-link v-if="loggedIn" to="/forum_media"><i class="fas fa-rocket"></i> Forum multimedia</router-link></li>
+          </ul>
+        </nav>
+      </div>
+    </footer>
   </div>
 </template>
 
@@ -43,7 +56,7 @@
   }
 
   main {
-    padding-bottom: 40px;
+    padding-bottom: 120px; // hauteur du footer
   }
 
   .container {
@@ -127,6 +140,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-bottom: 5px solid #cc6666;
       @media all and (max-width: 800px) {
         flex-direction: column;
         align-items: flex-start;
@@ -149,6 +163,8 @@
         text-decoration: none;
         color: white;
         font-weight: bold;
+        font-size: 0.9em;
+        text-transform: uppercase;
         &:hover {
           text-decoration-line: underline;
         }
@@ -159,10 +175,11 @@
         border: none;
         font-family: Avenir, Helvetica, Arial, sans-serif;
         font-weight: bold;
-        font-size: 1em;
+        text-transform: uppercase;
+        font-size: 0.9em;
         padding: 0px;
         @media all and (max-width: 800px) {
-        font-size: 0.8em;
+        font-size: 0.9em;
         }
         &:hover {
           cursor: pointer;
@@ -176,8 +193,8 @@
         margin: 5px;
         margin-top: 10px;
         &-2 {
-          border-left: 1px solid white;
-          border-right: 1px solid white;
+          border-left: 2px solid white;
+          border-right: 2px solid white;
           padding: 0px 10px 0px 10px;
         }
         }
@@ -186,11 +203,31 @@
   }
 
   .footer {
-    background-color: #cc6666;
+    background-color: #cc666693;
     position: absolute;
     bottom: 0;
     width: 100vw;
-    height: 40px;
+    height: 120px;
+    h3 {
+      font-size: 1em;
+      display: inline-block;
+      margin-bottom: 0;
+      color: #000033;
+    }
+    .sitemap {
+      padding-left: 20px;
+    }
+    ul {
+      list-style: none;
+      padding-left: 10px;
+    }
+    a {
+      color: #000033;
+      text-decoration-line: none;
+      &:hover {
+        text-decoration-line: underline;
+      }
+    }
   }
 
 </style>

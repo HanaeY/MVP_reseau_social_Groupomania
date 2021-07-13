@@ -11,7 +11,7 @@
         <button class="button button-danger" @click="deleteAccount">Supprimer mon compte</button>
     </section>
 
-    <div v-if="error" class="error user-error">
+    <div v-if="error" class="error user-error" role="alert">
       <p>{{ error }}</p>
     </div>
 
@@ -191,6 +191,10 @@
   .user-error {
     width: 520px;
     margin-bottom: 20px;
+  }
+
+  .button-danger {
+    padding: 5px 10px;
   }
 </style>
 

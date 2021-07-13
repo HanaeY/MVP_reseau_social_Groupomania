@@ -6,7 +6,7 @@
     </div>   
       <p class="comment-content">{{ comment.comment }}</p>  
 
-    <p v-if="error" class="error deletecomment-error">{{ error }}</p>
+    <p v-if="error" class="error deletecomment-error" role="alert">{{ error }}</p>
     <p v-if="message">{{ message }}</p>
   </div>
 </template>

@@ -10,7 +10,7 @@
       <button type="submit" class="button">Je me connecte</button>
     </form>
     <p>Pas encore inscrit(e) ? <router-link to="/signup">Je créé mon compte</router-link></p>
-    <p v-if="error" class="error">{{ error }}</p>
+    <p v-if="error" class="error" role="alert">{{ error }}</p>
     <p v-if="message" >{{ message }}</p>
   </div>
 </template>

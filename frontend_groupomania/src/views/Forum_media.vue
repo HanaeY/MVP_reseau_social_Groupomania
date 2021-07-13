@@ -2,7 +2,7 @@
   <div class="forum_media container">
       <h1>Forum multimedia</h1>
       <PostArticle @article-posted="reloadArticles"/>
-      <p v-if="error" class="error">{{ error }}</p>
+      <p v-if="error" class="error" role="alert">{{ error }}</p>
       <section aria-label="liste des articles publiés">
         <h2>Articles</h2>
         <div class="forum_media__refreshAndOrder">

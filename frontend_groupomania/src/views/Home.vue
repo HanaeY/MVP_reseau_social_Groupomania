@@ -7,7 +7,12 @@
         <router-link to="/forum_media">
           <button class="button forum-nav__buttons-btn"><i class="fas fa-photo-video"></i> multimedia</button>
         </router-link>
-        <button class="button forum-nav__buttons-btn"><i class="far fa-newspaper"></i> articles</button>
+        <button 
+          class="button forum-nav__buttons-btn forum-nav__buttons-btn-articles" 
+          title="fonctionnalité à venir, patience !">
+          <i class="far fa-newspaper"></i> 
+          articles
+        </button>
       </nav>
     </div>  
     <section class="latest-posts">
@@ -15,7 +20,7 @@
         <h2>Dernières publications</h2>
         <button class="button" id="refresh-button" @click="getArticles">Rafraîchir</button>
       </div>
-      <p v-if="error" class="error">{{ error }}</p>
+      <p v-if="error" class="error" role="alert">{{ error }}</p>
         <Article 
           v-for="article in articles" :key="article.id" 
           :article="article"
@@ -96,15 +101,27 @@
       &-btn {
         margin: 10px;
         width: 200px;
+        height: 45px;
         color: white;
+        text-transform: uppercase;
         background-color: #000033;
-        font-size: 1em;
+        font-size: 0.9em;
         @media all and (max-width: 800px) {
           margin: 0 0 5px 0;
         }
         &:hover {
           background-color: white;
-          color: #000033;;
+          color: #000033;
+        }
+        // temporaire - fonction en construction
+        &-articles {
+          background-color: #00003377;
+          border: none;
+          cursor: not-allowed;
+          &:hover {
+            background-color: #00003377;
+            color: white;
+        }
         }
       }
     }
