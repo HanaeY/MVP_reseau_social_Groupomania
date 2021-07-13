@@ -46,9 +46,6 @@ export default {
 .postcomment-header {
     display: flex;
     align-items: center;
-    &__text {
-        margin-right: 10px;
-    }
 }
 
 textarea {

@@ -86,7 +86,7 @@
   @media all and (max-width: 800px) {
     margin-bottom: 10px;
     padding: 5px;
-    width: 80vw;;
+    width: 80vw;
   }
 }
 

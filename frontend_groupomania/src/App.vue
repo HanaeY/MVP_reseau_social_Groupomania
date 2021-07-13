@@ -51,6 +51,10 @@ main {
   }
 }
 
+.fa-info-circle {
+  margin: 0 5px 0 5px;
+}
+
 .error {
   background-color: #cc666660;
   width: 40vw;

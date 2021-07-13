@@ -3,7 +3,7 @@
     <h1>Mon compte</h1>
 
     <div class="bloc bloc__info">
-      <h2>Informations</h2>
+      <h2>Informations du compte</h2>
       <p v-if="user.isadmin">Compte modérateur</p>
       <p>Nom d'utilisateur : {{ user.username }}</p>
       <p>Email : {{ user.email }}</p>
@@ -48,6 +48,7 @@
           <form @submit.prevent="updatePassword">
             <div>
               <label for="new-password">Nouveau mot de passe</label><br>
+              <i class="fas fa-info-circle" title="Le mot de passe doit contenir au moins 8 caractères, dont au moins une lettre, un chiffre et un caractère spécial"></i>
               <input type="password" id="new-password" v-model="newPassword" required><br>
 
               <label for="password">Mot de passe actuel</label><br>

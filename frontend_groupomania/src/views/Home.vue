@@ -2,7 +2,7 @@
   <div class="home container">
     <h1>Bienvenue {{ user.username }} !</h1>
     <div class="forum-nav">
-      <h2>Je visite les forums</h2>
+      <h2>Accès aux forums</h2>
       <nav class="forum-nav__buttons">
         <router-link to="/forum_media">
           <button class="button forum-nav__buttons-btn"><i class="fas fa-photo-video"></i> multimedia</button>
@@ -73,13 +73,23 @@ export default {
 .forum-nav {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  box-shadow: 0px 2px 7px #8383bd;
+  border-radius: 15px;
+  padding: 10px;
+  background-color: white;
+  width: 50vw;
+  margin: auto;
     @media all and (max-width: 800px) {
       flex-direction: column;
+      width: 75vw;
     }
   &__buttons {
        @media all and (max-width: 800px) {
         margin: auto;
         width: 200px;
+        align-items: center;
       }
     &-btn {
       margin: 10px;
@@ -88,7 +98,7 @@ export default {
       background-color: #000033;
       font-size: 1em;
       @media all and (max-width: 800px) {
-        margin: 5px;
+        margin: 0 0 5px 0;
       }
       &:hover {
         background-color: white;
