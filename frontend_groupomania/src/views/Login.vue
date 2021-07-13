@@ -16,45 +16,44 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import UserService from "@/services/UserService"
+  import { mapState } from 'vuex'
+  import UserService from "@/services/UserService"
 
-export default {
-  name: "Login",
-  computed: {
-    ...mapState(['message', 'loggedIn'])
-  },
-  data() {
-    return {
-      email: "",
-      password: "",
-      error: null
-    }
-  },
-  methods: {
-    async login() {
-      try {
-        const response = await UserService.login({email: this.email, password: this.password});
-        this.$store.dispatch("login", {user: response.user, token: response.token});
-      } catch(error) {
-        this.error = error.toString();
+  export default {
+    name: "Login",
+    computed: {
+      ...mapState(['message', 'loggedIn'])
+    },
+    data() {
+      return {
+        email: "",
+        password: "",
+        error: null
       }
     },
-    redirectToHome() {
-      if(this.loggedIn == true) {
-        this.$router.push('/');
+    methods: {
+      async login() {
+        try {
+          const response = await UserService.login({email: this.email, password: this.password});
+          this.$store.dispatch("login", {user: response.user, token: response.token});
+        } catch(error) {
+          this.error = error.toString();
+        }
+      },
+      redirectToHome() {
+        if(this.loggedIn == true) {
+          this.$router.push('/');
+        }
       }
+    },
+    beforeMount() {
+      this.redirectToHome()
     }
-  },
-  beforeMount() {
-    this.redirectToHome()
   }
-}
 </script>
 
 <style lang="scss" scoped>
-.login {
-  height: 100vh;
-  text-align: center;
-}
+  .login {
+    text-align: center;
+  }
 </style>

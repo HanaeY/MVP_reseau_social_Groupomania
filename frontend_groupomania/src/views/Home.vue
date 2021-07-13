@@ -10,117 +10,118 @@
         <button class="button forum-nav__buttons-btn"><i class="far fa-newspaper"></i> articles</button>
       </nav>
     </div>  
-    <div class="latest-posts-header">  
-      <h2>Dernières publications</h2>
-      <button class="button" id="refresh-button" @click="getArticles">Rafraîchir</button>
-    </div>
-    <p v-if="error" class="error">{{ error }}</p>
-      <Article 
-        v-for="article in articles" :key="article.id" 
-        :article="article"
-        @article-deleted="reloadArticles"
-        @comment-posted="reloadArticles"
-        @comment-deleted="reloadArticles"
-      />
+    <section class="latest-posts">
+      <div class="latest-posts__header">  
+        <h2>Dernières publications</h2>
+        <button class="button" id="refresh-button" @click="getArticles">Rafraîchir</button>
+      </div>
+      <p v-if="error" class="error">{{ error }}</p>
+        <Article 
+          v-for="article in articles" :key="article.id" 
+          :article="article"
+          @article-deleted="reloadArticles"
+          @comment-posted="reloadArticles"
+          @comment-deleted="reloadArticles"
+        />
+    </section>  
   </div>
 </template>
 
 <script>
-import Article from '@/components/Article.vue'
-import { mapState } from 'vuex'
-import ArticleService from '@/services/ArticleService'
+  import Article from '@/components/Article.vue'
+  import { mapState } from 'vuex'
+  import ArticleService from '@/services/ArticleService'
 
-export default {
-  name: 'Home',
-  components: {
-    Article
-  },
-  data() {
-    return {
-      error: null,
-      //query: ""
-    }
-  },
-  computed: {
-    ...mapState(['user', 'articles', 'loggedIn'])
-  },
-  methods: {
-    async getArticles() {
-      try {
-          const response = await ArticleService.getArticles(3, 0, 'DESC'); // params : limit, offset, order
-          this.$store.dispatch("displayArticles", response.articles);
-      } catch (e) {
-        this.error = e.toString();
+  export default {
+    name: 'Home',
+    components: {
+      Article
+    },
+    data() {
+      return {
+        error: null,
+        //query: ""
       }
     },
-    redirectToLogin() {
-      if(this.loggedIn == false) {
-        return this.$router.push('/login');
+    computed: {
+      ...mapState(['user', 'articles', 'loggedIn'])
+    },
+    methods: {
+      async getArticles() {
+        try {
+            const response = await ArticleService.getArticles(3, 0, 'DESC'); // params : limit, offset, order
+            this.$store.dispatch("displayArticles", response.articles);
+        } catch (e) {
+          this.error = e.toString();
+        }
+      },
+      redirectToLogin() {
+        if(this.loggedIn == false) {
+          return this.$router.push('/login');
+        }
+      },
+      reloadArticles() {
+        this.getArticles();
       }
     },
-    reloadArticles() {
+    beforeMount() {
+      this.redirectToLogin();
       this.getArticles();
     }
-  },
-  beforeMount() {
-    this.redirectToLogin();
-    this.getArticles();
   }
-}
 </script>
 
 <style lang="scss" scoped>
-.forum-nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
-  box-shadow: 0px 2px 7px #8383bd;
-  border-radius: 15px;
-  padding: 10px;
-  background-color: white;
-  width: 50vw;
-  margin: auto;
-    @media all and (max-width: 800px) {
-      flex-direction: column;
-      width: 75vw;
-    }
-  &__buttons {
-       @media all and (max-width: 800px) {
-        margin: auto;
-        width: 200px;
-        align-items: center;
-      }
-    &-btn {
-      margin: 10px;
-      width: 200px;
-      color: white;
-      background-color: #000033;
-      font-size: 1em;
+  .forum-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    box-shadow: 0px 2px 7px #8383bd;
+    border-radius: 15px;
+    padding: 10px;
+    background-color: white;
+    width: 50vw;
+    margin: auto;
       @media all and (max-width: 800px) {
-        margin: 0 0 5px 0;
+        flex-direction: column;
+        width: 75vw;
       }
-      &:hover {
-        background-color: white;
-        color: #000033;;
+    &__buttons {
+        @media all and (max-width: 800px) {
+          margin: auto;
+          width: 200px;
+          align-items: center;
+        }
+      &-btn {
+        margin: 10px;
+        width: 200px;
+        color: white;
+        background-color: #000033;
+        font-size: 1em;
+        @media all and (max-width: 800px) {
+          margin: 0 0 5px 0;
+        }
+        &:hover {
+          background-color: white;
+          color: #000033;;
+        }
       }
     }
   }
-}
 
-.latest-posts-header {
-  display: flex;
-  margin-bottom: 15px;
-  align-items: center;
-    @media all and (max-width: 800px) {
-      margin-top: 10px;
-      margin-bottom: 0px;
+  .latest-posts__header {
+    display: flex;
+    margin-top: 20px;
+    align-items: center;
+      @media all and (max-width: 800px) {
+        margin-top: 10px;
+      }
+    & button {
+      margin: 0;
     }
-  & button {
-    margin: 0;
+    & h2 {
+      margin-right: 10px;
+    }
   }
-  & h2 {
-    margin-right: 10px;
-  }
-}
 </style>

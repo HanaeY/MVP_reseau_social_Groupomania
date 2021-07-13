@@ -1,5 +1,5 @@
 <template>
-  <div id="signup">
+  <div class="signup">
     <h1>Inscription</h1>
     <form @submit.prevent="signup">
       <label for="username">nom d'utilisateur</label><br>
@@ -20,46 +20,45 @@
 </template>
 
 <script>
-import UserService from '@/services/UserService'
-import { mapState } from 'vuex'
+  import UserService from '@/services/UserService'
+  import { mapState } from 'vuex'
 
-export default {
-  name: 'Signup',
-  data() {
-    return {
-      email:"",
-      password: "",
-      username: "",
-      error: null
-    }
-  },
-  computed: {
-    ...mapState(['loggedIn'])
-  },
-  methods: {
-    async signup() {
-      try {
-        const response = await UserService.signup({email: this.email, username: this.username, password: this.password});
-        this.$store.dispatch("login", {user: response.user, token: response.token});
-      } catch(error) {
-        this.error = error.toString();
+  export default {
+    name: 'Signup',
+    data() {
+      return {
+        email:"",
+        password: "",
+        username: "",
+        error: null
       }
     },
-    redirectToHome() {
-      if(this.loggedIn == true) {
-        this.$router.push('/');
+    computed: {
+      ...mapState(['loggedIn'])
+    },
+    methods: {
+      async signup() {
+        try {
+          const response = await UserService.signup({email: this.email, username: this.username, password: this.password});
+          this.$store.dispatch("login", {user: response.user, token: response.token});
+        } catch(error) {
+          this.error = error.toString();
+        }
+      },
+      redirectToHome() {
+        if(this.loggedIn == true) {
+          this.$router.push('/');
+        }
       }
+    },
+    beforeMount() {
+      this.redirectToHome()
     }
-  },
-  beforeMount() {
-    this.redirectToHome()
   }
-}
 </script>
 
 <style lang="scss" scoped>
-#signup {
-  height: 100vh;
-  text-align: center;
-}
+  .signup {
+    text-align: center;
+  }
 </style>
