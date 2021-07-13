@@ -82,8 +82,9 @@ export default {
   computed: {
     ...mapState(['user', 'loggedIn']),
     date() {
-      return this.user.createdAt.split('T')[0];
-    }
+      const date = new Date(this.user.createdAt).toLocaleDateString();
+      return date;
+    },
   },
   methods: {
     async deleteAccount() {

@@ -53,8 +53,9 @@
   computed: {
     ...mapState(['user']),
     date() {
-      return this.article.createdAt.split('T')[0];
-    }
+      const date = new Date(this.article.createdAt).toLocaleString();
+      return date;
+    },
   },
   methods: {
     showComments() {
