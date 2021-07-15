@@ -26,12 +26,13 @@
       :src="article.file" :alt="article.alternativeText" 
       autoplay loop muted controls loading="lazy">
     </video>
-    <button class="button comments-button" v-if="commentsVisible == false" @click="showComments">Voir les commentaires</button>
+    <button class="button comments-button" v-if="commentsVisible == false && countComments !== 0" @click="showComments">Voir les commentaires ({{ countComments }})</button>
+    <button class="button comments-button" v-if="commentsVisible == false && countComments == 0" @click="showComments">Commentez en premier !</button>
     <button class="button comments-button" v-if="commentsVisible == true" @click="hideComments">Masquer les commentaires</button>
     <!-- Commentaire -->
     <section class="comments">
       <div v-if="commentsVisible == true">
-        <p v-if="this.article.Comments == ''">Pas encore de commentaire... écrivez le premier !</p>
+        <p v-if="countComments == 0">Pas encore de commentaire... écrivez le premier !</p>
         <Comment v-for="comment in article.Comments" :key="comment + comment.createdAt" :comment="comment" :article="article"/>
         <PostComment :article="article"/>
       </div>
@@ -64,6 +65,9 @@
       const date = new Date(this.article.createdAt).toLocaleString();
       return date;
     },
+    countComments() {
+      return this.article.Comments.length;
+    }
   },
   methods: {
     showComments() {
