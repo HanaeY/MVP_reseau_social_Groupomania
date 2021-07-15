@@ -46,6 +46,12 @@
         this.selectedFile = event.target.files[0];
 
       },
+      clearFields() {
+          this.alternativeText = null;
+          this.description = null;
+          this.selectedFile = null;
+          document.getElementById('file').value = "";
+      },
       async postArticle() {
         const fd = new FormData();
         const textContent = {alternativeText: this.alternativeText, description: this.description, userid: this.user.id};
@@ -55,14 +61,11 @@
     
         try {
           await ArticleService.postArticle(fd);
-          this.alternativeText = null;
-          this.description = null;
+          this.clearFields();
           this.error = null;
           this.$emit('article-posted');
         } catch(e) {
-            this.selectedFile = null;
-            this.alternativeText = null;
-            this.description = null;
+            this.clearFields();
             this.error = e.toString();
         }
       }
