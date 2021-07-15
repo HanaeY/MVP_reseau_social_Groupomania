@@ -42,6 +42,9 @@
           const response = await UserService.signup({email: this.email, username: this.username, password: this.password});
           this.$store.dispatch("login", {user: response.user, token: response.token});
         } catch(error) {
+          this.email = null;
+          this.password = null;
+          this.username = null;
           this.error = error.toString();
         }
       },
