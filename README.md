@@ -20,6 +20,9 @@ Cloner le présent projet en local.
 * Puis la commande `nodemon server` (cela permet de recharger le server à chaque modification d'un des fichiers du projet)
 * Laisser tourner le serveur en arrière-plan
 
+## Variables d'environnement
+Dans le fichier du backend .env.exemple, affecter les valeurs souhaitées au port et à la clé secrète (pour l'authentification par token), puis copier le fichier pour créer un nouveau fichier .env. 
+
 ## Création de la base de données locale 
 * Installer MySQL
 * Créer un nouvel utilisateur mysql (qui aura les droits sur la base de données)

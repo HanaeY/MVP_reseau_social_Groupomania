@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 module.exports = (req, res, next) => {
     try {
         const token = req.headers.authorization.split(' ')[1]; // pour ne pas prendre 'bearer"
-        const decodedToken = jwt.verify(token, 'superclesecrete'); // verify vérifie le token, s'il n'est pas valide retourne une erreur
+        const decodedToken = jwt.verify(token, process.env.SECRET_KEY); // verify vérifie le token, s'il n'est pas valide retourne une erreur
         const userid = decodedToken.userid; 
 
         if (req.body.userid) {

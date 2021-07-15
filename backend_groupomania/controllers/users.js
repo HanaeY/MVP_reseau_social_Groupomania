@@ -38,7 +38,7 @@ exports.signup = (req, res, next) => {
                         .then(user => {
                             const token = jwt.sign(
                                 {userid: user.id}, //payload
-                                'superclesecrete', //process.env.SECRET_KEY
+                                process.env.SECRET_KEY, 
                                 {expiresIn: '24h'}
                             )
                             res.status(201).json({user: {id: user.id, username: user.username, createdAt: user.createdAt, email: user.email, isadmin: user.isadmin}, token})})
@@ -74,7 +74,7 @@ exports.login = (req, res, next) => {
                     user: {id: user.id, username: user.username, createdAt: user.createdAt, email: user.email, isadmin: user.isadmin},
                     token: jwt.sign(
                         {userid: user.id}, //payload
-                        'superclesecrete', //process.env.SECRET_KEY
+                        process.env.SECRET_KEY, 
                         {expiresIn: '24h'}
                     )
                 });
