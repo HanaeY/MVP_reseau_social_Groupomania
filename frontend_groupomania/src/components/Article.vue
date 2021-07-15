@@ -11,7 +11,7 @@
         class="content__delete-btn button button-danger" 
         v-if="(user.id == article.UserId) || (user.isadmin)" 
         @click="deleteArticle">
-        supprimer
+        Supprimer
       </button>
     </div>
     <!-- Contenu multimedia : image ou vidéo -->
@@ -31,11 +31,13 @@
     <button class="button comments-button" v-if="commentsVisible == true" @click="hideComments">Masquer les commentaires</button>
     <!-- Commentaire -->
     <section class="comments">
-      <div v-if="commentsVisible == true">
-        <p v-if="countComments == 0">Pas encore de commentaire... écrivez le premier !</p>
-        <Comment v-for="comment in article.Comments" :key="comment + comment.createdAt" :comment="comment" :article="article"/>
-        <PostComment :article="article"/>
-      </div>
+      <transition name="fade">
+        <div v-if="commentsVisible == true">
+          <p v-if="countComments == 0">Pas encore de commentaire... écrivez le premier !</p>
+          <Comment v-for="comment in article.Comments" :key="comment + comment.createdAt" :comment="comment" :article="article"/>
+          <PostComment :article="article"/>
+        </div>
+      </transition>
     </section>
   </article>
 </template>
@@ -141,5 +143,14 @@
     background-color: #ffffff;
     border-radius: 0px 0px 10px 10px;
     padding: 5px;
+  }
+
+  // transitions
+
+  .fade-enter-to, .fade-leave-to {
+    transition: opacity .5s;
+  }
+  .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
   }
 </style>

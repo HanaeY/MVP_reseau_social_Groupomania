@@ -114,17 +114,21 @@
 
   .button {
     font-family: Avenir, Helvetica, Arial, sans-serif;
-    color: #000033;
-    background-color: white;
-    border: 2px solid #000033;
+    color : white;
+    background-color: #000033;
+    border: none;
     border-radius: 7px;
-    padding: 5px 10px;
+    padding: 10px 15px;
     font-weight: bolder;
     cursor: pointer;
     margin-bottom: 5px;
+    box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.418);
+    &:hover {
+      box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.418);
+    }
     &-danger {
-      border-color: #cc6666;
-      padding: 2px 6px;
+      background-color: #BA4E56;
+      padding: 5px 10px;
     }
     &-logout {
       margin-top: 10px;
@@ -140,7 +144,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 5px solid #cc6666;
+    border-bottom: 5px solid #BA4E56;
       @media all and (max-width: 800px) {
         flex-direction: column;
         align-items: flex-start;
@@ -203,7 +207,7 @@
   }
 
   .footer {
-    background-color: #cc666693;
+    background-color: #00003354;
     position: absolute;
     bottom: 0;
     width: 100vw;
@@ -220,6 +224,7 @@
     ul {
       list-style: none;
       padding-left: 10px;
+      font-weight: bold;
     }
     a {
       color: #000033;
