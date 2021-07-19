@@ -1,5 +1,6 @@
 /* initialisation et configuration du serveur express */
 
+// imports
 const http = require('http'); // import du package http natif de node 
 const app = require('./app'); // import de l'application express
 const dotenv = require('dotenv').config();

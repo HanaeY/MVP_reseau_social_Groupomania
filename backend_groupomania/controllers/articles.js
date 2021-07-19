@@ -15,7 +15,7 @@ exports.postArticle = (req, res, next) => {
         if(!user) {
             return res.status(404).json({error: "utilisateur non trouvé"});
         }
-        models.Article.create({ // on créé un nouvel article qu'on enregistre dans la base de données
+        models.Article.create({ 
             UserId: user.id,
             description: reqBody.description,
             file: fileUrl,
@@ -41,7 +41,6 @@ exports.getAllArticles = (req, res, next) => {
                 model: models.Comment, 
                 attributes: ['comment', 'id', 'createdAt', 'UserId'],
                 include: [{model: models.User, attributes: ["username"]}],
-                //order: [['createdAt', 'ASC']]
             }
         ],
         order: [['createdAt', order]],
@@ -64,7 +63,7 @@ exports.deleteArticle = (req, res, next) => {
         } else {
             // suppression du fichier joint
             const filename = article.file.split('/files/')[1];
-            fs.unlink(`./files/${filename}`, () => { // callback : suppression de l'article
+            fs.unlink(`./files/${filename}`, () => { 
                 article.destroy()
                 .then(() => {
                     res.status(200).json({message: "article bien supprimé"});

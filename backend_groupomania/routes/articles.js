@@ -9,7 +9,7 @@ const validate = require('../middlewares/inputsValidation');
 const ctrl = require('../controllers/articles');
 const ctrlComment = require('../controllers/comments');
 
-// routes /api/articles...
+// détail des routes pour les req envoyées à /api/articles/[extension]
 router.post('/', authentification, multer, validate.validateArticle, ctrl.postArticle);
 router.get('/', authentification, ctrl.getAllArticles);
 router.delete('/:id', authentification, ctrl.deleteArticle);

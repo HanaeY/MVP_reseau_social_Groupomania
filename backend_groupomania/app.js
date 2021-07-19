@@ -1,6 +1,7 @@
 // imports
 const express = require('express');
 const path = require('path'); // donne accès au chemin du système de fichiers
+/* application express */
 
 // instanciation server
 const app = express();
