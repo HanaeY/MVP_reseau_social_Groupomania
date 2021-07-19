@@ -27,14 +27,14 @@ Dans le fichier du backend .env.exemple, affecter les valeurs souhaitées au por
 * Installer MySQL
 * Créer un nouvel utilisateur mysql (qui aura les droits sur la base de données)
     * Ouvrir l'invite de commande et connecter l'utilisateur root : `mysql -u root -p`
-    * Créer un nouvel utilisateur pour la base de données groupomania (remplacer 'nom' et 'mdp') : `create user nom@localhost identified by 'mdp';`
+    * Créer un nouvel utilisateur pour la base de données groupomania (remplacer 'nom' et 'mdp' par votre nom d'utilisateur et mot de passe) : `create user nom@localhost identified by 'mdp';`
 * Dans le dossier backend_groupomania du projet > dossier config > fichier config.json, remplacer le nom d'utilisateur et le mot de passe pour chaque base de donnée ceux de votre utilisateur mysql
 * Créer une nouvelle base de données à l'aide des commandes suivantes dans un nouveau terminal, dossier backend_groupomania : 
     * `sequelize db:create`
     * `sequelize db:migrate`
 
 ## Lancement du serveur frondend
-Depuis le dossier frontend_groupomania 
+Depuis le dossier frontend_groupomania du projet 
 * Lancer la commande `npm install` pour installer les dépendances
 * Lancer le serveur front avec la commande `npm run serve`
 * Laisser tourner le serveur en arrière-plan
@@ -45,7 +45,7 @@ Depuis le dossier frontend_groupomania
 * Créer un nouveau compte directement depuis l'application (page signup)
 * Ouvrir l'invite de commande et lancer mysql avec les identifiants que vous venez de créer à l'aide de cette commande : `mysql -u nomutilisateur -p`, puis rentrez le mot de passe
 * Aller dans la base de donnée de développement : `use database_development_groupomania;`
-* Passer l'utilisateur créé sur l'application en admin : `UPDATE users SET isadmin = 1 WHERE username = 'lenomdevotreadmin';`
+* Passer l'utilisateur créé sur l'application en admin (remplacer "nom") : `UPDATE users SET isadmin = 1 WHERE username = 'nom';`
 * Cet admin a maintenant la possiblité de modérer les articles et commentaires publiés sur l'application ! 
 
 # Technologies utilisées 
