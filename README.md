@@ -33,7 +33,7 @@ Dans le fichier du backend .env.exemple, affecter les valeurs souhaitées au por
     * `sequelize db:create`
     * `sequelize db:migrate`
 
-## Lancement du serveur frondend
+## Lancement du serveur frontend
 Depuis le dossier frontend_groupomania du projet 
 * Lancer la commande `npm install` pour installer les dépendances
 * Lancer le serveur front avec la commande `npm run serve`

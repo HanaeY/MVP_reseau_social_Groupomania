@@ -3,7 +3,7 @@
     <h1>Inscription</h1>
     <form @submit.prevent="signup">
       <label for="username">nom d'utilisateur</label><br>
-      <input type="text" name="username" id="username" minlength="3" maxlength="13" required v-model="username"><br>
+      <input type="text" name="username" id="username" minlength="3" maxlength="30" required v-model="username"><br>
 
       <label for="email">email</label><br>
       <input type="email" name="email" id="email" required v-model="email"><br>
