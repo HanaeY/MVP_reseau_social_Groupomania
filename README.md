@@ -14,11 +14,10 @@ Une seule des deux fonctionnalités sera développée pour le MVP qui sera prés
 
 # Installation et utilisation 
 ### Outils recommandés : Visual Studio Code, Git Bash
-### Installation nécessaire : MySQL (détaillé plus bas)
+### Installation nécessaire : Node.js (lien d'installation : https://nodejs.org/fr/download/) et MySQL (détaillé plus bas)
 
 ## Cloner le présent projet en local 
-* Initialisez un nouveau dépôt local (avec Git Bash commande `git init`)
-* Clonez le présent projet : commande `git clone https://github.com/HanaeY/groupomania-v0.git`
+* Ouvrez git bash depuis le répertoire de votre choix sur votre machine puis lancer la commande suivante : `git clone https://github.com/HanaeY/groupomania-v0.git`
 * Ouvrez le projet dans un éditeur de code (par exemple VSCode)
 
 ## Lancement du serveur backend
@@ -42,13 +41,13 @@ Dans l'éditeur de code, dans le fichier du backend ".env.exemple", rentrez une 
     * Ouvrez l'invit de commande et se connecter à MySQL avec les accès de l'utilisateur "root", à l'aide de la commande : `mysql -h localhost -u root -p`, il est ensuite demandé de rentrer le mot de passe de l'utilisateur (choisi lors de la configuration de MySQL)
 * Créer un nouvel utilisateur MySQL pour le projet : 
     * Depuis le même invit de commande lancez la commande suivante : `create user nom@localhost identified by 'mdp';` (remplacer 'nom' et 'mdp' par votre nom d'utilisateur et mot de passe), 
-    * puis quittez avec la commande `exit;`
+    * puis quittez avec la commande `exit`
 * Configurer la base de données:  
     * Retournez sur l'éditeur de code et dans le dossier backend_groupomania, allez dans le dossier "config", puis le fichier "config.json"
     * Remplacez le nom d'utilisateur et le mot de passe pour chaque base de donnée par ceux de votre nouvel utilisateur MySQL et enregistrez
 * Toujours depuis l'éditeur de code, ouvrez un nouveau terminal et allez dans le dossier backend_groupomania du projet, créez une nouvelle base de données à l'aide des commandes suivantes :
-    * `sequelize db:create`
-    * `sequelize db:migrate`
+    * `npx sequelize-cli db:create`
+    * `npx sequelize-cli db:migrate`
 * Vérifier que tout a bien fonctionné :  
     * Retournez dans l'invit de commande et connectez vous avec au compte du nouvel utilisateur : `mysql -u nomdutilisateur -p`, puis rentrez le mot de passe du compte 
     * Allez dans la base de donnée de développement avec la commande : `use database_development_groupomania;`
