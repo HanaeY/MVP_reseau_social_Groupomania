@@ -17,8 +17,7 @@ Une seule des deux fonctionnalités sera développée pour le MVP qui sera prés
 ### Installation nécessaire : MySQL (détaillé plus bas)
 
 ## Cloner le présent projet en local 
-* Initialisez un nouveau dépôt local (avec Git Bash commande `git init`)
-* Clonez le présent projet : commande `git clone https://github.com/HanaeY/groupomania-v0.git`
+* Ouvrez git bash depuis le répertoire de votre choix sur votre machine puis lancer la commande suivante : `git clone https://github.com/HanaeY/groupomania-v0.git`
 * Ouvrez le projet dans un éditeur de code (par exemple VSCode)
 
 ## Lancement du serveur backend
