@@ -24,7 +24,7 @@ const storage = multer.diskStorage({// la fonction diskStorage permet de gérer 
     }
 });
 
-const maxSize = 4 * 1024 * 1024; // 1MB
+const maxSize = 4 * 1024 * 1024; // 4MB
 
 module.exports = multer({storage: storage, limits: {fileSize: maxSize}}).single('image'); 
 //en cas de fichier trop grand une erreur 500 est retournée avec un message MulterError

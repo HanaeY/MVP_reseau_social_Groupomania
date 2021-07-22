@@ -11,7 +11,7 @@ exports.validateUsername = (req, res, next) => {
     if(!req.body.username) {
         return res.status(400).json({error : "nom d'utilisateur manquant"});
     }
-    if(req.body.username.length > 13 || req.body.username.length < 3){
+    if(req.body.username.length > 30 || req.body.username.length < 3){
         return res.status(400).json({error : "le nom d'utilisateur doit comprendre entre 3 et 13 caractères"});
     }
     if(!TEXT_REGEX.test(req.body.username)) {
