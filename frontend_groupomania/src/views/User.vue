@@ -16,7 +16,7 @@
     </div>
 
     <section class="bloc">
-      <h2>Modifier mon profile</h2>
+      <h2>Modifier mon profil</h2>
         <p v-if="validationMessage" class="message-info">{{ validationMessage }}</p>
 
         <h3>Changer mon email</h3>
